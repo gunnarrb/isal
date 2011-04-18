@@ -7,6 +7,9 @@
  *
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
@@ -24,7 +27,6 @@
 #define STREAM_WAGEN_ARRIVAL 1
 
 //Other constants
-
 #define NUM_MACHINES 7
 #define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 
@@ -36,7 +38,7 @@ int machine2queue[NUM_MACHINES +1],
 	is_machine_busy[NUM_MACHINES +1],
 	queue_sizes[NUM_QUEUES +1];
 	
-float work_time[NUM_MACHINES + 1] // +1 is the less preferable simlib indexing scheme
+float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
 
 /* Function signatures */
@@ -55,11 +57,18 @@ void skaut_departure();
 //			the variables along with their values were written to output_filename
 void parse_input(char[] ,char[], char[]);
 
+// Usage:	x = N(muy, sigma, stream);
+// Pre:		muy and sigma are of type float
+//			stream is of type int
+// Post:	x is a random gaussian distributed variable of type float 
+//			with mean muy and std sigma
+float N(float muy, float sigma, int stream);
+
 void generate_report();
 
 int main()
 {
-	parse_input("before_raising_electricity.in");
+	//parse_input("before_raising_electricity.in");
 	// write to output file
 	
 	// Initialize rndlib
@@ -73,10 +82,10 @@ int main()
 	event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
 	
 	/* Schedule end of warmup time */
-	event_schedule( end_warmup_timi, EVENT_END_WARMUP );
+	event_schedule( End_warmup_time, EVENT_END_WARMUP );
 	
 	/* Schedule simulation termination */
-	event_schedule( end_of_simulation, EVENT_END_SIMULATION );
+	event_schedule( End_simulation_time, EVENT_END_SIMULATION );
 	
 	
 	
@@ -89,8 +98,12 @@ void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[]
   
   /* Read input parameters. */
 
-  fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
-);
-  
+ // fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
+}
 
+float N(float muy, float sigma, int stream)
+{
+	// This method of converting from N(0,1) to N(muy,sigma) has not been verified!
+	float x = nrand(stream);
+	return (x*sigma)+15;
 }
