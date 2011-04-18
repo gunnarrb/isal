@@ -23,20 +23,34 @@
 
 /* Model variables */
 int num_machines, num_queues;
-int machine2queue[num_machines +1], is_machine_busy[num_machines +1];
+int machine2queue[num_machines +1], 
+	is_machine_busy[num_machines +1],
+	queue_sizes[num_queues +1];
+	
 float work_time[num_stations + 1] // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
 
 /* Function signatures */
 void wagen_arrival();
+
 void wagen_departure();
+
 void skaut_arrival();
+
 void skaut_departure();
+
+// Usage:	parse_input(input_filename, output_filename);
+// Pre:		input_filename, output_filename are of type char[],
+//			global variables from the input file exist.
+// Post:	the global variables were assigned values from input_filename, 
+//			the variables along with their values were written to output_filename
+void parse_input();
+
 void generate_report();
 
 int main()
 {
-	// read input parameters
+	parse_input("before_raising_electricity.in");
 	// write to output file
 	
 	// Initialize rndlib
