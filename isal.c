@@ -2,7 +2,11 @@
  *  isal.c
  *  
  *
+<<<<<<< HEAD
  *  Created by Gunnarr Baldursson, Ragnar Gisli Olafsson on 4/18/11.
+=======
+ *  Created by Gunnarr Baldursson & Ragnar Gisli Olafsson on 4/18/11.
+>>>>>>> 73531c64dfe51e9b8ac7ad58fc25abd3a65efc3b
  *  Copyright 2011 Haskoli Islands. All rights reserved.
  *
  */
@@ -36,7 +40,7 @@ float Mean_wagen_arrival, Std_wagen_arrival, Mean_failures, Std_failures, Min_ma
 
 int machine2queue[NUM_MACHINES +1], 
 	is_machine_busy[NUM_MACHINES +1],
-	queue_sizes[NUM_QUEUES +1];
+	queue_size[NUM_QUEUES +1];
 	
 float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
@@ -68,7 +72,11 @@ void generate_report();
 
 int main()
 {
+<<<<<<< HEAD
 	//parse_input("before_raising_electricity.in");
+=======
+        parse_input("adal_inntak.in","velar_og_bidradir.in","output.out");
+>>>>>>> 73531c64dfe51e9b8ac7ad58fc25abd3a65efc3b
 	// write to output file
 	
 	// Initialize rndlib
@@ -98,7 +106,23 @@ void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[]
   
   /* Read input parameters. */
 
+<<<<<<< HEAD
  // fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
+=======
+  fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
+
+  fclose (infile);
+  infile = fopen (inputfile_time, "r");
+ 
+  int counter = 1;
+  while (!feof(infile)) {
+    fscanf(infile, "%f %d", &work_time[counter], &queue_size[counter] );
+    counter++;
+  }
+
+  close(infile);
+
+>>>>>>> 73531c64dfe51e9b8ac7ad58fc25abd3a65efc3b
 }
 
 float N(float muy, float sigma, int stream)
