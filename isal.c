@@ -2,7 +2,7 @@
  *  isal.c
  *  
  *
- *  Created by Gunnarr Baldursson on 4/18/11.
+ *  Created by Gunnarr Baldursson & Ragnar Gisli Olafsson on 4/18/11.
  *  Copyright 2011 Haskoli Islands. All rights reserved.
  *
  */
@@ -38,7 +38,7 @@ int machine2queue[NUM_MACHINES +1],
 	is_machine_busy[NUM_MACHINES +1],
 	queue_sizes[NUM_QUEUES +1];
 	
-float work_time[NUM_MACHINES + 1] // +1 is the less preferable simlib indexing scheme
+float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
 
 /* Function signatures */
@@ -61,7 +61,7 @@ void generate_report();
 
 int main()
 {
-	parse_input("before_raising_electricity.in");
+        parse_input("adal_inntak.in","velar_bidradir.in","output.out");
 	// write to output file
 	
 	// Initialize rndlib
@@ -81,7 +81,7 @@ void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[]
   /* Read input parameters. */
 
   fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
-);
+
   
 
 }
