@@ -36,7 +36,7 @@ float vinnutimar_vela,  mean_wagen_arrival, std_wagen_arrival, mean_bilanir, std
 int num_machines, num_queues;
 int machine2queue[NUM_MACHINES +1], 
 	is_machine_busy[NUM_MACHINES +1],
-	queue_sizes[NUM_QUEUES +1];
+	queue_size[NUM_QUEUES +1];
 	
 float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
@@ -61,7 +61,7 @@ void generate_report();
 
 int main()
 {
-        parse_input("adal_inntak.in","velar_bidradir.in","output.out");
+        parse_input("adal_inntak.in","velar_og_bidradir.in","output.out");
 	// write to output file
 	
 	// Initialize rndlib
@@ -82,6 +82,15 @@ void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[]
 
   fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
 
-  
+  fclose (infile);
+  infile = fopen (inputfile_time, "r");
+ 
+  int counter = 1;
+  while (!feof(infile)) {
+    fscanf(infile, "%f %d", &work_time[counter], &queue_size[counter] );
+    counter++;
+  }
+
+  close(infile);
 
 }
