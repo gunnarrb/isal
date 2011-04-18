@@ -2,7 +2,7 @@
  *  isal.c
  *  
  *
- *  Created by Gunnarr Baldursson on 4/18/11.
+ *  Created by Gunnarr Baldursson, Ragnar Gisli Olafsson on 4/18/11.
  *  Copyright 2011 Haskoli Islands. All rights reserved.
  *
  */
@@ -11,7 +11,6 @@
 #include "simlib/simlib.h"
 
 // EVENTS
-
 #define EVENT_WAGEN_ARRIVAL	1
 #define EVENT_WAGEN_DEPARTURE 2
 #define EVENT_SKAUT_ARRIVAL 3
@@ -21,19 +20,18 @@
 #define EVENT_END_SIMULATION 7
 #define EVENT_END_WARMUP	8
 
+// STREAMS
+#define STREAM_WAGEN_ARRIVAL 1
+
 //Other constants
 
 #define NUM_MACHINES 7
 #define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 
 // Global variables
-int fjoldi_vela, lengd_bidrada, min_afkost_per_dag,lagmarksfjoldi_bilanna_per_day, hamarksfjold_bilanna_per_day;
-float vinnutimar_vela,  mean_wagen_arrival, std_wagen_arrival, mean_bilanir, std_bilanir, min_vidgerdartimi_vela, max_vidgerdartimi_vela, end_warmup_timi, end_hermun_timi;
+int Number_of_machiens, Min_productivity, Min_no_failures, Max_no_failures;
+float Mean_wagen_arrival, Std_wagen_arrival, Mean_failures, Std_failures, Min_machine_repair_time, Max_machine_repair_time, End_warmup_time, End_simulation_time;
 
-// What streams do we need?
-
-/* Model variables */
-int num_machines, num_queues;
 int machine2queue[NUM_MACHINES +1], 
 	is_machine_busy[NUM_MACHINES +1],
 	queue_sizes[NUM_QUEUES +1];
@@ -70,6 +68,17 @@ int main()
 	// Initialize simlib
 	init_simlib();
 	maxatr = 4; // how many attributes do we need?
+	
+	/* Schedule first wagen arrival */
+	event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
+	
+	/* Schedule end of warmup time */
+	event_schedule( end_warmup_timi, EVENT_END_WARMUP );
+	
+	/* Schedule simulation termination */
+	event_schedule( end_of_simulation, EVENT_END_SIMULATION );
+	
+	
 	
 }
 
