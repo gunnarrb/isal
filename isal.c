@@ -50,12 +50,12 @@ void skaut_arrival();
 
 void skaut_departure();
 
-// Usage:	parse_input(input_filename, output_filename);
-// Pre:		input_filename, output_filename are of type char[],
+// Usage:	parse_input(input_filename_data,input_filename_time, output_filename);
+// Pre:		input_filename_data,input_filename_time output_filename are of type char[],
 //			global variables from the input file exist.
 // Post:	the global variables were assigned values from input_filename, 
 //			the variables along with their values were written to output_filename
-void parse_input(char[] inputfile, char[] outputfile);
+void parse_input(char[] ,char[], char[]);
 
 void generate_report();
 
@@ -73,13 +73,15 @@ int main()
 	
 }
 
-void parse_input(char[] inputfile_data, char[] inputfile_time, char[] outputfile)
+void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[])
 {
   infile = fopen (inputfile_data, "r");
   outfile = fopen (outputfile, "w");
   
   /* Read input parameters. */
-  fscanf (infile, "%d %d %f %f %f", &min_tellers, &max_tellers, &mean_interarrival, &mean_service, &length_doors_open);
 
+  fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
+);
+  
 
 }
