@@ -42,13 +42,29 @@ float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing 
 FILE *infile, *outfile;
 
 /* Function signatures */
+
+// Usage:	wagen_arrival();
+// Post:	14 skaut have been assigned to unit B, and their arrival events scheduled
+//			an EVENT_WAGEN_ARRIVAL has been scheduled after 30 minutes
 void wagen_arrival();
 
-void wagen_departure();
+void wagen_departure(); // do we need an event for wagen departure? WHY?
 
+// Usage:	skaut_arrival();
+// Pre:		
+// Post:	
 void skaut_arrival();
 
-void skaut_departure();
+void skaut_departure(); // do we need an event for departure? 
+
+void machine_failure();
+
+void machine_fixed();
+
+
+// Usage:	end_warmup();
+// Post:	SIMLIB statistical variables have been cleared
+void end_warmup();
 
 // Usage:	parse_input(input_filename_data,input_filename_time, output_filename);
 // Pre:		input_filename_data,input_filename_time output_filename are of type char[],
@@ -64,30 +80,73 @@ void parse_input(char[] ,char[], char[]);
 //			with mean muy and std sigma
 float N(float muy, float sigma, int stream);
 
-void generate_report();
+// Usage:	report("the_report.out");
+// Pre:		the values to be reported have values
+// Post:	a report on program values and simlib statistics 
+//			have been APPENDED to "the_report.out"
+void report(char[]);
+
+// Usage:	clear_event_list();
+// Pre:		the event list has integer val 25
+// Post:	the event list is empty
+void clear_event_list();
 
 int main()
 {
 	//parse_input("adal_inntak.in","velar_og_bidradir.in","output.out");
 	
-	// Initialize rndlib
-	init_twister();
+	// We perform simulation for "a few" failures per day
+	int i;
+	for (i = Min_no_failures; i < Max_no_failures; i++) {
+		// Initialize rndlib
+		init_twister();
 	
-	// Initialize simlib
-	init_simlib();
-	maxatr = 4; // how many attributes do we need?
+		// Initialize simlib
+		init_simlib();
+		maxatr = 4; // how many attributes do we need?
+		
+		/* Schedule first wagen arrival */
+		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
+		
+		/* Schedule end of warmup time */
+		event_schedule( End_warmup_time, EVENT_END_WARMUP );
+		
+		/* Schedule simulation termination */
+		event_schedule( End_simulation_time, EVENT_END_SIMULATION );
+		
+		while (next_event_type != EVENT_END_SIMULATION) {
 	
-	/* Schedule first wagen arrival */
-	event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
-	
-	/* Schedule end of warmup time */
-	event_schedule( End_warmup_time, EVENT_END_WARMUP );
-	
-	/* Schedule simulation termination */
-	event_schedule( End_simulation_time, EVENT_END_SIMULATION );
-	
-	
-	
+			timing();
+		
+			switch (next_event_type) {
+				case EVENT_WAGEN_ARRIVAL:
+					wagen_arrival();
+					break;
+				case EVENT_WAGEN_DEPARTURE:
+					wagen_departure();
+					break;
+				case EVENT_SKAUT_ARRIVAL:
+					skaut_arrival();
+					break;
+				case EVENT_SKAUT_DEPARTURE:
+					skaut_departure();
+					break;
+				case EVENT_MACHINE_FAILURE:
+					machine_failure();
+					break;
+				case EVENT_MACHINE_FIXED:
+					machine_fixed();
+					break;
+				case EVENT_END_WARMUP:
+					end_warmup();
+					break;
+				case EVENT_END_SIMULATION:
+					clear_event_list();
+					report();
+					break;
+			}
+		}
+	}
 }
 
 void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[])
