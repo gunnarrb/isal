@@ -13,6 +13,8 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
+
+
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
 #define EVENT_WAGEN_DEPARTURE 2
@@ -78,12 +80,12 @@ void machine_fixed();
 // Post:	SIMLIB statistical variables have been cleared
 void end_warmup();
 
-// Usage:	parse_input(input_filename_data,input_filename_time, output_filename);
-// Pre:		input_filename_data,input_filename_time output_filename are of type char[],
+// Usage:	parse_input(input_filename_data,input_filename_time);
+// Pre:		input_filename_data,input_filename_time of type char[],
 //			global variables from the input file exist.
 // Post:	the global variables were assigned values from input_filename, 
-//			the variables along with their values were written to output_filename
-void parse_input(char[] ,char[], char[]);
+//			
+void parse_input(char[] ,char[]);
 
 // Usage:	x = N(muy, sigma, stream);
 // Pre:		muy and sigma are of type float
@@ -113,7 +115,7 @@ int main()
 	
 	// We perform simulation for "a few" failures per day
 	int i;
-	for (i = Min_no_failures; i < Max_no_failures; i++) {
+	for (i = min_no_failures; i < max_no_failures; i++) {
 		// Initialize rndlib
 		init_twister();
 	
@@ -140,25 +142,25 @@ int main()
 					wagen_arrival();
 					break;
 				case EVENT_WAGEN_DEPARTURE:
-					wagen_departure();
-					break;
+				  //wagen_departure();
+   					break;
 				case EVENT_SKAUT_ARRIVAL:
-					skaut_arrival();
+				  //skaut_arrival();
 					break;
 				case EVENT_SKAUT_DEPARTURE:
-					skaut_departure();
+				  //skaut_departure();
 					break;
 				case EVENT_MACHINE_FAILURE:
-					machine_failure();
+				  //machine_failure();
 					break;
 				case EVENT_MACHINE_FIXED:
-					machine_fixed();
+				  //machine_fixed();
 					break;
 				case EVENT_END_WARMUP:
-					end_warmup();
+				  //end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
-					report();
+				  //report();
 					break;
 			}
 		}
@@ -170,8 +172,8 @@ void wagen_arrival()
 	int i;
 	for (i = 0; i < 14; i++) {
 		if (is_machine_busy[2]) {
-			if (LIST_SIZE[2] == queue_size[2]) {
-				queue_is_full();
+			if (list_size[2] == queue_size[2]) {
+			  //queue_is_full();
 				break;
 			} else {
 				transfer[3] = 2; // we are currently in unit 2
@@ -205,7 +207,7 @@ void parse_input(char inputfile_data[], char inputfile_time[])
     printf("Could not open file %s\n",inputfile_data);
   }
   
-  fscanf (infile, "%d %d %d %d %f %f %f %f %f %f", &number_of_machiens, &min_productivity, &min_no_failures, &max_no_failures, &mean_wagen_arrival, &std_wagen_arrival,  &min_machine_repair_time, &max_machine_repair_time, &end_warmup_time, &end_simulation_time);
+  fscanf (infile, "%d %d %d %d %f %f %f %f %f %f", &number_of_machines, &min_productivity, &min_no_failures, &max_no_failures, &mean_wagen_arrival, &std_wagen_arrival,  &min_machine_repair_time, &max_machine_repair_time, &end_warmup_time, &end_simulation_time);
   fclose(infile);
   
   
