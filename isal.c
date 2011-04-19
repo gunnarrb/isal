@@ -114,6 +114,7 @@ void queue_is_full();
 
 int main()
 {
+	skaut_throughput = 0;
 	parse_input("adal_inntak.in","velar_og_bidradir.in");
 	
 	// We perform simulation for "a few" failures per day
@@ -207,8 +208,15 @@ void skaut_arrival()
 
 void skaut_departure()
 {
+	
 	int current_unit = transfer[3];
 
+	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
+		skaut_throughput++;
+	} else {
+		event_schedule(sim_time + 0.1, EVENT_SKAUT_ARRIVAL);
+	}
+	
 	if (list_size[number_of_machines + current_unit] == 0) {
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
@@ -218,10 +226,7 @@ void skaut_departure()
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 
-	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
-		skaut_throughput++;
-		return;
-	}
+
 	
 	
 }
