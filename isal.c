@@ -13,6 +13,9 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
+
+
+
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
 #define EVENT_WAGEN_DEPARTURE 2
@@ -29,9 +32,11 @@
 //Other constants
 #define NUM_MACHINES 7
 #define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
+#define WAGEN_LOAD 14
+#define MACHINES_ON_THE_LEFT_SIDE 5
 
 // Global variables
-int number_of_machines, min_productivity, min_no_failures, max_no_failures;
+int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
 
 int is_machine_busy[NUM_MACHINES +1],
@@ -78,12 +83,12 @@ void machine_fixed();
 // Post:	SIMLIB statistical variables have been cleared
 void end_warmup();
 
-// Usage:	parse_input(input_filename_data,input_filename_time, output_filename);
-// Pre:		input_filename_data,input_filename_time output_filename are of type char[],
+// Usage:	parse_input(input_filename_data,input_filename_time);
+// Pre:		input_filename_data,input_filename_time of type char[],
 //			global variables from the input file exist.
 // Post:	the global variables were assigned values from input_filename, 
-//			the variables along with their values were written to output_filename
-void parse_input(char[] ,char[], char[]);
+//			
+void parse_input(char[] ,char[]);
 
 // Usage:	x = N(muy, sigma, stream);
 // Pre:		muy and sigma are of type float
@@ -109,7 +114,7 @@ void queue_is_full();
 
 int main()
 {
-	//parse_input("adal_inntak.in","velar_og_bidradir.in","output.out");
+	parse_input("adal_inntak.in","velar_og_bidradir.in");
 	
 	// We perform simulation for "a few" failures per day
 	int i;
@@ -140,22 +145,22 @@ int main()
 					wagen_arrival();
 					break;
 				case EVENT_WAGEN_DEPARTURE:
-					wagen_departure();
-					break;
+				  //wagen_departure();
+   					break;
 				case EVENT_SKAUT_ARRIVAL:
-					skaut_arrival();
+				  //skaut_arrival();
 					break;
 				case EVENT_SKAUT_DEPARTURE:
-					skaut_departure();
+				  //skaut_departure();
 					break;
 				case EVENT_MACHINE_FAILURE:
-					machine_failure();
+				  //machine_failure();
 					break;
 				case EVENT_MACHINE_FIXED:
-					machine_fixed();
+				  //machine_fixed();
 					break;
 				case EVENT_END_WARMUP:
-					end_warmup();
+				  //end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
 					//report();
@@ -168,27 +173,65 @@ int main()
 void wagen_arrival()
 {
 	int i;
-	for (i = 0; i < 14; i++) {
-		if (is_machine_busy[2]) {
-			if (LIST_SIZE[2] == queue_size[2]) {
-				queue_is_full();
-				break;
-			} else {
-				transfer[3] = 2; // we are currently in unit 2
-				list_file(LAST, number_of_machines + 2); // skaut appended to machine B's queue
-			}
-
-		} else {
-			transfer[3] = 2;
-			list_file(LAST, 2); // skaut put in machine B
-			is_machine_busy[2] = 1; // machine is busy
-			sampst(0.0, 2); // the delay is zero
-		}
-
+	for (i = 1; i <= WAGEN_LOAD; i++) {
+		transfer[3] = 1;
+		event_schedule( i*work_time[1], EVENT_SKAUT_ARRIVAL );
 	}
 	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + work_time[1], EVENT_WAGEN_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
+	event_schedule( sim_time + WAGEN_LOAD * work_time[1], EVENT_WAGEN_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
 }
+
+void wagen_departure()
+{
+	// what about transporting fresh skaut to the kerskali? trigger event in machine F???
+	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_ARRIVAL ); // The N method has not been tested, might want to substitude
+}
+
+
+void skaut_arrival()
+{
+	int current_unit = ++transfer[3];
+	if (is_machine_busy[current_unit]) {
+		if (list_size[current_unit] == queue_size[current_unit]) {
+			//queue_is_full();
+		} else {
+			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine B's queue
+		}
+	} else {
+		list_file(LAST, current_unit); // skaut put in machine B
+		is_machine_busy[current_unit] = 1; // machine is busy
+		sampst(0.0, current_unit); // the delay is zero
+		event_schedule( sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	}
+}
+
+void skaut_departure()
+{
+	int current_unit = transfer[3];
+
+	if (list_size[number_of_machines + current_unit] == 0) {
+		is_machine_busy[current_unit] = 0;
+		// STATISTICS
+	} else {
+		list_remove(FIRST, number_of_machines + current_unit);
+		//transfer[3] = current_unit;
+		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	}
+
+	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
+		skaut_throughput++;
+		return;
+	}
+	
+	
+}
+
+
+
+
+
+
+
 
 float N(float muy, float sigma, int stream)
 {
@@ -205,7 +248,7 @@ void parse_input(char inputfile_data[], char inputfile_time[])
     printf("Could not open file %s\n",inputfile_data);
   }
   
-  fscanf (infile, "%d %d %d %d %f %f %f %f %f %f", &number_of_machiens, &min_productivity, &min_no_failures, &max_no_failures, &mean_wagen_arrival, &std_wagen_arrival,  &min_machine_repair_time, &max_machine_repair_time, &end_warmup_time, &end_simulation_time);
+  fscanf (infile, "%d %d %d %d %f %f %f %f %f %f", &number_of_machines, &min_productivity, &min_no_failures, &max_no_failures, &mean_wagen_arrival, &std_wagen_arrival,  &min_machine_repair_time, &max_machine_repair_time, &end_warmup_time, &end_simulation_time);
   fclose(infile);
   
   
