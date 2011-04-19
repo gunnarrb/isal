@@ -13,7 +13,8 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
-#incluce 
+#include "N.c"
+#include "parse_input.c"
 
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
@@ -33,8 +34,8 @@
 #define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 
 // Global variables
-int Number_of_machiens, Min_productivity, Min_no_failures, Max_no_failures;
-float Mean_wagen_arrival, Std_wagen_arrival, Mean_failures, Std_failures, Min_machine_repair_time, Max_machine_repair_time, End_warmup_time, End_simulation_time;
+int number_of_machiens, min_productivity, min_no_failures, max_no_failures;
+float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
 
 int machine2queue[NUM_MACHINES +1], 
 	is_machine_busy[NUM_MACHINES +1],
@@ -46,25 +47,36 @@ FILE *infile, *outfile;
 /* Function signatures */
 
 // Usage:	wagen_arrival();
+// Pre:		EVENT_WAGEN_ARRIVAL is the next event to be processed
 // Post:	14 skaut have been assigned to unit B, and their arrival events scheduled
-//			an EVENT_WAGEN_ARRIVAL has been scheduled after 30 minutes
 void wagen_arrival();
 
-void wagen_departure(); // do we need an event for wagen departure? WHY?
+// Usage:	wagen_departure();
+// Pre:		EVENT_WAGEN_DEPARTURE is the next event to be processed
+// Post:	simlib statistical functions were called,
+//			an EVENT_WAGEN_ARRIVAL has been scheduled after 30 minutes
+void wagen_departure();
 
 // Usage:	skaut_arrival();
+// Pre:		EVENT_SKAUT_ARRIVAL is the next event to be processed
 // Post:	a skaut has been processed by a machine or put in it's queue.
 //			subsequent events may have been scheduled
 void skaut_arrival();
 
+// Usage:	skaut_departure();
+// Pre:		EVENT_SKAUT_DEPARTURE is the next event to be processed
+// Post:	
 void skaut_departure(); // do we need an event for departure? 
 
-
-
+// Usage:	machine_failure();
+// Pre:		EVENT_MACHINE_FAILURE is the next event to be processed
+// Post:	
 void machine_failure();
 
+// Usage:	machine_fixed();
+// Pre:		EVENT_MACHINE_FIXED is the next event to be processed
+// Post:	
 void machine_fixed();
-
 
 // Usage:	end_warmup();
 // Post:	SIMLIB statistical variables have been cleared
@@ -90,6 +102,13 @@ float N(float muy, float sigma, int stream);
 //			have been APPENDED to "the_report.out"
 void report(char[]);
 
+// Usage:	schedule_failures(i);
+// Pre:		the global variable end_simulation_time has a value, i is of type int
+// Post:	i failures have been scheduled uniformly on machines
+//			with ?random? repair times on the interval [min_machine_repair_time,...max_machine_repair_time]
+//			uniformly distributed over the interval 0...end_simulation_time
+void schedule_failures(int i);
+
 int main()
 {
 	//parse_input("adal_inntak.in","velar_og_bidradir.in","output.out");
@@ -108,10 +127,10 @@ int main()
 		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
 		
 		/* Schedule end of warmup time */
-		event_schedule( End_warmup_time, EVENT_END_WARMUP );
+		event_schedule( end_warmup_time, EVENT_END_WARMUP );
 		
 		/* Schedule simulation termination */
-		event_schedule( End_simulation_time, EVENT_END_SIMULATION );
+		event_schedule( end_simulation_time, EVENT_END_SIMULATION );
 		
 		while (next_event_type != EVENT_END_SIMULATION) {
 	
