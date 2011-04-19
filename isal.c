@@ -13,11 +13,6 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
-#include "N.c"
-#include "parse_input.c"
-#include "wagen_arrival.c"
-#
-
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
 #define EVENT_WAGEN_DEPARTURE 2
@@ -36,7 +31,7 @@
 #define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 
 // Global variables
-int number_of_machiens, min_productivity, min_no_failures, max_no_failures;
+int number_of_machines, min_productivity, min_no_failures, max_no_failures;
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
 
 int is_machine_busy[NUM_MACHINES +1],
@@ -127,6 +122,7 @@ int main()
 		maxatr = 4; // how many attributes do we need?
 		
 		/* Schedule first wagen arrival */
+		transfer[3] = 1; 
 		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
 		
 		/* Schedule end of warmup time */
@@ -167,5 +163,37 @@ int main()
 			}
 		}
 	}
+}
+
+void wagen_arrival()
+{
+	int i;
+	for (i = 0; i < 14; i++) {
+		if (is_machine_busy[2]) {
+			if (LIST_SIZE[2] == queue_size[2]) {
+				queue_is_full();
+				break;
+			} else {
+				transfer[3] = 2; // we are currently in unit 2
+				list_file(LAST, number_of_machines + 2); // skaut appended to machine B's queue
+			}
+
+		} else {
+			transfer[3] = 2;
+			list_file(LAST, 2); // skaut put in machine B
+			is_machine_busy[2] = 1; // machine is busy
+			sampst(0.0, 2); // the delay is zero
+		}
+
+	}
+	// DO SIMLIB STATISTICS?
+	event_schedule( sim_time + work_time[1], EVENT_WAGEN_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
+}
+
+float N(float muy, float sigma, int stream)
+{
+		// This method of converting from N(0,1) to N(muy,sigma) has not been verified!
+		float x = nrand(stream);
+			return (x*sigma)+30;
 }
 
