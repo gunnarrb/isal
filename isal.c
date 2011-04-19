@@ -113,7 +113,7 @@ int main()
 	
 	// We perform simulation for "a few" failures per day
 	int i;
-	for (i = Min_no_failures; i < Max_no_failures; i++) {
+	for (i = min_no_failures; i < max_no_failures; i++) {
 		// Initialize rndlib
 		init_twister();
 	
@@ -158,7 +158,7 @@ int main()
 					end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
-					report();
+					//report();
 					break;
 			}
 		}
