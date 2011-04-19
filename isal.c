@@ -15,6 +15,8 @@
 
 #include "N.c"
 #include "parse_input.c"
+#include "wagen_arrival.c"
+#
 
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
@@ -37,8 +39,7 @@
 int number_of_machiens, min_productivity, min_no_failures, max_no_failures;
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
 
-int machine2queue[NUM_MACHINES +1], 
-	is_machine_busy[NUM_MACHINES +1],
+int is_machine_busy[NUM_MACHINES +1],
 	queue_size[NUM_QUEUES +1];
 	
 float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
@@ -108,6 +109,8 @@ void report(char[]);
 //			with ?random? repair times on the interval [min_machine_repair_time,...max_machine_repair_time]
 //			uniformly distributed over the interval 0...end_simulation_time
 void schedule_failures(int i);
+
+void queue_is_full();
 
 int main()
 {
