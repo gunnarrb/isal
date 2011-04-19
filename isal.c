@@ -13,6 +13,8 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
+#incluce 
+
 // EVENTS
 #define EVENT_WAGEN_ARRIVAL	1
 #define EVENT_WAGEN_DEPARTURE 2
@@ -51,11 +53,13 @@ void wagen_arrival();
 void wagen_departure(); // do we need an event for wagen departure? WHY?
 
 // Usage:	skaut_arrival();
-// Pre:		
-// Post:	
+// Post:	a skaut has been processed by a machine or put in it's queue.
+//			subsequent events may have been scheduled
 void skaut_arrival();
 
 void skaut_departure(); // do we need an event for departure? 
+
+
 
 void machine_failure();
 
@@ -85,11 +89,6 @@ float N(float muy, float sigma, int stream);
 // Post:	a report on program values and simlib statistics 
 //			have been APPENDED to "the_report.out"
 void report(char[]);
-
-// Usage:	clear_event_list();
-// Pre:		the event list has integer val 25
-// Post:	the event list is empty
-void clear_event_list();
 
 int main()
 {
@@ -141,7 +140,6 @@ int main()
 					end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
-					clear_event_list();
 					report();
 					break;
 			}
@@ -149,29 +147,3 @@ int main()
 	}
 }
 
-void parse_input(char inputfile_data[], char inputfile_time[], char outputfile[])
-{
-  infile = fopen (inputfile_data, "r");
-  outfile = fopen (outputfile, "w");
-  
-  /* Read input parameters. */
-  fscanf (infile, "%d %d %d %d %d %f %f %f %f %f %f %f %f %f",   &fjoldi_vela, &lengd_bidrada, &min_afkost_per_dag, &lagmarksfjoldi_bilanna_per_day, &hamarksfjold_bilanna_per_day, &vinnutimar_vela, &mean_wagen_arrival, &std_wagen_arrival, &mean_bilanir, &std_bilanir, &min_vidgerdartimi_vela, &max_vidgerdartimi_vela, &end_warmup_timi, &end_hermun_timi);
-
-  fclose (infile);
-  infile = fopen (inputfile_time, "r");
- 
-  int counter = 1;
-  while (!feof(infile)) {
-    fscanf(infile, "%f %d", &work_time[counter], &queue_size[counter] );
-    counter++;
-  }
-
-  close(infile);
-}
-
-float N(float muy, float sigma, int stream)
-{
-	// This method of converting from N(0,1) to N(muy,sigma) has not been verified!
-	float x = nrand(stream);
-	return (x*sigma)+15;
-}
