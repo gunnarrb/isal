@@ -37,7 +37,7 @@
 #define MACHINES_ON_THE_RIGHT_SIDE 2
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
-#define LOADING_TIME_PER_SKAUT
+//#define LOADING_TIME_PER_SKAUT 
 
 // Global variables
 int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
@@ -139,7 +139,7 @@ int main()
 		
 		/* Schedule first wagen arrival */
 		transfer[3] = 1; 
-		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_UNLOAD_ARRIVAL );
+		event_schedule( 1.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
 		
 		/* Schedule end of warmup time */
 		event_schedule( end_warmup_time, EVENT_END_WARMUP );
@@ -156,7 +156,7 @@ int main()
 					wagen_unload_arrival();
 					break;
 				case EVENT_WAGEN_UNLOAD_DEPARTURE:
-					wagen_unload_departure();
+					//wagen_unload_departure();
    					break;
 				case EVENT_SKAUT_ARRIVAL:
 				  //skaut_arrival();
@@ -174,6 +174,7 @@ int main()
 				  //end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
+					printf("System throughput: %d\n", skaut_throughput );
 					//report();
 					break;
 			}
@@ -183,11 +184,10 @@ int main()
 
 void wagen_unload_arrival()
 {
-
 	int i;
-	for (i = 1; <= WAGEN_LOAD; i++) {
+	for (i = 1; i <= WAGEN_LOAD; i++) {
 		transfer[3]=1;
-		event_schedule( i * LOADING_TIME_PER_SKAUT, EVENT_SKAUT_DEPARTURE );
+		event_schedule( sim_time + (i * work_time[1]), EVENT_SKAUT_DEPARTURE );
 	}
 
 	// DO SIMLIB STATISTICS?
