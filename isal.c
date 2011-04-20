@@ -98,7 +98,7 @@ float N(float muy, float sigma, int stream);
 // Pre:		the values to be reported have values
 // Post:	a report on program values and simlib statistics 
 //			have been APPENDED to "the_report.out"
-void report(char[]);
+void report();
 
 // Usage:	schedule_failures(i);
 // Pre:		the global variable end_simulation_time has a value, i is of type int
@@ -116,8 +116,6 @@ int main()
         // initialize arrays and variables
         memset( is_machine_busy,0, NUM_MACHINES +1 );
         skaut_throughput = 0;
-
-		printf("DEBUG\n");
 		
 		int b;
 		for (b=1; b <= number_of_machines; b++) {
@@ -147,7 +145,7 @@ int main()
 		while (next_event_type != EVENT_END_SIMULATION) {
 	
 			timing();
-			printf("next_event_type = %d, transfer[3] = %f, transfer[4]=%f\n", next_event_type, transfer[3], transfer[4]);		
+			//printf("next_event_type = %d, transfer[3] = %f, transfer[4]=%f\n", next_event_type, transfer[3], transfer[4]);		
 			switch (next_event_type) {
 				case EVENT_WAGEN_UNLOAD_ARRIVAL:
 					wagen_unload_arrival();
@@ -168,8 +166,7 @@ int main()
 					end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
-					printf("System throughput: %d\n", skaut_throughput );
-					//report();
+					report();
 					break;
 			}
 		}
@@ -187,7 +184,7 @@ void wagen_unload_arrival()
 	}
 
 	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + 60*30 , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
+	event_schedule( sim_time + 60*30 , EVENT_WAGEN_UNLOAD_ARRIVAL );
 
 }
 
@@ -198,7 +195,11 @@ void skaut_arrival()
 	if (is_machine_busy[current_unit]) {
 		if (list_size[current_unit] == queue_size[current_unit]) {
 			//queue_is_full();
-			printf("BOOM!\n");
+			printf("BOOM! in row: %f\n", transfer[3]);
+			int k;
+			for (k = 1; k <= number_of_machines; k++)
+				printf("Items in queue %d: %d", k, list_size[number_of_machines +k]);
+			printf("Number of items in the row: %d\n", list_size[7+5]);
 		} else {
 			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
 		}
@@ -207,7 +208,7 @@ void skaut_arrival()
 		list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
-		printf("Scheduling event 4 from skaut_arrival, current_unit = %d\n", current_unit);
+		//printf("Scheduling event 4 from skaut_arrival, current_unit = %d\n", current_unit);
 		transfer[3] = (float) current_unit;
 		event_schedule( sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
@@ -232,7 +233,7 @@ void skaut_departure()
 	} else {
 	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
 		//transfer[3] = current_unit;
-		printf("Scheduling event 4 from skaut_departure, current_unit = %d\n", current_unit);
+		//printf("Scheduling event 4 from skaut_departure, current_unit = %d\n", current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
@@ -269,6 +270,15 @@ void end_warmup()
 {
 	sampst(0.0, 0); 
 	timest(0.0, 0);
+}
+
+void report()
+{
+	printf("System throughput: %d\n", skaut_throughput );
+	int i;
+	for (i=1; i <= number_of_machines; i++) {
+		printf("Machine %d: %f\n", i, filest(i) );
+	}
 }
 
 
