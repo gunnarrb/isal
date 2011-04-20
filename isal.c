@@ -198,6 +198,7 @@ void skaut_arrival()
 	if (is_machine_busy[current_unit]) {
 		if (list_size[current_unit] == queue_size[current_unit]) {
 			//queue_is_full();
+			printf("BOOM!\n");
 		} else {
 			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
 		}
