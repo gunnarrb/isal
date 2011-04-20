@@ -1,4 +1,4 @@
-7	404	3	8	30.0	2.0	5.0	30.0	1000.0	58600.0
+7	404	3	8	30.0	2.0	5.0	30.0	1000.0	57600.0
 num	min	min	max	mean	std	min	max	warmup	simulationtime
 	prod-	no	no	wagen	wagen	repair	repair
 	uction	fail-	fail-	arrival	arrival	time	time

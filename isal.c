@@ -14,9 +14,6 @@
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
-
-
-
 // EVENTS
 #define EVENT_WAGEN_UNLOAD_ARRIVAL	1
 #define EVENT_WAGEN_UNLOAD_DEPARTURE 2
@@ -57,12 +54,6 @@ FILE *infile, *outfile;
 // Pre:		EVENT_WAGEN_UNLOAD_ARRIVAL is the next event to be processed
 // Post:	14 skaut have been assigned to unit B, and their arrival events scheduled
 void wagen_unload_arrival();
-
-// Usage:	wagen_departure();
-// Pre:		EVENT_WAGEN_UNLOAD_DEPARTURE is the next event to be processed
-// Post:	simlib statistical functions were called,
-//			an EVENT_WAGEN_UNLOAD_ARRIVAL has been scheduled after 30 minutes
-void wagen_unload_departure();
 
 // Usage:	skaut_arrival();
 // Pre:		EVENT_SKAUT_ARRIVAL is the next event to be processed
@@ -126,6 +117,12 @@ int main()
         memset( is_machine_busy,0, NUM_MACHINES +1 );
         skaut_throughput = 0;
 
+		printf("DEBUG\n");
+		
+		int b;
+		for (b=1; b <= number_of_machines; b++) {
+			printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
+		}
 	
         // We perform simulation for "a few" failures per day
 	int i;
@@ -150,14 +147,11 @@ int main()
 		while (next_event_type != EVENT_END_SIMULATION) {
 	
 			timing();
-		
+			printf("next_event_type = %d, transfer[3] = %f, transfer[4]=%f\n", next_event_type, transfer[3], transfer[4]);		
 			switch (next_event_type) {
 				case EVENT_WAGEN_UNLOAD_ARRIVAL:
 					wagen_unload_arrival();
 					break;
-				case EVENT_WAGEN_UNLOAD_DEPARTURE:
-					//wagen_unload_departure();
-   					break;
 				case EVENT_SKAUT_ARRIVAL:
 				  skaut_arrival();
 					break;
@@ -187,39 +181,32 @@ void wagen_unload_arrival()
 	int i;
 	for (i = 1; i <= WAGEN_LOAD; i++) {
 		transfer[3]=1.0;
+		transfer[4] = 9.0;
 		event_schedule( sim_time + (i * work_time[1]), EVENT_SKAUT_DEPARTURE );
 	}
 
 	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
-}
+	event_schedule( sim_time + 60*30 , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
 
-/*
-void wagen_unload_departure()
-{
-	// what about transporting fresh skaut to the kerskali? trigger event in machine F???
-	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
 }
-*/
 
 void skaut_arrival()
 {
         
-        int current_unit = (int)transfer[3];
-        current_unit++;
-        transfer[3] = (float)current_unit;
+        int current_unit = (int) ++transfer[3];
 	if (is_machine_busy[current_unit]) {
 		if (list_size[current_unit] == queue_size[current_unit]) {
 			//queue_is_full();
 		} else {
-                  printf("put skaut queue %d\n ",current_unit);
 			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
 		}
 	} else {
-          printf("put skaut machine %d\n ",current_unit);
+
 		list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
+		printf("Scheduling event 4 from skaut_arrival, current_unit = %d\n", current_unit);
+		transfer[3] = (float) current_unit;
 		event_schedule( sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
@@ -232,37 +219,22 @@ void skaut_departure()
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
 		skaut_throughput += 2;
 	} else {
-          printf("event arrival %f\n ",sim_time + transfer_time[current_unit]);
 		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
 	}
 
         int u = 0;
-        for (u = 0; u < 25; u++) { printf("list index : %d    value = %d \n",u,list_size[u]);}
-	printf("skaut_departure, list_size[number_of_machines + current_unit] = %d\n",list_size[number_of_machines + current_unit]);
 	if (list_size[number_of_machines + current_unit] == 0) {
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
 	} else {
 	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
 		//transfer[3] = current_unit;
-                    printf("event departure from queue %f\n ",sim_time + transfer_time[current_unit]);
+		printf("Scheduling event 4 from skaut_departure, current_unit = %d\n", current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
 
 
-
-
-
-
-
-
-float N(float muy, float sigma, int stream)
-{
-		// This method of converting from N(0,1) to N(muy,sigma) has not been verified!
-		float x = nrand(stream);
-			return (x*sigma)+30;
-}
 
 void parse_input(char inputfile_data[], char inputfile_time[])
 {
