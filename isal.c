@@ -138,7 +138,7 @@ int main()
 		maxatr = 4; // how many attributes do we need?
 		
 		/* Schedule first wagen arrival */
-		transfer[3] = 1; 
+		transfer[3] = 1.0; 
 		event_schedule( 1.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
 		
 		/* Schedule end of warmup time */
@@ -186,7 +186,7 @@ void wagen_unload_arrival()
 {
 	int i;
 	for (i = 1; i <= WAGEN_LOAD; i++) {
-		transfer[3]=1;
+		transfer[3]=1.0;
 		event_schedule( sim_time + (i * work_time[1]), EVENT_SKAUT_DEPARTURE );
 	}
 
@@ -204,14 +204,19 @@ void wagen_unload_departure()
 
 void skaut_arrival()
 {
-	int current_unit = ++transfer[3];
+        
+        int current_unit = (int)transfer[3];
+        current_unit++;
+        transfer[3] = (float)current_unit;
 	if (is_machine_busy[current_unit]) {
 		if (list_size[current_unit] == queue_size[current_unit]) {
 			//queue_is_full();
 		} else {
+                  printf("put skaut queue %d\n ",current_unit);
 			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
 		}
 	} else {
+          printf("put skaut machine %d\n ",current_unit);
 		list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
@@ -222,20 +227,25 @@ void skaut_arrival()
 void skaut_departure()
 {
 	
-	int current_unit = transfer[3];
-        //        printf("current unit departure : %d \n",current_unit);
+        int current_unit = (int)transfer[3];
+        //         printf("current unit departure : %d \n",current_unit);
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
 		skaut_throughput += 2;
 	} else {
+          printf("event arrival %f\n ",sim_time + transfer_time[current_unit]);
 		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
 	}
-	
+
+        int u = 0;
+        for (u = 0; u < 25; u++) { printf("list index : %d    value = %d \n",u,list_size[u]);}
+	printf("skaut_departure, list_size[number_of_machines + current_unit] = %d\n",list_size[number_of_machines + current_unit]);
 	if (list_size[number_of_machines + current_unit] == 0) {
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
 	} else {
 	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
 		//transfer[3] = current_unit;
+                    printf("event departure from queue %f\n ",sim_time + transfer_time[current_unit]);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
