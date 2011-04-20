@@ -8,6 +8,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include "simlib/rndlib.h"
@@ -31,7 +32,7 @@
 
 //Other constants
 #define NUM_MACHINES 7
-#define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
+//#define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 #define WAGEN_LOAD 14
 #define MACHINES_ON_THE_LEFT_SIDE 5
 
@@ -40,7 +41,7 @@ int number_of_machines, min_productivity, min_no_failures, max_no_failures, skau
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
 
 int is_machine_busy[NUM_MACHINES +1],
-	queue_size[NUM_QUEUES +1];
+	queue_size[NUM_MACHINES +1];
 	
 float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
 FILE *infile, *outfile;
@@ -114,10 +115,14 @@ void queue_is_full();
 
 int main()
 {
-	skaut_throughput = 0;
-	parse_input("adal_inntak.in","velar_og_bidradir.in");
+        // load datafiles
+        parse_input("adal_inntak.in","velar_og_bidradir.in");
+        // initialize arrays and variables
+        memset( is_machine_busy,0, NUM_MACHINES +1 );
+        skaut_throughput = 0;
+
 	
-	// We perform simulation for "a few" failures per day
+        // We perform simulation for "a few" failures per day
 	int i;
 	for (i = min_no_failures; i < max_no_failures; i++) {
 		// Initialize rndlib
@@ -221,14 +226,10 @@ void skaut_departure()
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
 	} else {
-		list_remove(FIRST, number_of_machines + current_unit);
+	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
 		//transfer[3] = current_unit;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
-
-
-	
-	
 }
 
 
