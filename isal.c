@@ -165,7 +165,7 @@ int main()
 				  //machine_fixed();
 					break;
 				case EVENT_END_WARMUP:
-				  //end_warmup();
+					end_warmup();
 					break;
 				case EVENT_END_SIMULATION:
 					printf("System throughput: %d\n", skaut_throughput );
@@ -179,6 +179,7 @@ int main()
 void wagen_unload_arrival()
 {
 	int i;
+	
 	for (i = 1; i <= WAGEN_LOAD; i++) {
 		transfer[3]=1.0;
 		transfer[4] = 9.0;
@@ -213,16 +214,17 @@ void skaut_arrival()
 
 void skaut_departure()
 {
-	
-        int current_unit = (int)transfer[3];
-        //         printf("current unit departure : %d \n",current_unit);
+	int current_unit = (int)transfer[3];
+
+	if (!current_unit == 1)
+		list_remove(FIRST, current_unit);
+
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
 		skaut_throughput += 2;
 	} else {
 		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
 	}
 
-        int u = 0;
 	if (list_size[number_of_machines + current_unit] == 0) {
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
@@ -233,7 +235,6 @@ void skaut_departure()
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
-
 
 
 void parse_input(char inputfile_data[], char inputfile_time[])
@@ -261,6 +262,12 @@ void parse_input(char inputfile_data[], char inputfile_time[])
   }
   fclose(infile);
 
+}
+
+void end_warmup()
+{
+	sampst(0.0, 0); 
+	timest(0.0, 0);
 }
 
 
