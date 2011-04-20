@@ -159,10 +159,10 @@ int main()
 					//wagen_unload_departure();
    					break;
 				case EVENT_SKAUT_ARRIVAL:
-				  //skaut_arrival();
+				  skaut_arrival();
 					break;
 				case EVENT_SKAUT_DEPARTURE:
-				  //skaut_departure();
+				  skaut_departure();
 					break;
 				case EVENT_MACHINE_FAILURE:
 				  //machine_failure();
@@ -223,7 +223,7 @@ void skaut_departure()
 {
 	
 	int current_unit = transfer[3];
-
+        //        printf("current unit departure : %d \n",current_unit);
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
 		skaut_throughput += 2;
 	} else {
@@ -269,11 +269,12 @@ void parse_input(char inputfile_data[], char inputfile_time[])
   if ((infile = fopen (inputfile_time, "r")) == NULL) {
     printf("Could not open file %s\n",inputfile_time);
   } 
-  /*  printf( "%d %d %d %d %f %f %f %f %f %f\n", number_of_machiens, min_productivity, min_no_failures, max_no_failures, mean_wagen_arrival, std_wagen_arrival,  min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time);*/
+  printf( "%d %d %d %d %f %f %f %f %f %f\n", number_of_machines, min_productivity, min_no_failures, max_no_failures, mean_wagen_arrival, std_wagen_arrival,  min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time);
 
   int counter = 1;
   while (!feof(infile)) {
-    fscanf(infile, "%f %d", &transfer_time[counter], &queue_size[counter], &work_time[counter] );
+    fscanf(infile, "%f %d %f", &transfer_time[counter], &queue_size[counter], &work_time[counter] );
+    printf("%f %d %f\n", transfer_time[counter], queue_size[counter], work_time[counter] );
     counter++;
   }
   fclose(infile);
