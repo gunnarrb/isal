@@ -18,23 +18,25 @@
 
 
 // EVENTS
-#define EVENT_WAGEN_ARRIVAL	1
-#define EVENT_WAGEN_DEPARTURE 2
-#define EVENT_SKAUT_ARRIVAL 3
-#define EVENT_SKAUT_DEPARTURE 4
-#define EVENT_MACHINE_FAILURE 5
-#define EVENT_MACHINE_FIXED 6
-#define EVENT_END_SIMULATION 7
-#define EVENT_END_WARMUP	8
+#define EVENT_WAGEN_UNLOAD_ARRIVAL	1
+#define EVENT_WAGEN_UNLOAD_DEPARTURE 2
+#define EVENT_WAGEN_LOAD_ARRIVAL 3
+#define EVENT_WAGEN_LOAD_DEPARTURE 4
+#define EVENT_SKAUT_ARRIVAL 5
+#define EVENT_SKAUT_DEPARTURE 6
+#define EVENT_MACHINE_FAILURE 7
+#define EVENT_MACHINE_FIXED 8
+#define EVENT_END_SIMULATION 9
+#define EVENT_END_WARMUP	10
 
 // STREAMS
 #define STREAM_WAGEN_ARRIVAL 1
 
 //Other constants
 #define NUM_MACHINES 7
-//#define NUM_QUEUES 5 // vid flokkum lasa einnig sem bidradir
 #define WAGEN_LOAD 14
 #define MACHINES_ON_THE_LEFT_SIDE 5
+#define MACHINES_ON_THE_RIGHT_SIDE 2
 
 // Global variables
 int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
@@ -49,15 +51,15 @@ FILE *infile, *outfile;
 /* Function signatures */
 
 // Usage:	wagen_arrival();
-// Pre:		EVENT_WAGEN_ARRIVAL is the next event to be processed
+// Pre:		EVENT_WAGEN_UNLOAD_ARRIVAL is the next event to be processed
 // Post:	14 skaut have been assigned to unit B, and their arrival events scheduled
-void wagen_arrival();
+void wagen_unload_arrival();
 
 // Usage:	wagen_departure();
-// Pre:		EVENT_WAGEN_DEPARTURE is the next event to be processed
+// Pre:		EVENT_WAGEN_UNLOAD_DEPARTURE is the next event to be processed
 // Post:	simlib statistical functions were called,
-//			an EVENT_WAGEN_ARRIVAL has been scheduled after 30 minutes
-void wagen_departure();
+//			an EVENT_WAGEN_UNLOAD_ARRIVAL has been scheduled after 30 minutes
+void wagen_unload_departure();
 
 // Usage:	skaut_arrival();
 // Pre:		EVENT_SKAUT_ARRIVAL is the next event to be processed
@@ -134,7 +136,7 @@ int main()
 		
 		/* Schedule first wagen arrival */
 		transfer[3] = 1; 
-		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_ARRIVAL );
+		event_schedule( nrand(STREAM_WAGEN_ARRIVAL), EVENT_WAGEN_UNLOAD_ARRIVAL );
 		
 		/* Schedule end of warmup time */
 		event_schedule( end_warmup_time, EVENT_END_WARMUP );
@@ -147,11 +149,11 @@ int main()
 			timing();
 		
 			switch (next_event_type) {
-				case EVENT_WAGEN_ARRIVAL:
-					wagen_arrival();
+				case EVENT_WAGEN_UNLOAD_ARRIVAL:
+					wagen_unload_arrival();
 					break;
-				case EVENT_WAGEN_DEPARTURE:
-				  //wagen_departure();
+				case EVENT_WAGEN_UNLOAD_DEPARTURE:
+					wagen_unload_departure();
    					break;
 				case EVENT_SKAUT_ARRIVAL:
 				  //skaut_arrival();
@@ -176,7 +178,7 @@ int main()
 	}
 }
 
-void wagen_arrival()
+void wagen_unload_arrival()
 {
 	int i;
 	for (i = 1; i <= WAGEN_LOAD; i++) {
@@ -184,13 +186,13 @@ void wagen_arrival()
 		event_schedule( i*work_time[1], EVENT_SKAUT_ARRIVAL );
 	}
 	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + WAGEN_LOAD * work_time[1], EVENT_WAGEN_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
+	event_schedule( sim_time + WAGEN_LOAD * work_time[1], EVENT_WAGEN_UNLOAD_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
 }
 
-void wagen_departure()
+void wagen_unload_departure()
 {
 	// what about transporting fresh skaut to the kerskali? trigger event in machine F???
-	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_ARRIVAL ); // The N method has not been tested, might want to substitude
+	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
 }
 
 
