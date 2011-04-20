@@ -20,14 +20,12 @@
 // EVENTS
 #define EVENT_WAGEN_UNLOAD_ARRIVAL	1
 #define EVENT_WAGEN_UNLOAD_DEPARTURE 2
-#define EVENT_WAGEN_LOAD_ARRIVAL 3
-#define EVENT_WAGEN_LOAD_DEPARTURE 4
-#define EVENT_SKAUT_ARRIVAL 5
-#define EVENT_SKAUT_DEPARTURE 6
-#define EVENT_MACHINE_FAILURE 7
-#define EVENT_MACHINE_FIXED 8
-#define EVENT_END_SIMULATION 9
-#define EVENT_END_WARMUP	10
+#define EVENT_SKAUT_ARRIVAL 3
+#define EVENT_SKAUT_DEPARTURE 4
+#define EVENT_MACHINE_FAILURE 5
+#define EVENT_MACHINE_FIXED 6
+#define EVENT_END_SIMULATION 7
+#define EVENT_END_WARMUP	8
 
 // STREAMS
 #define STREAM_WAGEN_ARRIVAL 1
@@ -37,6 +35,9 @@
 #define WAGEN_LOAD 14
 #define MACHINES_ON_THE_LEFT_SIDE 5
 #define MACHINES_ON_THE_RIGHT_SIDE 2
+#define OPTIMAL_THROUGHPUT 52
+#define ACTUAL_THROUGHPUT 40
+#define LOADING_TIME_PER_SKAUT
 
 // Global variables
 int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
@@ -45,7 +46,9 @@ float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_ma
 int is_machine_busy[NUM_MACHINES +1],
 	queue_size[NUM_MACHINES +1];
 	
-float work_time[NUM_MACHINES + 1]; // +1 is the less preferable simlib indexing scheme
+float work_time[NUM_MACHINES + 1],
+	  transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
+
 FILE *infile, *outfile;
 
 /* Function signatures */
@@ -180,21 +183,24 @@ int main()
 
 void wagen_unload_arrival()
 {
+
 	int i;
-	for (i = 1; i <= WAGEN_LOAD; i++) {
-		transfer[3] = 1;
-		event_schedule( i*work_time[1], EVENT_SKAUT_ARRIVAL );
+	for (i = 1; <= WAGEN_LOAD; i++) {
+		transfer[3]=1;
+		event_schedule( i * LOADING_TIME_PER_SKAUT, EVENT_SKAUT_DEPARTURE );
 	}
+
 	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + WAGEN_LOAD * work_time[1], EVENT_WAGEN_UNLOAD_DEPARTURE ); // using simlib's less preferable indexing scheme for machine A's work time
+	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
 }
 
+/*
 void wagen_unload_departure()
 {
 	// what about transporting fresh skaut to the kerskali? trigger event in machine F???
 	event_schedule( sim_time + N(30,2, STREAM_WAGEN_ARRIVAL) , EVENT_WAGEN_UNLOAD_ARRIVAL ); // The N method has not been tested, might want to substitude
 }
-
+*/
 
 void skaut_arrival()
 {
@@ -203,10 +209,10 @@ void skaut_arrival()
 		if (list_size[current_unit] == queue_size[current_unit]) {
 			//queue_is_full();
 		} else {
-			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine B's queue
+			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
 		}
 	} else {
-		list_file(LAST, current_unit); // skaut put in machine B
+		list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
 		event_schedule( sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
@@ -219,9 +225,9 @@ void skaut_departure()
 	int current_unit = transfer[3];
 
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
-		skaut_throughput++;
+		skaut_throughput += 2;
 	} else {
-		event_schedule(sim_time + 0.1, EVENT_SKAUT_ARRIVAL);
+		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
 	}
 	
 	if (list_size[number_of_machines + current_unit] == 0) {
@@ -267,7 +273,7 @@ void parse_input(char inputfile_data[], char inputfile_time[])
 
   int counter = 1;
   while (!feof(infile)) {
-    fscanf(infile, "%f %d", &work_time[counter], &queue_size[counter] );
+    fscanf(infile, "%f %d", &transfer_time[counter], &queue_size[counter], &work_time[counter] );
     counter++;
   }
   fclose(infile);
