@@ -198,8 +198,8 @@ void skaut_arrival()
 {
 	int current_unit = (int) ++transfer[3];
 	
-	if (is_machine_busy[current_unit]) { // machine is busy
-		
+	//if (is_machine_busy[current_unit]) { // machine is busy
+	if (list_size[current_unit] == 1) { // machine is busy	
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) { // machine busy, row full
 			//queue_is_full();
 		} else { // machine busy, row not full
