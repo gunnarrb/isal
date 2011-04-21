@@ -206,60 +206,38 @@ void wagen_unload_arrival()
 		/*	transfer[3] = 1.0; transfer[3] can be 0 here, because there is no current location, they are on der wagen!!! skaut_arrival then
 			increments transfer[3], which is normal. 
 		*/
+                transfer[3]=1.0;
 		event_schedule( sim_time + (i*0.01),	EVENT_SKAUT_ARRIVAL);
 	}
 	
 	// schedule next wagen arrival
+        transfer[3] = 0.0;
 	event_schedule(sim_time + 30*60, EVENT_WAGEN_UNLOAD_ARRIVAL);
-}
-
-
-void skaut_arrivalOLD()
-{
-	int current_unit = (int) ++transfer[3];
-	
-	//if (is_machine_busy[current_unit]) { // machine is busy
-	if (list_size[current_unit] == 1) { // machine is busy	
-		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) { // machine busy, row full
-			//queue_is_full();
-		} 
-                else { // machine busy, row not full
-			list_file(LAST, number_of_machines + current_unit); // skaut appended to queue
-                        transfer[3] = (float) current_unit;
-                        //	printf("Appended to row %d\n", current_unit);
-		}
-	
-	} 
-        else { // machine is not busy
-                list_file(LAST, current_unit); // skaut put in machine 
-		is_machine_busy[current_unit] = 1; // machine is busy
-		sampst(0.0, current_unit); // the delay is zero
-		//printf("Scheduling event 4 from skaut_arrival, current_unit = %d\n", current_unit);
-		transfer[3] = (float) current_unit;
-		event_schedule( sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
-	}
 }
 
 
 void skaut_arrival() 
 {
-	int current_unit = (int) ++transfer[3]; // this then increments skauts from the wagen!!
+	int current_unit = (int)transfer[3]; // this then increments skauts from the wagen!!
 	
 	// check if machine is not busy
 	if (list_size[current_unit] == 0) {
 		// put skaut in machine
-		push_array();
+                push_array();
 		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
-		pop_array();
+                pop_array();	
 		// schedule departure after machine processing time
+                transfer[3] = (float)current_unit;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	} else {
 		// check if queue is full
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
 			printf("BOOM! UNIT %d exploded with %d items!\n", current_unit, list_size[number_of_machines + current_unit]);
+                        exit(1);
 			// execution for this function call ends here
 		} else {
 			// put skaut in the queue
+                        transfer[3] = (float) current_unit;
 			list_file(LAST, number_of_machines + current_unit);
 		}
 
@@ -270,31 +248,31 @@ void skaut_arrival()
 
 void skaut_departure()
 {
-	//push_array();
-	list_remove( (int) transfer[3], FIRST ); // popping off the machine
-	/* list_remove does not clear transfer */
-	//pop_array();
-	
-	int current_unit = (int) transfer[3];
-	
+        int current_unit = (int) transfer[3];	
+        printf("remove from machine with current %d \n", current_unit);
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
 		skaut_throughput += 2;
-	} else {
-		push_array();
+                list_remove(FIRST,current_unit);  
+	} 
+        else {
+                list_remove(FIRST,current_unit);
+                push_array();
+                transfer[3]=transfer[3]+1.0;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
 		pop_array();
+                
 	}
 	
 	if (list_size[number_of_machines + current_unit] != 0) {
-		
-		list_remove(FIRST, number_of_machines + current_unit);
-	
 		push_array();
-		list_file(current_unit, FIRST); // first equals last because size should only be 1
+		list_file(FIRST,current_unit); // first equals last because size should only be 1
 		pop_array();
 		
 		// schedule depart for this skaut in machine
 		// no need for pushing because this is end of execution
+                printf("even depart with current %d \n", current_unit);
+      		list_remove(FIRST, number_of_machines + current_unit);
+                transfer[3] = (float)current_unit;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
