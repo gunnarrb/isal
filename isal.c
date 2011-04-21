@@ -34,6 +34,7 @@
 #define MACHINES_ON_THE_RIGHT_SIDE 2
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
+#define TRANSFER_ARRAY_LENGTH 11
 //#define LOADING_TIME_PER_SKAUT 
 
 // Global variables
@@ -46,9 +47,21 @@ int is_machine_busy[NUM_MACHINES +1],
 float work_time[NUM_MACHINES + 1],
 	  transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
 
+float temp_transfer[TRANSFER_ARRAY_LENGTH+1];
+
 FILE *infile, *outfile;
 
 /* Function signatures */
+
+// Usage:	push_array();
+// Pre:		we expect that correct values are in transfer array
+// Post:	our temp_transfer array now has the values in transfer_array
+void push_array();
+
+// Usage:	pop_array();
+// Pre:		we expect that correct values are in transfer_temp array
+// Post:	our transfer array now has the values in transfer_temp
+void pop_array();
 
 // Usage:	wagen_arrival();
 // Pre:		EVENT_WAGEN_UNLOAD_ARRIVAL is the next event to be processed
@@ -381,4 +394,11 @@ void report()
 	}
 }
 
+void push_array() {
+  memcpy(temp_transfer,transfer,TRANSFER_ARRAY_LENGTH*sizeof(float));  
+}
+
+void pop_array() {
+  memcpy(transfer,temp_transfer,TRANSFER_ARRAY_LENGTH*sizeof(float));  
+}
 
