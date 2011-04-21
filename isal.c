@@ -145,7 +145,13 @@ int main()
 		while (next_event_type != EVENT_END_SIMULATION) {
 	
 			timing();
-			//printf("next_event_type = %d, transfer[3] = %f, transfer[4]=%f\n", next_event_type, transfer[3], transfer[4]);		
+			printf("next_event_type = %d, transfer[3] = %f\n", next_event_type, transfer[3]);
+			int k;
+			for (k = 1; k <= number_of_machines; k++)
+				printf("Items in machines/queues %d:  %d, %d\n", k, list_size[k], list_size[number_of_machines +k]);
+			printf("\n");
+					
+									
 			switch (next_event_type) {
 				case EVENT_WAGEN_UNLOAD_ARRIVAL:
 					wagen_unload_arrival();
@@ -179,7 +185,7 @@ void wagen_unload_arrival()
 	
 	for (i = 1; i <= WAGEN_LOAD; i++) {
 		transfer[3]=1.0;
-		transfer[4] = 9.0;
+		//transfer[4] = 9.0;
 		event_schedule( sim_time + (i * work_time[1]), EVENT_SKAUT_DEPARTURE );
 	}
 
@@ -190,21 +196,19 @@ void wagen_unload_arrival()
 
 void skaut_arrival()
 {
-        
-        int current_unit = (int) ++transfer[3];
-	if (is_machine_busy[current_unit]) {
-		if (list_size[current_unit] == queue_size[current_unit]) {
+	int current_unit = (int) ++transfer[3];
+	
+	if (is_machine_busy[current_unit]) { // machine is busy
+		
+		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) { // machine busy, row full
 			//queue_is_full();
-			printf("BOOM! in row: %f\n", transfer[3]);
-			int k;
-			for (k = 1; k <= number_of_machines; k++)
-				printf("Items in queue %d: %d", k, list_size[number_of_machines +k]);
-			printf("Number of items in the row: %d\n", list_size[7+5]);
-		} else {
+		} else { // machine busy, row not full
 			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
+			printf("Appended to row %d\n", current_unit);
 		}
-	} else {
-
+	
+	} else { // machine is not busy
+		printf("Machine available: %d\n", is_machine_busy[current_unit]);
 		list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
