@@ -260,6 +260,7 @@ void skaut_arrival()
 			// execution for this function call ends here
 		} else {
 			// put skaut in the queue
+			// i have small penis
 			list_file(LAST, number_of_machines + current_unit);
 		}
 
@@ -298,6 +299,21 @@ void skaut_departureOLD()
 
 void skaut_departure()
 {
+	
+	list_remove( (int) transfer[3], FIRST ); // popping off machine
+	
+	
+	int current_unit = (int) transfer[3];
+	
+	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
+		skaut_throughput += 2;
+	} else {
+		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
+	}
+	
+	
+
+	/*
 	int current_unit = (int) transfer[3];
 	
 	// is the station the skaut is departuring from the last station on the left side?
@@ -318,6 +334,7 @@ void skaut_departure()
 		// transfer[3] should therefor contain the correct station number, which is in fact current_unit
 		list_file(current_unit, LAST);
 	}
+	*/
 	
 }
 
