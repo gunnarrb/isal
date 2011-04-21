@@ -260,7 +260,6 @@ void skaut_arrival()
 			// execution for this function call ends here
 		} else {
 			// put skaut in the queue
-			// i have small penis
 			list_file(LAST, number_of_machines + current_unit);
 		}
 
