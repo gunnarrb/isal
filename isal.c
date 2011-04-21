@@ -202,14 +202,16 @@ void skaut_arrival()
 	if (list_size[current_unit] == 1) { // machine is busy	
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) { // machine busy, row full
 			//queue_is_full();
-		} else { // machine busy, row not full
-			list_file(LAST, number_of_machines + current_unit); // skaut appended to machine's queue
-			printf("Appended to row %d\n", current_unit);
+		} 
+                else { // machine busy, row not full
+			list_file(LAST, number_of_machines + current_unit); // skaut appended to queue
+                        transfer[3] = (float) current_unit;
+                        //	printf("Appended to row %d\n", current_unit);
 		}
 	
-	} else { // machine is not busy
-		printf("Machine available: %d\n", is_machine_busy[current_unit]);
-		list_file(LAST, current_unit); // skaut put in machine 
+	} 
+        else { // machine is not busy
+                list_file(LAST, current_unit); // skaut put in machine 
 		is_machine_busy[current_unit] = 1; // machine is busy
 		sampst(0.0, current_unit); // the delay is zero
 		//printf("Scheduling event 4 from skaut_arrival, current_unit = %d\n", current_unit);
@@ -222,23 +224,27 @@ void skaut_departure()
 {
 	int current_unit = (int)transfer[3];
 
-	if (!current_unit == 1)
-		list_remove(FIRST, current_unit);
+	if (current_unit != 1) {
+          list_remove(FIRST, current_unit);
+        }
 
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
 		skaut_throughput += 2;
-	} else {
+	} 
+        else {
 		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
+		transfer[3] = (float) current_unit;
 	}
 
 	if (list_size[number_of_machines + current_unit] == 0) {
 		is_machine_busy[current_unit] = 0;
 		// STATISTICS
-	} else {
+	} 
+        else {
+          list_file(LAST, current_unit); // skaut appended to machine's queue
+          transfer[3] = (float) current_unit;
 	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
-		//transfer[3] = current_unit;
-		//printf("Scheduling event 4 from skaut_departure, current_unit = %d\n", current_unit);
-		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+          event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
 
