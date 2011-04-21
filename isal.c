@@ -52,7 +52,7 @@ FILE *infile, *outfile;
 
 // Usage:	wagen_arrival();
 // Pre:		EVENT_WAGEN_UNLOAD_ARRIVAL is the next event to be processed
-// Post:	14 skaut have been assigned to unit B, and their arrival events scheduled
+// Post:	14 EVENT_SKAUT_ARRIVAL events are next to be processed on the event list.
 void wagen_unload_arrival();
 
 // Usage:	skaut_arrival();
@@ -133,7 +133,7 @@ int main()
 		maxatr = 4; // how many attributes do we need?
 		
 		/* Schedule first wagen arrival */
-		transfer[3] = 1.0; 
+		//transfer[3] = 1.0; 
 		event_schedule( 1.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
 		
 		/* Schedule end of warmup time */
@@ -145,7 +145,7 @@ int main()
 		while (next_event_type != EVENT_END_SIMULATION) {
 	
 			timing();
-			printf("next_event_type = %d, transfer[3] = %f\n", next_event_type, transfer[3]);
+			printf("event_type = %d, transfer[3] = %f\n", next_event_type, transfer[3]);
 			int k;
 			for (k = 1; k <= number_of_machines; k++)
 				printf("Items in machines/queues %d:  %d, %d\n", k, list_size[k], list_size[number_of_machines +k]);
@@ -179,7 +179,7 @@ int main()
 	}
 }
 
-void wagen_unload_arrival()
+void wagen_unload_arrivalOLD()
 {
 	int i;
 	
@@ -194,7 +194,28 @@ void wagen_unload_arrival()
 
 }
 
-void skaut_arrival()
+void wagen_unload_arrival()
+{
+	
+	/*	when the wagen arrives, 14 skaut arrivals are fired with current location (transfer[3]) = 1.0.
+		this means that we are able to handle statistics also for machine 1. Machine 1 has a queue of size 14, which is the
+		wagen load.
+	*/
+	
+	int i;
+	for (i=1; i <= WAGEN_LOAD; i ++) {
+		/*	transfer[3] = 1.0; transfer[3] can be 0 here, because there is no current location, they are on der wagen!!! skaut_arrival then
+			increments transfer[3], which is normal. 
+		*/
+		event_schedule( sim_time + (i*0.1),	EVENT_SKAUT_ARRIVAL);
+	}
+	
+	// schedule next wagen arrival
+	event_schedule(sim_time + 30*60, EVENT_WAGEN_UNLOAD_ARRIVAL);
+}
+
+
+void skaut_arrivalOLD()
 {
 	int current_unit = (int) ++transfer[3];
 	
@@ -220,7 +241,34 @@ void skaut_arrival()
 	}
 }
 
-void skaut_departure()
+
+void skaut_arrival() 
+{
+	int current_unit = (int) ++transfer[3]; // this then increments skauts from the wagen!!
+	
+	// check if machine is not busy
+	if (list_size[current_unit] == 0) {
+		// put skaut in machine
+		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
+		// schedule departure after machine processing time
+		transfer[3] = (float) current_unit;
+		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	} else {
+		// check if queue is full
+		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
+			printf("BOOM! UNIT %d exploded with %d items!\n", current_unit, list_size[number_of_machines + current_unit]);
+			// execution for this function call ends here
+		} else {
+			// put skaut in the queue
+			list_file(LAST, number_of_machines + current_unit);
+		}
+
+	}
+
+
+}
+
+void skaut_departureOLD()
 {
 	int current_unit = (int)transfer[3];
 
@@ -246,6 +294,31 @@ void skaut_departure()
 	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
           event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
+}
+
+void skaut_departure()
+{
+	int current_unit = (int) transfer[3];
+	
+	// is the station the skaut is departuring from the last station on the left side?
+	if(current_unit == MACHINES_ON_THE_LEFT_SIDE) {
+		skaut_throughput +=2;
+	} else { 
+		// chedule arrival time at the next station
+		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
+	}
+	// remove this skaut from the machine
+	list_remove(LAST, current_unit);
+	// restore transfer[3] because list_remove overwrites it
+	transfer[3] = (float) current_unit;
+	
+	// are there any skauts in the machine's queue that need some processing?
+	if (list_size[number_of_machines + current_unit] != 0) {
+		list_remove(FIRST, number_of_machines + current_unit); // aafter this line, transfer is overwritten with the values of the first skaut's in queue.
+		// transfer[3] should therefor contain the correct station number, which is in fact current_unit
+		list_file(current_unit, LAST);
+	}
+	
 }
 
 
