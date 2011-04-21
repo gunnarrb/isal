@@ -192,20 +192,6 @@ int main()
 	}
 }
 
-void wagen_unload_arrivalOLD()
-{
-	int i;
-	
-	for (i = 1; i <= WAGEN_LOAD; i++) {
-		transfer[3]=1.0;
-		//transfer[4] = 9.0;
-		event_schedule( sim_time + (i * work_time[1]), EVENT_SKAUT_DEPARTURE );
-	}
-
-	// DO SIMLIB STATISTICS?
-	event_schedule( sim_time + 60*30 , EVENT_WAGEN_UNLOAD_ARRIVAL );
-
-}
 
 void wagen_unload_arrival()
 {
@@ -220,7 +206,7 @@ void wagen_unload_arrival()
 		/*	transfer[3] = 1.0; transfer[3] can be 0 here, because there is no current location, they are on der wagen!!! skaut_arrival then
 			increments transfer[3], which is normal. 
 		*/
-		event_schedule( sim_time + (i*0.1),	EVENT_SKAUT_ARRIVAL);
+		event_schedule( sim_time + (i*0.01),	EVENT_SKAUT_ARRIVAL);
 	}
 	
 	// schedule next wagen arrival
@@ -262,9 +248,10 @@ void skaut_arrival()
 	// check if machine is not busy
 	if (list_size[current_unit] == 0) {
 		// put skaut in machine
+		push_array();
 		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
+		pop_array();
 		// schedule departure after machine processing time
-		transfer[3] = (float) current_unit;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	} else {
 		// check if queue is full
@@ -281,73 +268,35 @@ void skaut_arrival()
 
 }
 
-void skaut_departureOLD()
-{
-	int current_unit = (int)transfer[3];
-
-	if (current_unit != 1) {
-          list_remove(FIRST, current_unit);
-        }
-
-	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {	//last machine on left side, so the skaut goes into the skautaskali
-		skaut_throughput += 2;
-	} 
-        else {
-		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
-		transfer[3] = (float) current_unit;
-	}
-
-	if (list_size[number_of_machines + current_unit] == 0) {
-		is_machine_busy[current_unit] = 0;
-		// STATISTICS
-	} 
-        else {
-          list_file(LAST, current_unit); // skaut appended to machine's queue
-          transfer[3] = (float) current_unit;
-	  list_remove(FIRST, number_of_machines + current_unit);  //get skaut from queue and process it
-          event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
-	}
-}
-
 void skaut_departure()
 {
-	
-	list_remove( (int) transfer[3], FIRST ); // popping off machine
-	
+	//push_array();
+	list_remove( (int) transfer[3], FIRST ); // popping off the machine
+	/* list_remove does not clear transfer */
+	//pop_array();
 	
 	int current_unit = (int) transfer[3];
 	
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
 		skaut_throughput += 2;
 	} else {
+		push_array();
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
+		pop_array();
 	}
 	
-	
-
-	/*
-	int current_unit = (int) transfer[3];
-	
-	// is the station the skaut is departuring from the last station on the left side?
-	if(current_unit == MACHINES_ON_THE_LEFT_SIDE) {
-		skaut_throughput +=2;
-	} else { 
-		// chedule arrival time at the next station
-		event_schedule(sim_time + transfer_time[current_unit], EVENT_SKAUT_ARRIVAL);
-	}
-	// remove this skaut from the machine
-	list_remove(LAST, current_unit);
-	// restore transfer[3] because list_remove overwrites it
-	transfer[3] = (float) current_unit;
-	
-	// are there any skauts in the machine's queue that need some processing?
 	if (list_size[number_of_machines + current_unit] != 0) {
-		list_remove(FIRST, number_of_machines + current_unit); // aafter this line, transfer is overwritten with the values of the first skaut's in queue.
-		// transfer[3] should therefor contain the correct station number, which is in fact current_unit
-		list_file(current_unit, LAST);
-	}
-	*/
+		
+		list_remove(FIRST, number_of_machines + current_unit);
 	
+		push_array();
+		list_file(current_unit, FIRST); // first equals last because size should only be 1
+		pop_array();
+		
+		// schedule depart for this skaut in machine
+		// no need for pushing because this is end of execution
+		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	}
 }
 
 
