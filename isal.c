@@ -41,16 +41,16 @@
 // Global variables
 int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
-int testcounter;
-int SAMPST_DELAYS; // variable for queue delays
+int SAMPST_DELAYS, THROUGHPUT_TIME; // variable for queue delays and throughput time
 
-int is_machine_busy[NUM_MACHINES +1],
-queue_size[NUM_MACHINES +1];
+int skaut_id;
+
+int queue_size[NUM_MACHINES +1];
 
 float work_time[NUM_MACHINES + 1],
 transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
 
-float temp_transfer[TRANSFER_ARRAY_LENGTH+1];
+float temp_transfer[TRANSFER_ARRAY_LENGTH];
 
 FILE *infile, *outfile;
 
@@ -127,14 +127,11 @@ void queue_is_full();
 
 int main()
 {
-	testcounter = 0;
-
+	
 	// load datafiles
 	parse_input("adal_inntak.in","velar_og_bidradir.in");
-	// initialize arrays and variables
-	memset( is_machine_busy,0, NUM_MACHINES +1 );
-	skaut_throughput = 0;
 	SAMPST_DELAYS = number_of_machines +1;
+	THROUGHPUT_TIME = number_of_machines +2;
 	
 	int b;
 	for (b=1; b <= number_of_machines; b++) {
@@ -144,6 +141,10 @@ int main()
 	// We perform simulation for "a few" failures per day
 	int i;
 	for (i = min_no_failures; i < max_no_failures; i++) {
+	//for ( i=1; i<2; i++) {
+		skaut_id = 1;
+		skaut_throughput = 0;
+		
 		// Initialize rndlib
 		init_twister();
 		
@@ -180,7 +181,6 @@ int main()
 					break;
 				case EVENT_SKAUT_DEPARTURE:
 					skaut_departure();
-					
 					break;
 				case EVENT_MACHINE_FAILURE:
 					//machine_failure();
@@ -199,98 +199,82 @@ int main()
 	}
 }
 
-
 void wagen_unload_arrival()
 {
 	
-	/*	when the wagen arrives, 14 skaut arrivals are fired with current location (transfer[3]) = 1.0.
-	 this means that we are able to handle statistics also for machine 1. Machine 1 has a queue of size 14, which is the
-	 wagen load.
-	 */
-	
 	int i;
 	for (i=1; i <= WAGEN_LOAD; i ++) {
-		/*	transfer[3] = 1.0; transfer[3] can be 0 here, because there is no current location, they are on der wagen!!! skaut_arrival then
-		 increments transfer[3], which is normal. 
-		 */
+		
 		transfer[3]=1.0;
-		event_schedule( sim_time + (i*0.01),	EVENT_SKAUT_ARRIVAL);
+		transfer[4] = sim_time + (i * 0.01); // skaut entering system time
+		transfer[5] = (float) skaut_id++;
+		//printf("tr4 in wagen: %f\n", transfer[4]);
+		event_schedule( sim_time + ( i* 0.01),	EVENT_SKAUT_ARRIVAL);
 	}
-	
-	// schedule next wagen arrival
-	transfer[3] = 0.0;
-	event_schedule(sim_time + 30*60, EVENT_WAGEN_UNLOAD_ARRIVAL);
+
+	float wagen_arrival_zeit = sim_time + 30.0 * 60.0; // this should be sampled from a distribution!!
+	event_schedule(wagen_arrival_zeit, EVENT_WAGEN_UNLOAD_ARRIVAL);
 }
 
 
 void skaut_arrival() 
 {
-	int current_unit = (int)transfer[3]; // this then increments skauts from the wagen!!
-	
-	// check if machine is not busy
-	if (list_size[current_unit] == 0) {
-		// put skaut in machine
-		push_array();
-		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
-		pop_array();	
+	push_array();
+	int current_unit = (int)transfer[3];
 
-		// schedule departure after machine processing time
-		transfer[3] = (float)current_unit;
+	if (list_size[current_unit] == 0) {
 		sampst(0.0, SAMPST_DELAYS);
 		sampst(0.0, current_unit);
+		
+		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
+		
+		// schedule departure after machine processing time
+		pop_array();
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 		
-		// tally a delay of 0.0 for this unit's queue, if the skaut was not in the queue before
 	} else {
-		// check if queue is full
+		
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
 			printf("BOOM! UNIT %d exploded with %d items!\n", current_unit, list_size[number_of_machines + current_unit]);
 			exit(1);
-			// execution for this function call ends here
 		} else {
-			// put skaut in the queue
-			transfer[3] = (float) current_unit;
+			transfer[5] = sim_time;
 			list_file(LAST, number_of_machines + current_unit);
+			//printf("puting skaut in queue: %d\n", current_unit);
 		}
 		
 	}
-	
-	
+
 }
 
 void skaut_departure()
 {
+	push_array();
 	int current_unit = (int) transfer[3];
-	float testtime = transfer[1];
 		
-	printf("remove from machine with current %d \n", current_unit);
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
 		skaut_throughput += 2;
+		sampst(sim_time - transfer[4], THROUGHPUT_TIME);
 		list_remove(FIRST,current_unit);  
-	} 
-	else {
+	} else {
 		list_remove(FIRST,current_unit);
-		printf("DGB1: %f, %f\n", transfer[1], testtime);
-		push_array();
-		transfer[3]=transfer[3]+1.0;
-		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
 		pop_array();
-		printf("after popping: %f\n", transfer[1]);
-		// is data in ordnung here?
-		
+		transfer[3]++;
+		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
 	}
 	
+		
 	if (list_size[number_of_machines + current_unit] != 0) {
-		push_array();
-		transfer[3] = (float) current_unit;
-		//printf("DGB: tr4 %f\n", transfer[4]);
+		pop_array();
+		
 		list_file(FIRST,current_unit); // first equals last because size should only be 1
 		pop_array();
 
 		list_remove(FIRST, number_of_machines + current_unit);
-		printf("tr4: %f, %f\n", transfer[4], transfer[1]);
-		sampst(sim_time - transfer[1], SAMPST_DELAYS);
-		sampst(sim_time - transfer[1], current_unit);
+		pop_array();
+
+		sampst(sim_time - transfer[5], SAMPST_DELAYS);
+		sampst(sim_time - transfer[5], current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
@@ -340,14 +324,13 @@ void report()
 		printf("Avg delay in queue %d: %f\n", i, sampst(0.0, -i));
 	}
 	printf("Avarage queue delay: %f\n", sampst(0.0, -SAMPST_DELAYS));
-	/*printf("t2 %f\n", transfer[2]);
-	printf("t4 %f\n", transfer[3]);
-	printf("t4 %f\n", transfer[4]);
-*/
+	
+	printf("Average throughput time: %f\n", sampst(0.0, -THROUGHPUT_TIME));
 
 }
 
 void push_array() {
+
 	memcpy(temp_transfer,transfer,TRANSFER_ARRAY_LENGTH*sizeof(float));  
 }
 
