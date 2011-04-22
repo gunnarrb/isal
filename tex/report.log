@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  22 APR 2011 21:57
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  22 APR 2011 22:55
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -541,40 +541,41 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 68.
-
-Underfull \hbox (badness 10000) in paragraph at lines 93--94
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-[3] <../figures/flow2.png, id=80, 452.69125pt x 570.13pt>
+<../figures/flow2.png, id=80, 452.69125pt x 570.13pt>
 File: ../figures/flow2.png Graphic file (type png)
 
-<use ../figures/flow2.png> [4 <../figures/flow2.png (PNG copy)>] (./report.aux)
- ) 
+<use ../figures/flow2.png> [4 <../figures/flow2.png (PNG copy)>] [5]
+(./report.aux) ) 
 Here is how much of TeX's memory you used:
- 7649 strings out of 493848
- 107180 string characters out of 3149207
+ 7652 strings out of 493848
+ 107207 string characters out of 3149207
  197378 words of memory out of 3000000
- 10742 multiletter control sequences out of 15000+200000
- 19722 words of font info for 53 fonts, out of 3000000 for 9000
+ 10743 multiletter control sequences out of 15000+200000
+ 20408 words of font info for 54 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  38i,8n,43p,1168b,324s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></
-usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr
-/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/lo
-cal/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/loca
-l/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/
-texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/te
-xlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texl
-ive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texliv
-e/2009/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/
-2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/20
-09/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2009
-/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on report.pdf (4 pages, 373318 bytes).
+{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm
+-super-t1.enc}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi9.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr6.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+9.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.
+pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pf
+b></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb>
+</usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></
+usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></us
+r/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/
+local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/lo
+cal/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/loca
+l/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/
+texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
+Output written on report.pdf (5 pages, 390852 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
+ 141 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
  75 words of extra memory for PDF output out of 10000 (max. 10000000)
 
