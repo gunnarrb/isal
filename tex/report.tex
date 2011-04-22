@@ -1,0 +1,134 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{ucs}
+%\usepackage[utf8x]{inputenc}
+\usepackage[icelandic]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{hyperref}
+\usepackage[intlimits]{amsmath}
+\usepackage{amsfonts, amssymb, amsthm} 
+\usepackage{eucal}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{qtree}
+\usepackage{listings}
+\usepackage{wrapfig}
+\usepackage{fullpage}
+
+\title{Hermun skautaskála hjá Ísáli}
+\date{}
+\author{Gunnarr Baldursson \& Ragnar Gísli Ólafsson}
+\begin{document}
+\maketitle
+\abstract{Ble! Abstract}
+\tableofcontents
+
+\section{Inngangur}
+Alcan á Íslandi hf., betur þekkt sem Ísál, er hluti af Rio Tinto Alcan, fjölþjóðlegu fyrirtæki sem er stærsti álframleiðandi í heimi.  Ísal rekur álverið í Straumsvík sem er ellefta stærsta álverið innan samsteypunnar. Framleiðslugetan er um 185 þúsund tonn og starfsmennirnir eru um 450; vélvirkjar, verkfræðingar, stóriðjugreinar, rafvirkjar, verkafólk, tæknifræðingar, málarar, skrifstofufólk, bifvélavirkjar, viðskiptafræðingar, múrarar, matreiðslumenn, rafeindavirkjar, smiðir o.fl
+
+Ísal rekur þrjá kerskála þar sem að svonefnd skaut eru notuð til rafgreiningar áls.  Kerin eru númeruð frá 1001 til 3160 þar sem fyrsta talan stendur fyrir númer skála, og næstu þrjár númer kers í skálanum. Hvert ker hefur 24 skaut sem að slitna með tímanum. Þess vegna þarf að skipta um þau á 26 til 30 daga fresti en það er mismunandi eftir skálum. Skáli 3 hefur stærri skaut og hærri straum, 165 kA og þar endast skaut í 26 daga. Skálar 1 og 2 hafa lægri straum, 133 kA og minni skaut sem að endast í 30 daga. Daglega þarf að skipta út um það bil 404 skautum. 
+
+Í kerskála er unnið á þremur vöktum allan sólarhringinn alla daga vikunnar og fer fram skautskipting á hverri vakt. Hver vakt nemur 8 klukkustundum, næturvaktin byrjar á miðnætti, dagvaktin klukkan átta og kvöldvaktin klukkan fjögur. Hver vakt skiptir því um 404/3 = 104 skaut. Starfsmenn kerskála taka brunnin skaut úr kerum og setja ný skaut í kerin í staðinn. Síðan kemur starfsmaður skautskálans og nær í brunnu skautin sem bíða á vögnum í kerskálanum og flytur þau á sérstakan kæligang. Þar skilur hann þau eftir og nær í staðinn í brunnin skaut sem eru orðin köld og fer með þau í skautskála til hreinsunar. Í hvert skipti sem starfsmaður skautskála sækir brunnin úr kerskála kemur hann með ný skaut. Því er alltaf jafn fjöldi vagna sem fer inn í skautskálann og út úr honum.
+
+Skautin eru flutt á tveimur tengdum vögnum með 12-14 skautum á í einu. Ferðir frá skautskála til kerskála eru aðeins farnar á dagvöktum og kvöldvöktum. Skaut sem þarf að nota á næturna eru því keyrð til kerskála á dag - og kvöldvöktum. Meðaltal fjölda ferða frá skautskala til kerskála eru um það bil 30 á sólarhring, eða 15 á vakt. Skautskáli reynir að framleiða þann fjölda skauta sem nemur skautafjölda tveggja vakta hjá kerskála á hverri vakt, og er því tveimur vöktum á undan. 
+
+Fræðileg hámarks afkastageta skautskála eru 52 skaut á klukkustund en vegna bilanna er afkastageta á hverri vakt í besta falli um það bil 40 skaut á klukkustund. Skálinn er framleiðslulína sem að samtímis tekur skautleifar af vögnum og hreinsar ásamt því að taka á móti nýjum skautum og setja á vagnanna. Lestun nýrra skauta og losun brunninna skauta er samtengt ferli, ef ekki er hægt að taka brunnin skaut af vagni þá er heldur ekki hægt að setja ný skaut á vagn. 
+
+Framleiðsluferli skautskála hefst þegar skautleifar koma á vögnum að vél A, sem að hífir þær af vögnum. Eftir það fara þær í gegnum vélar B til E þar sem að leifarnar eru hreinsaðar þannig að gaffallinn stendur einn eftir. Gaffallinn heldur síðan áfram inn í aðra byggingu sem að nefnist skautsmiðja, þar sem hann er skoðaður, réttur af og sandblásinn áður en hann fer í steypun þar sem að ný kol eru steypt við hann. Þá er hann tilbúinn sem nýtt skaut. Þegar þessu ferli er lokið kemur skautið að vél F þar sem það er merkt og sent til vélar G. Vél G lestar skautið á vagn, sem er síðar keyrður til kerskála. Þetta ferli er lýst á Mynd 1.
+
+\begin{figure}%[h]
+\centering
+\includegraphics[scale=0.3]{../figures/flow.jpg}
+\caption{Ferli skautskála}
+\end{figure}
+
+Skautið er tekið inn í ferlið þannig að það er hengt á ferju sem að er dregin áfram af keðju, sem að fer í gegnum allan skautskálann og inn í skautsmiðjuna og til baka. Ferlið er raðgengt svo ef vélr er að afgreiða skaut þarf skautið á eftir að bíða þangað til að vélin hefur lokið sér af. Til að stýra þessu flæði eru svokallaðir lásar staðsettir með regulegu millibili á keðjunni og kúpla þeir ferjum út til að stöðva þær. Þannig geta sum skaut verið á hreyfingu á meðan önnur eru kyrrstæð því að keðjan sjálf stöðvar ekki nema slökkt sé á henni handvirkt. Á bak við sumar vélar eru biðraðir en þar bíða skaut eftir afgreiðslu ef að vélin er upptekin. Lása og biðraðir má sjá á Mynd 1. Lásar á undan fullum biðröðum mega ekki sleppa sýnum skautum þangað til að það rúmast til í röðinni. Skaut geta ekki farið framhjá vélum þannig að ef að vél bilar lengi og röð hennar fyllist heldur sá lás sem kemur þar á undan sýnu skauti föstu og þannig koll af kolli. Þannig getur löng bilun stöðvað skautahreinsiferlið í einhvern tíma þó að keðjan sem ber ferjurnar haldi áfram keyrslu. Hún er þá eins og bílvél með einhvern snúningshraða sem er í hlutlausum gír. 
+
+Það er nokkuð slembið hvaða vélar stoppa nema vél F sem að bilar nánast aldrei. Þegar stærri bilanir eiga sér stað þarf að kalla út viðgerðarmenn en í flestum tilfellum tekur það 5 til 30 mínútur að koma bilaðri vél aftur af stað. Skakkt skaut í vél flokkast sem bilun og þá þarf starfsmaður að bakka því út úr vélinni, leiðrétta það og senda inn aftur. Svoleiðis atvik eiga sér stað nokkrum sinnum á sólarhring og er helsta ástæða þess að afköst skautskála nema um það bil 40 skautum á klukkustund. Ef viðgerðartímar eru þeim mun lengri á einhverri vakt þá þarf vaktin sem kemur á eftir að vinna upp framleiðslutapið. Skautskáli keyrir aðeins á dagvöktum og kvöldvöktum. 
+
+Framkvæmdir eru hafnar við að auka strauminn í kerum 1 og 2 sem veldur dræmri endingartíma skauta, og koma þau þá til með að endast í 26 til 28 daga eftir straumhækkun. Gerð verður sú nálgun að alltaf sé nóg til af nýjum skautum í skautsmiðju sem koma að vél F. Verkefnið er að herma ferli skautskála með eftirfarandi vangaveltur í huga:
+
+\begin{enumerate}
+\item Hversu mikið af töfum (í mínútum talið) þolir skautskálinn til að ná lágmarksafköstum?
+\item Er það ráðlegt að stækka biðraðir eða bæta við biðröðum?
+\item Hve miklu munar það fyrir ferlið ef að starfsmenn koma vélum af stað eins fljótt og þeir geta?
+\item Ef tafir eru litlar, hvenær hefur vakt náð lágmarksafköstum?
+\item Hversu fljótur er skálinn að vinna upp langar viðgerðatafir?
+\item Hvaða áhrif hefur hækkun straums á ferlið?
+\end{enumerate}
+
+
+
+\section{Niðurstöður}
+
+\section {Líkan og Aðferðir}
+Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skautskála. Til að smíða þetta líkan voru okkur gefin gögn á Excel sniði sem að fylgja með þessari skýrslu. Gögnin eru ónákvæm og torskiljanleg og eru eftirfarandi forsendir gefnar frá þeim.
+
+\subsection*{Umskipting skauta og afköst Skautskála}
+\begin{itemize}
+\item Fyrir straumhækkun þá þarf að skipta um skaut í skálum 1 og 2 á 30 daga fresti, og í skála 3 á 26 daga fresti. Það gerir $\frac{24 \cdot 160}{26} + \frac{24 \cdot 160}{30} + \frac{24 \cdot 160}{30} = 403.69$  skaut á dag, þar sem að allir skálar hafa 24 skaut í í hverju keri og 160 ker í hverjum skála. Nefnararnir í formúlunni eru endingadagar skauta í viðeigandi kerskála. Sú tala er námunduð upp í 404 skaut á dag og eru það lágmarksafköst skautskála.
+\item Eftir straumhækkun þarf að skipta um skaut í öllum skálum á 26 daga fresti. Það gerir $\frac{24 \cdot 160}{26} + \frac{24 \cdot 160}{26} + \frac{24 \cdot 160}{26} = 443.07$ skaut á dag. Sú tala er námunduð upp í 444 skaut á dag og er það lágmarks afkastageta skautskála eftir straumhækkun.
+\item Fræðileg hámarksafköst skála eru 52 skaut á klst, eða $16 \cdot 62 = 832$ skaut á sólarhring (Skautskálinn starfar aðeins í tvær vaktir, eða 16 klukkustundir á sólarhring).
+\item Raunveruleg hámarksafköst skála eru 40 skaut á klst, eða $16 \cdot 40 = 640$ skaut á sólarhring (Skautskálinn starfar aðeins í tvær vaktir, eða 16 klukkustundir á sólarhring).
+\end{itemize}
+
+\subsection*{Bilanir}
+Samkvæmt verkefnislýsingunni HEIMILD er það nokkuð slembið hvaða vélar bila, að vél F undanskilinni, og að bilanir eiga sér stað nokkrum sinnum á vakt. 
+
+
+\subsection*{Einingar og undirkerfi}
+%blabla um einingar og undirkerfi
+
+$$
+\begin{array}{lll}
+\textbf{Eining} & \textbf{Þættir} & \textbf{Hlutverk}\\
+\hline
+A & \text{Vél A, 14 skauta biðröð í formi vagna} & \text{Vagnlosun}\\
+B & \text{Vél B, biðröð og lás sem geyma 17 skaut} & \text{Skauthreinsivél}\\
+C & \text{Vél C} & \text{Myndavél og Þjarkur}\\
+D & \text{Vél D, einn lás} & \text{Strípari}\\
+E & \text{Vél E, einn lás} & \text{Kragahreinsivél}\\
+F & \text{Vél F, einn lás} & \text{Merkivél}\\
+G & \text{Vél G, biðröð fyrir 2 skaut} & \text{Vagnhleðsla}
+\end{array}
+$$
+
+Þessu er lýst á Mynd 2. Vélar B og C geta unnið tvö skaut í einu. HEIMILD\\ 
+
+
+Þegar Mynd 2 er skoðuð má sjá að hægt er að skipta Skautskála upp í tvo helminga sem hefur hvor sitt inntak og sitt úttak. Inntak í vinstri helming kemur frá vél A, og úttak hans fer frá vél E. Inntak í hægri helming kemur frá vél F, en sú nálgun er gerð að þar sé ávallt nóg af nýjum skautum að taka, og úttak þess helmings er vél G, sem að hleður nýju skautunum á vagna. Við heimsókn í Ísal þann 21. mars 2011 kom fram að bilanir og tafir megi sjaldnast rekja til hægri helmingsins. Þar eru aðeins tvær vélar meðan vinstri hliðin hefur fimm vélar sem að vinna flóknari verk. Af þeim ástæðum er vél F undanskilin hermun. Vél G getur bilað, og ef það gerist stöðvar lestun og losun skauta um þann tíma sem það tekur að gera við bilunina.
+
+Gert er ráð fyrir því að vagnar sem koma með skautaleifar séu ávallt fullskipaðir. Ef það koma tveir fullskipaðir vagnar, með samtals fjórtán skautum, á hálftíma fresti inn í líkanið, og allar vélar hafa vinnutíma sem að er fasti, þá er úttakið einnig fasti. 
+
+\begin{figure}%[h]
+\centering
+\includegraphics[scale=0.5]{../figures/flow2.png}
+\caption{Einingar líkans}
+\end{figure}
+
+
+\subsection*{Vélar og vinnslutímar}
+% blabla um hvernig tímarnir voru reiknaðir út
+Vinnslutími vélar er sá tími sem líður milli þess að skaut kemur að lausri vél og fer frá vélinni aftur. Færslutími er sá tími sem líður milli þess að skaut fer frá vél og kemur að næstu vél. Þeir eru reiknaðir út skv. HEIMILD
+Þar sem að vélar B og C geta unnið tvö skaut í einu er vinnslutími þeirra helmingaður, svo hann deilist jafnt á hvert skaut.
+
+$$
+\begin{array}{lll}
+\textbf{Vél} & \textbf{Vinnslutími} & \textbf{Færslutími} \\
+\hline
+A & 70 & 129.83\\
+B & 21.798 & 122.83\\
+C & 12.7 & 18.98\\
+D & 67.41 & 22.74\\
+E & 69.75 & 0
+\end{array}
+$$
+
+
+\section{Gögn og heimildir}
+
+\section {Viðauki}
+\subsection{Líkanið í forritunarmálinu C }
+\subsection{Inntaksgögn líkans}
+\subsection{Keyrsluskýrslur}
+
+\end{document}
