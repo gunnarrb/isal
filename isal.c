@@ -44,6 +44,8 @@ float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_ma
 int testcounter;
 int SAMPST_DELAYS; // variable for queue delays
 
+float machine_broken[NUM_MACHINES +1];
+
 int is_machine_busy[NUM_MACHINES +1],
 queue_size[NUM_MACHINES +1];
 
@@ -55,6 +57,12 @@ float temp_transfer[TRANSFER_ARRAY_LENGTH+1];
 FILE *infile, *outfile;
 
 /* Function signatures */
+
+// Usage:	create_machine_fail_events(number_of_failures)
+// Pre:		init_twister must be called for random number generation
+// Post:	scheduled events have been created for machines 
+void create_machine_fail_events(int);
+
 
 // Usage:	push_array();
 // Pre:		we expect that correct values are in transfer array
@@ -133,14 +141,15 @@ int main()
 	parse_input("adal_inntak.in","velar_og_bidradir.in");
 	// initialize arrays and variables
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
+        memset( machine_broken,0, NUM_MACHINES +1);
 	skaut_throughput = 0;
 	SAMPST_DELAYS = number_of_machines +1;
 	
 	int b;
 	for (b=1; b <= number_of_machines; b++) {
 		printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
+                printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
 	}
-	
 	// We perform simulation for "a few" failures per day
 	int i;
 	for (i = min_no_failures; i < max_no_failures; i++) {
@@ -149,7 +158,11 @@ int main()
 		
 		// Initialize simlib
 		init_simlib();
+
 		maxatr = 6; // how many attributes do we need?
+
+                /* Schedule machine breakdown time */
+                create_machine_fail_events(i);
 		
 		/* Schedule first wagen arrival */
 		//transfer[3] = 1.0; 
@@ -161,6 +174,10 @@ int main()
 		/* Schedule simulation termination */
 		event_schedule( end_simulation_time, EVENT_END_SIMULATION );
 		
+               
+                
+                
+                
 		while (next_event_type != EVENT_END_SIMULATION) {
 			
 			timing();
@@ -170,10 +187,11 @@ int main()
 				printf("Items in machines/queues %d:  %d, %d\n", k, list_size[k], list_size[number_of_machines +k]);
 			printf("\n");
 			
-			
+                        printf("vel %f\n",transfer[3]);
+                        
 			switch (next_event_type) {
 				case EVENT_WAGEN_UNLOAD_ARRIVAL:
-					wagen_unload_arrival();
+                                        wagen_unload_arrival();
 					break;
 				case EVENT_SKAUT_ARRIVAL:
 					skaut_arrival();
@@ -183,10 +201,10 @@ int main()
 					
 					break;
 				case EVENT_MACHINE_FAILURE:
-					//machine_failure();
+					machine_failure();
 					break;
 				case EVENT_MACHINE_FIXED:
-					//machine_fixed();
+					machine_fixed();
 					break;
 				case EVENT_END_WARMUP:
 					end_warmup();
@@ -240,7 +258,9 @@ void skaut_arrival()
 		sampst(0.0, current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 		
-		// tally a delay of 0.0 for this unit's queue, if the skaut was not in the queue before
+		// Tally a delay of 0.0 for this unit's queue, if the skaut was not in the queue before
+		sampst(0.0, number_of_machines + current_unit);
+
 	} else {
 		// check if queue is full
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
@@ -354,4 +374,46 @@ void push_array() {
 void pop_array() {
 	memcpy(transfer,temp_transfer,TRANSFER_ARRAY_LENGTH*sizeof(float));  
 }
+
+void create_machine_fail_events(int n) {
+	int i;
+        float a[20];
+        memset(a,0,20*sizeof(float));
+        float span = (float)(end_simulation_time - end_warmup_time) / (float) n;  //max time between machine failures
+        float current_span = 0.0;
+        int machine;
+        float repair_time ;
+        float breakdown_time;
+        for (i = 0;i<n;i++) {
+                current_span+=span;
+                machine = (int)unirand(1,number_of_machines+1,1);
+                breakdown_time = unirand(0.0,current_span,1);
+                repair_time =(5.0 + expon(log(max_machine_repair_time - min_machine_repair_time),1))*60.0;
+                if (a[machine]<breakdown_time) {  // 
+                        a[machine] = breakdown_time+repair_time;
+                }
+                else { // if breakdown_time clashes with the same machine then let the breakdown happen after the machine goes up again
+                        breakdown_time = a[machine] + 1.0;
+                        a[machine] = breakdown_time+repair_time;
+                }
+                printf("Span from 0.0 to %f.  Machine %d broke down at time %f and it takes %f to repair\n", current_span, machine, breakdown_time, repair_time/60.0);
+                transfer[3] = repair_time;
+                transfer[4] = (float)machine;
+		event_schedule(breakdown_time, EVENT_MACHINE_FAILURE );
+        }
+}
+
+void machine_failure(){	
+        float repair_time = transfer[3];
+        int   machine     = (int)transfer[4];
+        machine_broken[machine] = repair_time;
+        event_schedule(sim_time + repair_time, EVENT_MACHINE_FIXED);
+}
+
+void machine_fixed(){
+	
+        int   machine     = (int)transfer[4];
+        machine_broken[machine] = 0.0;
+}
+
 
