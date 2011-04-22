@@ -35,11 +35,14 @@
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
 #define TRANSFER_ARRAY_LENGTH 11
+
 //#define LOADING_TIME_PER_SKAUT 
 
 // Global variables
 int number_of_machines, min_productivity, min_no_failures, max_no_failures, skaut_throughput;
 float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time; 
+int testcounter;
+int SAMPST_DELAYS; // variable for queue delays
 
 int is_machine_busy[NUM_MACHINES +1],
 queue_size[NUM_MACHINES +1];
@@ -124,11 +127,14 @@ void queue_is_full();
 
 int main()
 {
+	testcounter = 0;
+
 	// load datafiles
 	parse_input("adal_inntak.in","velar_og_bidradir.in");
 	// initialize arrays and variables
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
 	skaut_throughput = 0;
+	SAMPST_DELAYS = number_of_machines +1;
 	
 	int b;
 	for (b=1; b <= number_of_machines; b++) {
@@ -143,7 +149,7 @@ int main()
 		
 		// Initialize simlib
 		init_simlib();
-		maxatr = 4; // how many attributes do we need?
+		maxatr = 6; // how many attributes do we need?
 		
 		/* Schedule first wagen arrival */
 		//transfer[3] = 1.0; 
@@ -174,6 +180,7 @@ int main()
 					break;
 				case EVENT_SKAUT_DEPARTURE:
 					skaut_departure();
+					
 					break;
 				case EVENT_MACHINE_FAILURE:
 					//machine_failure();
@@ -226,12 +233,14 @@ void skaut_arrival()
 		push_array();
 		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
 		pop_array();	
+
 		// schedule departure after machine processing time
 		transfer[3] = (float)current_unit;
+		sampst(0.0, SAMPST_DELAYS);
+		sampst(0.0, current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 		
 		// tally a delay of 0.0 for this unit's queue, if the skaut was not in the queue before
-		sampst(0.0, number_of_machines + current_unit);
 	} else {
 		// check if queue is full
 		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
@@ -241,7 +250,6 @@ void skaut_arrival()
 		} else {
 			// put skaut in the queue
 			transfer[3] = (float) current_unit;
-			transfer[4] = sim_time;
 			list_file(LAST, number_of_machines + current_unit);
 		}
 		
@@ -252,7 +260,9 @@ void skaut_arrival()
 
 void skaut_departure()
 {
-	int current_unit = (int) transfer[3];	
+	int current_unit = (int) transfer[3];
+	float testtime = transfer[1];
+		
 	printf("remove from machine with current %d \n", current_unit);
 	if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
 		skaut_throughput += 2;
@@ -260,24 +270,27 @@ void skaut_departure()
 	} 
 	else {
 		list_remove(FIRST,current_unit);
+		printf("DGB1: %f, %f\n", transfer[1], testtime);
 		push_array();
 		transfer[3]=transfer[3]+1.0;
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL);
 		pop_array();
+		printf("after popping: %f\n", transfer[1]);
+		// is data in ordnung here?
 		
 	}
 	
 	if (list_size[number_of_machines + current_unit] != 0) {
 		push_array();
+		transfer[3] = (float) current_unit;
+		//printf("DGB: tr4 %f\n", transfer[4]);
 		list_file(FIRST,current_unit); // first equals last because size should only be 1
 		pop_array();
-		
-		// schedule depart for this skaut in machine
-		// no need for pushing because this is end of execution
-		printf("even depart with current %d \n", current_unit);
+
 		list_remove(FIRST, number_of_machines + current_unit);
-		sampst(sim_time - transfer[4], number_of_machines + transfer[3]);
-		transfer[3] = (float)current_unit;
+		printf("tr4: %f, %f\n", transfer[4], transfer[1]);
+		sampst(sim_time - transfer[1], SAMPST_DELAYS);
+		sampst(sim_time - transfer[1], current_unit);
 		event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
 	}
 }
@@ -323,6 +336,15 @@ void report()
 	for (i=1; i <= number_of_machines; i++) {
 		printf("Machine %d: %f\n", i, filest(i) );
 	}
+	for (i=1; i <= number_of_machines; i++) {
+		printf("Avg delay in queue %d: %f\n", i, sampst(0.0, -i));
+	}
+	printf("Avarage queue delay: %f\n", sampst(0.0, -SAMPST_DELAYS));
+	/*printf("t2 %f\n", transfer[2]);
+	printf("t4 %f\n", transfer[3]);
+	printf("t4 %f\n", transfer[4]);
+*/
+
 }
 
 void push_array() {
