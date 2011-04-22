@@ -383,7 +383,7 @@ void create_machine_fail_events(int n) {
                         breakdown_time = a[machine] + 1.0;
                         a[machine] = breakdown_time+repair_time;
                 }
-                printf("Span from 0.0 to %f.  Machine %d broke down at time %f and it takes %f to repair\n", current_span, machine, breakdown_time, repair_time/60.0);
+                //printf("Span from 0.0 to %f.  Machine %d broke down at time %f and it takes %f to repair\n", current_span, machine, breakdown_time, repair_time/60.0);
                 transfer[3] = repair_time;
                 transfer[4] = (float)machine;
 		event_schedule(breakdown_time, EVENT_MACHINE_FAILURE );
