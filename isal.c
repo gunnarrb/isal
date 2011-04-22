@@ -207,7 +207,7 @@ void wagen_unload_arrival()
 		
 		transfer[3]=1.0;
 		transfer[4] = sim_time + (i * 0.01); // skaut entering system time
-		transfer[5] = (float) skaut_id++;
+		transfer[6] = (float) skaut_id++;
 		//printf("tr4 in wagen: %f\n", transfer[4]);
 		event_schedule( sim_time + ( i* 0.01),	EVENT_SKAUT_ARRIVAL);
 	}
@@ -326,6 +326,7 @@ void report()
 	printf("Avarage queue delay: %f\n", sampst(0.0, -SAMPST_DELAYS));
 	
 	printf("Average throughput time: %f\n", sampst(0.0, -THROUGHPUT_TIME));
+	printf("Min throughput time: %f\n", transfer[4]);
 
 }
 
