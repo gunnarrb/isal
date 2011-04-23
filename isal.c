@@ -58,6 +58,7 @@ int skaut_id, stream, failure_nr;
 int queue_size[NUM_MACHINES +1];
 float machine_broken[NUM_MACHINES +1];
 breakdown *fail_list;	
+int fail_index;
 
 int is_machine_busy[NUM_MACHINES +1],
     queue_size[NUM_MACHINES +1];
@@ -153,7 +154,7 @@ int main()
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 
     // initialize arrays and variables
-    if((fail_list = malloc(sizeof(breakdown)))==NULL) {
+    if((fail_list = malloc(sizeof(breakdown)*max_no_failures))==NULL) {
 	printf("Allocation Error\n");
 	exit(1);
     }
@@ -172,6 +173,8 @@ int main()
 
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
 	memset( machine_broken,0, NUM_MACHINES +1);
+	memset( fail_list,0, sizeof(breakdown)*max_no_failures);
+	fail_index = 0;
 	skaut_throughput = 0;
 	sampst_delays = number_of_machines +1;
 	throughput_time = number_of_machines +2;
@@ -400,8 +403,26 @@ void report()
 {
 
     int i;
+    float total_downtime = 0.0;
     printf("\n*****************************************************\n");
-    printf("Report for %d number of failures per day\n",failure_nr);
+    printf("Report for %d failures per day\n",failure_nr);
+    
+    for (i=0; i <fail_index; i++) {
+	printf("--Breakdown nr %d--\n", i+1);
+
+
+	printf("  Machine nr \t Fail time\t Downtime \t\n");
+	printf("\t %d\t", fail_list[i].machine_nr);
+	printf("%.3f\t", fail_list[i].failtime);
+	printf("%.3f sec / %.3f min\t", fail_list[i].downtime,fail_list[i].downtime/60.0);
+	printf("\n\n");
+	total_downtime +=fail_list[i].downtime;
+    }
+	
+    
+
+    printf("Total downtime was %.3lf seconds or %.3lf minutes\n",total_downtime, total_downtime/60.0);
+    
     printf("--------------\nMachine load\n--------------\n");
     for (i=1; i <= number_of_machines; i++) {
 	printf("Machine %d\t", i);
@@ -462,6 +483,10 @@ void create_machine_fail_events(int n) {
 	}
 	transfer[3] = repair_time;
 	transfer[4] = (float)machine;
+	fail_list[fail_index].failtime = breakdown_time+end_warmup_time;
+	fail_list[fail_index].downtime = repair_time;
+	fail_list[fail_index].machine_nr = machine;
+	fail_index++;
 	event_schedule(breakdown_time+end_warmup_time, EVENT_MACHINE_FAILURE );
     }
 }
