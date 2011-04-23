@@ -407,23 +407,20 @@ void report()
     int i;
     float total_downtime = 0.0;
     printf("\n*****************************************************\n");
-    printf("Report for %d number of failures per day\n",failure_nr);
+    printf("Report for %d failures per day\n",failure_nr);
     
     for (i=0; i <fail_index; i++) {
-	printf("--Breakdown nr %d--\t", i+1);
-    }
-    for (i=0; i <fail_index; i++) {
-	printf("  Machine nr \t Fail time\t Downtime \t\t");
-	printf("   %d\t", fail_list[i].machine_nr);
-	if ((i+1 % 3) == 0 ) {printf("\n");}
-	printf("         %f\t", fail_list[i].failtime);
-	if ((i+1 % 3) == 0 ) {printf("\n");}
-	printf(" %f\t", fail_list[i].downtime);
-	if ((i+1 % 3) == 0 ) {printf("\n");}
-    }
-    
-    printf("\n\n");
+	printf("--Breakdown nr %d--\n", i+1);
+
+
+	printf("  Machine nr \t Fail time\t Downtime \t\n");
+	printf("\t %d\t", fail_list[i].machine_nr);
+	printf("%.3f\t", fail_list[i].failtime);
+	printf("%.3f sec / %.3f min\t", fail_list[i].downtime,fail_list[i].downtime/60.0);
+	printf("\n\n");
 	total_downtime +=fail_list[i].downtime;
+    }
+	
     
 
     printf("Total downtime was %.3lf seconds or %.3lf minutes\n",total_downtime, total_downtime/60.0);
