@@ -168,7 +168,7 @@ int main()
 	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
 	}*/
     // We perform simulation for "a few" failures per day
-    stream = (unsigned int)time(NULL) % 1000;   
+    stream = (unsigned int)time(NULL) % 100;   
     for (failure_nr = min_no_failures; failure_nr < max_no_failures; failure_nr++) {
 
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
