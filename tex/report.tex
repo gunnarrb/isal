@@ -89,7 +89,7 @@ Framkvæmdir eru hafnar við að auka strauminn í kerum 1 og 2 sem veldur dræmri en
 
 \section{Niðurstöður}
 
-\section {Forsendur, Líkan og Aðferðir}
+\section {Forsendur og Líkan}
 Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skautskála. Í næstu undirgreinum er forsendum líkansins lýst. %Til að smíða þetta líkan voru okkur gefin gögn á Excel sniði sem að fylgja með þessari skýrslu. %Gögnin eru ónákvæm og torskiljanleg og eru eftirfarandi forsendir gefnar frá þeim.
 
 \subsection{Umskipting skauta og afköst Skautskála}
@@ -129,9 +129,9 @@ $$
 
 Þessu er lýst á Mynd 2. Vélar B og C geta unnið tvö skaut í einu. \cite{verkefni} \\ 
 
-Þegar Mynd 2 er skoðuð má sjá að hægt er að skipta Skautskála upp í tvo helminga sem hefur hvor sitt inntak og sitt úttak. Inntak í vinstri helming kemur frá vél A, og úttak hans fer frá vél E. Inntak í hægri helming kemur frá vél F, en sú nálgun er gerð að þar sé ávallt nóg af nýjum skautum að taka, og úttak þess helmings er vél G, sem að hleður nýju skautunum á vagna. Við heimsókn í Ísal þann 21. mars 2011 kom fram að bilanir og tafir megi sjaldnast rekja til hægri helmingsins. Þar eru aðeins tvær vélar meðan vinstri hliðin hefur fimm vélar sem að vinna flóknari verk. Af þeim ástæðum er vél F undanskilin hermun. Vél G getur bilað, og ef það gerist stöðvar lestun og losun skauta um þann tíma sem það tekur að gera við bilunina.
+Þegar Mynd 2 er skoðuð má sjá að hægt er að skipta Skautskála upp í tvo helminga sem hefur hvor sitt inntak og sitt úttak. Inntak í vinstri helming kemur frá vél A, og úttak hans fer frá vél E. Inntak í hægri helming kemur frá vél F, en sú nálgun er gerð að þar sé ávallt nóg af nýjum skautum að taka, og úttak þess helmings er vél G, sem að hleður nýju skautunum á vagna. Við heimsókn í Ísal \cite{heimsókn} kom fram að bilanir og tafir megi sjaldnast rekja til hægri helmingsins. Þar eru aðeins tvær vélar meðan vinstri hliðin hefur fimm vélar sem að vinna flóknari verk. Af þeim ástæðum er vél F undanskilin hermun. Vél G getur bilað, og ef það gerist stöðvar lestun og losun skauta um þann tíma sem það tekur að gera við bilunina.
 
-Gert er ráð fyrir því að vagnar sem koma með skautaleifar séu ávallt fullskipaðir. Ef það koma tveir fullskipaðir vagnar, með samtals fjórtán skautum, á hálftíma fresti inn í líkanið við A, og allar vélar hafa vinnutíma sem að er fasti, þá er úttakið við E einnig fasti. 
+Þegar vagn kemur með skautaleyfar til vélar $A$ bíður hann á meðan leyfarnar eru hýfðar af honum. Því næst er hann er hann hlaðinn með nýjum skautum \cite{verkefni}. Gert er ráð fyrir því að fjöldi skautaleyfða sem hýfðar eru af vagni og fjöldi nýrra skauta sem lestuð eru á vagn sé um það bil sá sami. % Ef það koma tveir fullskipaðir vagnar, með samtals fjórtán skautum, á hálftíma fresti inn í líkanið við A, og allar vélar hafa vinnutíma sem að er fasti, þá er úttakið við E einnig fasti. 
 
 \begin{figure}%[h]
 \centering
@@ -170,6 +170,43 @@ Líkanið er atburðadrifið: einhver atburður á sér stað sem að getur skrásett anna
 \end{itemize}
 Næstu undirgreinar útskýra hvernig bregðast þarf við þessum viðburðum.
 
+\subsubsection*{Vagn kemur með brunnin skaut}
+Vagnar sem koma með hrein skaut geta flutt 12 til 14 skaut saman lagt og er það uniform dreifð slembitala. Fyrir hvert skaut þarf að framkalla atburðinn \emph{skaut kemur að vél}, þar sem að vélin er vél $A$. Hver slíkur atburður þarf að innihalda eftirfarandi gögn:
+\begin{itemize}
+\item Tímasetningin þegar atburðurinn á sér stað
+\item Staðsetning skauts í ferlinu
+\item Tímasetningin þegar skautið kemur fyrst í kerfið
+\item Raðnúmer skauts
+\end{itemize}
+Loks þarf að skrásetja annan \emph{vagn kemur með brunnin skaut} atburð. Þar sem að vagnar koma á um það bil 32 mínútna fresti að meðaltali á dag, meðan unnið er í Skautskála \cite{verkefni}, er eðlilegt að koma þeirra sé uniform slembitala milli 28 og 30. Ef að vélar $A$ eða $G$ eru bilaðar þarf að fresta komu næsta vagns um þann tíma sem það tekur við að gera við vélarnar af því að vagnlosunin og lestun eru samtengd ferli \cite{verkefni}.
+
+\subsubsection*{Skaut kemur að vél}
+Þegar skaut kemur að vél þarf að huga að ýmsu.
+\begin{itemize}
+\item \textbf{Er vélin upptekin?} \\ Ef að vélin er laus skal merkja að skautið hafi fengið þjónustu umsvifalaust. Svo skal skrásetja \emph{Skaut fer frá vél } atburð sem að inniheldur tímasetningu brottfarar og vél sem að farið er frá. Annars skal vista komutíma skauts og setja það í röð þeirrar einingar sem skautið kemur að, ef einhver er.
+\item \textbf{Hefur vélin röð og ef svo er, er röðin full?} \\ Ef að vélin hefur enga röð eða röðin er full þarf að fresta komu þessa skauts, lásinn sem að heldur því má í rauninni ekki sleppa því þangað til að það rúmast til í röðinni.
+\item \textbf{Er vélin biluð?} \\ Ef að vélin er biluð þarf að fresta þessum atburði um þann tíma sem að samsvarar viðgerðartímanum.
+\end{itemize}
+
+\subsubsection*{Skaut fer frá vél}
+Þegar \emph{skaut fer frá vél} atburður er meðhöndlaður hefur vél unnið sitt verk á skautinu. 
+\begin{itemize}
+\item Ef að vélin sem skautið fer frá er biluð þarf að fresta atburðinum um þann tíma sem það tekur að gera við vélina. 
+\item Ef að vélin sem skautið fer frá er vél $E$ þarf að hækka teljara sem telur hversu mörg skaut hafa farið frá vél $A$ til $E$. Sú forsenda var gerð að fjöldi skautaleyfa sem losuð eru af vögnum við $A$ sé um það bil sá sami og fjöldi nýrra skauta sem lestuð eru við $G$ má hækka þennan teljara um tvo. Annars skal skrásetja \emph{Skaut kemur að vél} atburð frá núverandi vél sem á að meðhöndla eftir færslutímann að næstu vél. 
+\item Ef að röð vélarinnar sem farið er frá er ekki tóm þarf að vinna fremsta skautið í vélinni, halda utan um hve lengi skautið þurfti að bíða eftir þjónustu og skrásetja þá \emph{Skaut fer frá vél } atburð eftir vinnslutíma vélarinnar. 
+\end{itemize}
+
+\subsubsection*{Vél bilar}
+Þ
+
+\subsubsection*{Vél löguð}
+
+\subsubsection*{Endir upphitunartíma}
+Nú þarf að endurstilla skautateljara og ýmsar tölfræðibreytur sem að halda utan um tafir raða og nýtni véla.
+
+
+\subsubsection*{Endir hermunar}
+Nú þarf að prenta út skýrslu á skjá eða í skjal með niðurstöðum hermunar.
 
 \section{Sannreyning Líkans}
 
@@ -183,6 +220,11 @@ Næstu undirgreinar útskýra hvernig bregðast þarf við þessum viðburðum.
  Starfsmaður Ísal,
   \emph{Millitimar.xls}.
   2011.
+  
+   \bibitem{heimsókn}
+  \emph{Heimsókn til Ísal}.
+  21. mars 2011.
+  
 \end{thebibliography}
 
 
@@ -191,6 +233,10 @@ Næstu undirgreinar útskýra hvernig bregðast þarf við þessum viðburðum.
 \lstinputlisting[language=C]{../isal.c}
 
 \subsection{Inntaksgögn líkans}
+\lstinputlisting[language=C]{../adal_inntak.in}
+\lstinputlisting[language=C]{../velar_og_bidradir.in}
+
+
 \subsection{Keyrsluskýrslur}
 
 

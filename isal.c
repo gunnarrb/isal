@@ -252,10 +252,10 @@ void wagen_unload_arrival()
     float wagen_arrival_zeit = unirand((mean_wagen_arrival-std_wagen_arrival)*60.0,(mean_wagen_arrival+std_wagen_arrival)*60.0,stream); 
 
     for (i = 1; i<NUM_MACHINES+1; i++) {  //delay unload of skaut by the time it takes to repair
-	if (machine_broken[i] > 0.0) {
-	    event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
-	    return;
-	}
+		if (machine_broken[i] > 0.0) {
+			event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
+			return;
+		}
     }
 
     if (list_size[number_of_machines + 1] != 0) { // ef allt er enn fullt þá koma með næsta vagn eftir uþb hálftíma
@@ -291,8 +291,6 @@ void skaut_arrival()
 		}
 	}
     }
-	
-	
 	
     // check if machine is not busy
     if (list_size[current_unit] == 0 && machine_broken[current_unit] == 0.0) {
