@@ -35,6 +35,7 @@
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
 #define TRANSFER_ARRAY_LENGTH 11
+#define PREP_TIME 10.0
 
 //#define LOADING_TIME_PER_SKAUT 
 
@@ -147,10 +148,10 @@ int main()
 
     int b;
     int stream = 31415;
-    for (b=1; b <= number_of_machines; b++) {
+/*    for (b=1; b <= number_of_machines; b++) {
 	printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
 	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
-    }
+	}*/
     // We perform simulation for "a few" failures per day
     int i;
     for (i = min_no_failures; i < max_no_failures; i++) {
@@ -288,12 +289,12 @@ void skaut_arrival()
 		
 	// schedule departure after machine processing time
 	pop_array();
-	event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
     } else {
 		
 	if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
 
-	    event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if queue is full then delay it.
+	    event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if queue is full then delay it.
 
 	} else {
 	    transfer[5] = sim_time;
@@ -316,7 +317,7 @@ void skaut_departure()
 		event_schedule(sim_time + machine_broken[i], EVENT_SKAUT_DEPARTURE); //also if next queue is full then delay it.
 		return;
 	    }
-	    printf("Size of next queue %d, limit of next queue %d\n",list_size[1+number_of_machines + current_unit], queue_size[1+current_unit]);
+//	    printf("Size of next queue %d, limit of next queue %d\n",list_size[1+number_of_machines + current_unit], queue_size[1+current_unit]);
 	    break;
 	}
     }
@@ -329,7 +330,7 @@ void skaut_departure()
 	list_remove(FIRST,current_unit);
 	pop_array();
 	transfer[3]++;
-	event_schedule(sim_time + transfer_time[(int)(transfer[3])-1], EVENT_SKAUT_ARRIVAL);
+	event_schedule(PREP_TIME + sim_time + transfer_time[(int)(transfer[3])-1], EVENT_SKAUT_ARRIVAL);
     }
 	
 		
@@ -344,7 +345,7 @@ void skaut_departure()
 
 	sampst(sim_time - transfer[5], sampst_delays);
 	sampst(sim_time - transfer[5], current_unit);
-	event_schedule(sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
     }
 }
 
@@ -393,7 +394,7 @@ void report()
     for (i=1; i <= number_of_machines; i++) {
 	printf("Avg delay in queue %d: %f\n", i, sampst(0.0, -i));
     }
-    printf("Avarage queue delay: %f\n", sampst(0.0, -sampst_delays));
+    printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
 	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
@@ -440,7 +441,7 @@ void machine_failure(){
     float repair_time = transfer[3];
     int   machine     = (int)transfer[4];
     machine_broken[machine] = repair_time;
-    printf(" Machine %d broke down and it takes %f to repair\n", machine, repair_time/60.0);
+//    printf(" Machine %d broke down and it takes %f to repair\n", machine, repair_time/60.0);
 
     event_schedule(sim_time + repair_time, EVENT_MACHINE_FIXED);
 }
