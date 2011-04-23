@@ -9,27 +9,43 @@
 \usepackage{eucal}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
-\usepackage{qtree}
 \usepackage{listings}
 \usepackage{wrapfig}
 \usepackage{fullpage}
 
+
+\usepackage{multicol}
+\usepackage[usenames,dvipsnames]{color}
+
 \title{Hermun skautaskála hjá Ísáli}
+
 \date{Apríl 2011}
 \author{Gunnarr Baldursson \& Ragnar Gísli Ólafsson}
 \begin{document}
 \maketitle
 
+\hyphenpenalty=800
+\hbadness=2500
+\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45} 
 
-\lstset{language=C}
-\lstset{keywordstyle=\color{blue}}
-\lstset{commentstyle=\color{ForestGreen}}
-\lstset{stringstyle=\color{magenta}}
-\lstset{basicstyle=\ttfamily \small}
-\lstset{showstringspaces=false}
-\lstset{extendedchars=true}
-%\lstset{escapechar =\%}
-%\lstset{escapebegin=\color{ForestGreen}\%}
+\lstset{
+  language=awk,
+  basicstyle=\footnotesize,
+  numbers=left,
+  numberstyle=\footnotesize,
+  numbersep=5pt,
+  backgroundcolor=\color{white},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  tabsize=2,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  %title=\lstname,
+  commentstyle={\bf \color{MyDarkBlue}}
+}
 
 
 \abstract{Ble! Abstract}
@@ -85,7 +101,7 @@ Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skauts
 \end{itemize}
 
 \subsection*{Bilanir}
-Samkvæmt verkefnislýsingunni \cite{verkefnislysing} er það nokkuð slembið hvaða vélar bila, að vél F undanskilinni, og að bilanir eiga sér stað nokkrum sinnum á vakt. Gildið á tölunni \emph{nokkrum sinnum} er illa skilgreint en höfundar sammæltust um töluna 8. Fyrir flestar bilanir er viðgerðartíminn 5 til 30 mínútur. Í einhverjum tilfellum þarf að ræsa út viðgerðarmann ef um stórar bilanir er að ræða og slíkar bilanir geta varað í nokkrar klukkustundir. Engin önnur gögn liggja fyrir um bilanir eða tíðni þeirra og þar sem að gögnin eru ekki nákvæmari voru eftirfarandi forsendur gefnar:
+Samkvæmt verkefnislýsingunni \cite{verkefni} er það nokkuð slembið hvaða vélar bila, að vél F undanskilinni, og að bilanir eiga sér stað nokkrum sinnum á vakt. Gildið á tölunni \emph{nokkrum sinnum} er illa skilgreint en höfundar sammæltust um töluna 8. Fyrir flestar bilanir er viðgerðartíminn 5 til 30 mínútur. Í einhverjum tilfellum þarf að ræsa út viðgerðarmann ef um stórar bilanir er að ræða og slíkar bilanir geta varað í nokkrar klukkustundir. Engin önnur gögn liggja fyrir um bilanir eða tíðni þeirra og þar sem að gögnin eru ekki nákvæmari voru eftirfarandi forsendur gefnar:
 
 \begin{itemize}
 \item Allir viðgerðartímar liggja á bilinu 5 til 30 mínútur.
@@ -111,7 +127,7 @@ G & \text{Vél G, biðröð fyrir 2 skaut} & \text{Vagnhleðsla}
 \end{array}
 $$
 
-Þessu er lýst á Mynd 2. Vélar B og C geta unnið tvö skaut í einu. \cite{verkefnislysing} \\ 
+Þessu er lýst á Mynd 2. Vélar B og C geta unnið tvö skaut í einu. \cite{verkefni} \\ 
 
 Þegar Mynd 2 er skoðuð má sjá að hægt er að skipta Skautskála upp í tvo helminga sem hefur hvor sitt inntak og sitt úttak. Inntak í vinstri helming kemur frá vél A, og úttak hans fer frá vél E. Inntak í hægri helming kemur frá vél F, en sú nálgun er gerð að þar sé ávallt nóg af nýjum skautum að taka, og úttak þess helmings er vél G, sem að hleður nýju skautunum á vagna. Við heimsókn í Ísal þann 21. mars 2011 kom fram að bilanir og tafir megi sjaldnast rekja til hægri helmingsins. Þar eru aðeins tvær vélar meðan vinstri hliðin hefur fimm vélar sem að vinna flóknari verk. Af þeim ástæðum er vél F undanskilin hermun. Vél G getur bilað, og ef það gerist stöðvar lestun og losun skauta um þann tíma sem það tekur að gera við bilunina.
 
@@ -126,7 +142,7 @@ Gert er ráð fyrir því að vagnar sem koma með skautaleifar séu ávallt fullskipaði
 
 \subsection*{Vélar og vinnslutímar}
 % blabla um hvernig tímarnir voru reiknaðir út
-Vinnslutími vélar er sá tími sem líður milli þess að skaut kemur að lausri vél og fer frá vélinni aftur. Færslutími er sá tími sem líður milli þess að skaut fer frá vél og kemur að næstu vél. Þeir eru reiknaðir út samkvæmt gagnaskjali, \cite{millitimaskjal}.
+Vinnslutími vélar er sá tími sem líður milli þess að skaut kemur að lausri vél og fer frá vélinni aftur. Færslutími er sá tími sem líður milli þess að skaut fer frá vél og kemur að næstu vél. Þeir eru reiknaðir út samkvæmt gagnaskjali, \cite{millitimar}.
 Þar sem að vélar B og C geta unnið tvö skaut í einu er vinnslutími þeirra helmingaður.
 
 $$
@@ -142,12 +158,12 @@ E & 69.75 & 0
 $$
 
 \begin{thebibliography}{9}
-\bibitem{verkefnislysing}
+\bibitem{verkefni}
  Starfsmaður Ísal,
   \emph{HermunIsal\_2011\_r2.pdf}.
   2011.
   
-  \bibitem{millitimaskjal}
+  \bibitem{millitimar}
  Starfsmaður Ísal,
   \emph{Millitimar.xls}.
   2011.
@@ -156,6 +172,8 @@ $$
 
 \section {Viðauki}
 \subsection{Líkanið í forritunarmálinu C }
+\lstinputlisting[language=C]{../isal.c}
+
 \subsection{Inntaksgögn líkans}
 \subsection{Keyrsluskýrslur}
 

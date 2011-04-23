@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  23 APR 2011 16:33
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  23 APR 2011 16:53
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -299,150 +299,25 @@ File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
 \f@ncyO@olf=\skip56
 \f@ncyO@orf=\skip57
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/qtree/qtree.sty
-Package: 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
-Package: qtree 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
-(/usr/local/texlive/2009/texmf-dist/tex/latex/pict2e/pict2e.sty
-Package: pict2e 2009/08/05 v0.2x Improved picture commands (HjG,RN,JT)
-
-(/usr/local/texlive/2009/texmf-dist/tex/latex/pict2e/pict2e.cfg
-File: pict2e.cfg 2009/08/05 v0.1s pict2e configuration for teTeX/TeXLive
-)
-Package pict2e Info: Driver file: pdftex.def on input line 101.
-Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 103.
-
-(/usr/local/texlive/2009/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
-File: p2e-pdftex.def 2009/08/05 v0.1s Driver-dependant file (RN,HjG,JT)
-)
-\pIIe@GRAPH=\toks30
-\@arclen=\dimen122
-\@arcrad=\dimen123
-\@tempdimd=\dimen124
-)
-\c@treecount=\count109
-\c@branchcount=\count110
-\parentbox=\box28
-\treebox=\box29
-\treeboxone=\box30
-\treeboxtwo=\box31
-\treeboxthree=\box32
-\treeboxfour=\box33
-\treeboxfive=\box34
-\treeboxsix=\box35
-\treeboxseven=\box36
-\treeboxeight=\box37
-\treeboxnine=\box38
-\treeboxten=\box39
-\treeboxeleven=\box40
-\treeboxtwelve=\box41
-\treeboxthirteen=\box42
-\treeboxfourteen=\box43
-\treeboxfifteen=\box44
-\treeboxsixteen=\box45
-\treeboxseventeen=\box46
-\treeboxeighteen=\box47
-\treeboxnineteen=\box48
-\treeboxtwenty=\box49
-\treeoffsetone=\skip58
-\treeoffsettwo=\skip59
-\treeoffsetthree=\skip60
-\treeoffsetfour=\skip61
-\treeoffsetfive=\skip62
-\treeoffsetsix=\skip63
-\treeoffsetseven=\skip64
-\treeoffseteight=\skip65
-\treeoffsetnine=\skip66
-\treeoffsetten=\skip67
-\treeoffseteleven=\skip68
-\treeoffsettwelve=\skip69
-\treeoffsetthirteen=\skip70
-\treeoffsetfourteen=\skip71
-\treeoffsetfifteen=\skip72
-\treeoffsetsixteen=\skip73
-\treeoffsetseventeen=\skip74
-\treeoffseteighteen=\skip75
-\treeoffsetnineteen=\skip76
-\treeoffsettwenty=\skip77
-\treeshiftone=\skip78
-\treeshifttwo=\skip79
-\treeshiftthree=\skip80
-\treeshiftfour=\skip81
-\treeshiftfive=\skip82
-\treeshiftsix=\skip83
-\treeshiftseven=\skip84
-\treeshifteight=\skip85
-\treeshiftnine=\skip86
-\treeshiftten=\skip87
-\treeshifteleven=\skip88
-\treeshifttwelve=\skip89
-\treeshiftthirteen=\skip90
-\treeshiftfourteen=\skip91
-\treeshiftfifteen=\skip92
-\treeshiftsixteen=\skip93
-\treeshiftseventeen=\skip94
-\treeshifteighteen=\skip95
-\treeshiftnineteen=\skip96
-\treeshifttwenty=\skip97
-\treewidthone=\skip98
-\treewidthtwo=\skip99
-\treewidththree=\skip100
-\treewidthfour=\skip101
-\treewidthfive=\skip102
-\treewidthsix=\skip103
-\treewidthseven=\skip104
-\treewidtheight=\skip105
-\treewidthnine=\skip106
-\treewidthten=\skip107
-\treewidtheleven=\skip108
-\treewidthtwelve=\skip109
-\treewidththirteen=\skip110
-\treewidthfourteen=\skip111
-\treewidthfifteen=\skip112
-\treewidthsixteen=\skip113
-\treewidthseventeen=\skip114
-\treewidtheighteen=\skip115
-\treewidthnineteen=\skip116
-\treewidthtwenty=\skip117
-\daughteroffsetone=\skip118
-\daughteroffsettwo=\skip119
-\daughteroffsetthree=\skip120
-\daughteroffsetfour=\skip121
-\branchwidthone=\skip122
-\branchwidthtwo=\skip123
-\branchwidththree=\skip124
-\branchwidthfour=\skip125
-\parentoffset=\skip126
-\treeoffset=\skip127
-\daughteroffset=\skip128
-\branchwidth=\skip129
-\parentwidth=\skip130
-\treewidth=\skip131
-\qta=\toks31
-\qtb=\toks32
-\nbranches=\count111
-\qroofx=\count112
-\qroofy=\count113
-\@qrscratchbox=\box50
-)
 (/usr/local/texlive/2009/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count114
-\lst@gtempboxa=\box51
-\lst@token=\toks33
-\lst@length=\count115
-\lst@currlwidth=\dimen125
-\lst@column=\count116
-\lst@pos=\count117
-\lst@lostspace=\dimen126
-\lst@width=\dimen127
-\lst@newlines=\count118
-\lst@lineno=\count119
-\lst@maxwidth=\dimen128
+\lst@mode=\count109
+\lst@gtempboxa=\box28
+\lst@token=\toks30
+\lst@length=\count110
+\lst@currlwidth=\dimen122
+\lst@column=\count111
+\lst@pos=\count112
+\lst@lostspace=\dimen123
+\lst@width=\dimen124
+\lst@newlines=\count113
+\lst@lineno=\count114
+\lst@maxwidth=\dimen125
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
-\c@lstnumber=\count120
-\lst@skipnumbers=\count121
-\lst@framebox=\box52
+\c@lstnumber=\count115
+\lst@skipnumbers=\count116
+\lst@framebox=\box29
 )
 (/usr/local/texlive/2009/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2007/02/22 1.4 listings configuration
@@ -450,38 +325,96 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen129
-\WF@size=\dimen130
-\c@WF@wrappedlines=\count122
-\WF@box=\box53
-\WF@everypar=\toks34
+\wrapoverhang=\dimen126
+\WF@size=\dimen127
+\c@WF@wrappedlines=\count117
+\WF@box=\box30
+\WF@everypar=\toks31
 Package: wrapfig 2003/01/31  v 3.6
 )
 (/usr/local/texlive/2009/texmf-dist/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
-\FP@margin=\skip132
+\FP@margin=\skip58
 )
+(/usr/local/texlive/2009/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
+\c@tracingmulticols=\count118
+\mult@box=\box31
+\multicol@leftmargin=\dimen128
+\c@unbalance=\count119
+\c@collectmore=\count120
+\doublecol@number=\count121
+\multicoltolerance=\count122
+\multicolpretolerance=\count123
+\full@width=\dimen129
+\page@free=\dimen130
+\premulticols=\dimen131
+\postmulticols=\dimen132
+\multicolsep=\skip59
+\multicolbaselineskip=\skip60
+\partial@page=\box32
+\last@line=\box33
+\mult@rightbox=\box34
+\mult@grightbox=\box35
+\mult@gfirstbox=\box36
+\mult@firstbox=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\c@columnbadness=\count124
+\c@finalcolumnbadness=\count125
+\last@try=\dimen133
+\multicolovershoot=\dimen134
+\multicolundershoot=\dimen135
+\mult@nat@firstbox=\box55
+\colbreak@box=\box56
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
  (/usr/local/texlive/2009/texmf-dist/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 )
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 24.
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
@@ -489,36 +422,36 @@ Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 (/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count123
+\c@section@level=\count126
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
 
 (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
-\AtBeginShipoutBox=\box54
+\AtBeginShipoutBox=\box57
 
 (/usr/local/texlive/2009/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count124
-\scratchdimen=\dimen131
-\scratchbox=\box55
-\nofMPsegments=\count125
-\nofMParguments=\count126
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count127
-\MPscratchDim=\dimen132
-\MPnumerator=\count128
-\everyMPtoPDFconversion=\toks36
+\scratchcounter=\count127
+\scratchdimen=\dimen136
+\scratchbox=\box58
+\nofMPsegments=\count128
+\nofMParguments=\count129
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count130
+\MPscratchDim=\dimen137
+\MPnumerator=\count131
+\everyMPtoPDFconversion=\toks33
 )
-\c@lstlisting=\count129
-LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+\c@lstlisting=\count132
+LaTeX Font Info:    Try loading font information for U+msa on input line 26.
  (/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+LaTeX Font Info:    Try loading font information for U+msb on input line 26.
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
@@ -526,8 +459,8 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 (/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
 (./report.toc)
 \tf@toc=\write4
@@ -540,48 +473,68 @@ ures/flow.jpg, id=50, 793.96625pt x 1195.46625pt>
 File: ../figures/flow.jpg Graphic file (type jpg)
 
 <use ../figures/flow.jpg> [2 <../figures/flow.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 81.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 97.
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 81.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 97.
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 114--115
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
 <../figures/flow2.png, id=78, 452.69125pt x 570.13pt>
 File: ../figures/flow2.png Graphic file (type png)
 
-<use ../figures/flow2.png> [4 <../figures/flow2.png (PNG copy)>] [5]
-(./report.aux) ) 
+<use ../figures/flow2.png> [4 <../figures/flow2.png (PNG copy)>]
+(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 175.
+ (../isal.c
+LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 1.
+
+[5]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 60.
+ [6] [7] [8] [9] [10] [11]) [12] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 7714 strings out of 493848
- 108376 string characters out of 3149207
- 210599 words of memory out of 3000000
- 10797 multiletter control sequences out of 15000+200000
- 20408 words of font info for 54 fonts, out of 3000000 for 9000
+ 8495 strings out of 493848
+ 121419 string characters out of 3149207
+ 673142 words of memory out of 3000000
+ 11107 multiletter control sequences out of 15000+200000
+ 22204 words of font info for 57 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,8n,49p,1168b,324s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm
--super-t1.enc}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi9.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr6.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-9.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.
-pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pf
-b></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb>
-</usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></
-usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></us
-r/local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/
-local/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/lo
-cal/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/loca
-l/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/
-texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
-Output written on report.pdf (5 pages, 398767 bytes).
+ 38i,8n,52p,1168b,1797s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2009/texmf
+-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2009/texmf-d
+ist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></usr/local/texlive/2009/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2009/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2009/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2009/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2009/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2009/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2009/texmf-dist/fonts/
+type1/public/cm-super/sfbx0800.pfb></usr/local/texlive/2009/texmf-dist/fonts/ty
+pe1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2009/texmf-dist/fonts/type
+1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/
+public/cm-super/sfbx1440.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/pu
+blic/cm-super/sfrm0800.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/publ
+ic/cm-super/sfrm0900.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public
+/cm-super/sfrm1000.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/c
+m-super/sfrm1200.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-
+super/sfrm1728.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/cm-su
+per/sfti0900.pfb>
+Output written on report.pdf (12 pages, 600639 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 29 named destinations out of 1000 (max. 500000)
+ 736 PDF objects out of 1000 (max. 8388607)
+ 490 named destinations out of 1000 (max. 500000)
  67 words of extra memory for PDF output out of 10000 (max. 10000000)
 

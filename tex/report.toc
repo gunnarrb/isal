@@ -4,5 +4,5 @@
 \contentsline {section}{\numberline {3}Forsendur, Líkan og Ağferğir}{3}{section.3}
 \contentsline {section}{\numberline {4}Viğauki}{5}{section.4}
 \contentsline {subsection}{\numberline {4.1}Líkaniğ í forritunarmálinu C }{5}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Inntaksgögn líkans}{5}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Keyrsluskırslur}{5}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.2}Inntaksgögn líkans}{12}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Keyrsluskırslur}{12}{subsection.4.3}
