@@ -35,7 +35,15 @@
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
 #define TRANSFER_ARRAY_LENGTH 11
-#define PREP_TIME 10.0
+#define PREP_TIME 20.0
+
+typedef struct
+{
+    float failtime;
+    float downtime;
+    int machine_nr;
+} breakdown;
+
 
 //#define LOADING_TIME_PER_SKAUT 
 
@@ -46,15 +54,17 @@ float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_ma
 
 int sampst_delays, throughput_time; // variable for queue delays and throughput time
 
-int skaut_id, stream;
+int skaut_id, stream, failure_nr;
 int queue_size[NUM_MACHINES +1];
 float machine_broken[NUM_MACHINES +1];
+breakdown *fail_list;	
 
 int is_machine_busy[NUM_MACHINES +1],
     queue_size[NUM_MACHINES +1];
 
 float work_time[NUM_MACHINES + 1],
     transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
+
 
 float temp_transfer[TRANSFER_ARRAY_LENGTH];
 
@@ -143,7 +153,11 @@ int main()
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 
     // initialize arrays and variables
-	
+    if((fail_list = malloc(sizeof(breakdown)))==NULL) {
+	printf("Allocation Error\n");
+	exit(1);
+    }
+
 
 
     int b;
@@ -153,8 +167,8 @@ int main()
 	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
 	}*/
     // We perform simulation for "a few" failures per day
-    int i;
-    for (i = min_no_failures; i < max_no_failures; i++) {
+    
+    for (failure_nr = min_no_failures; failure_nr < max_no_failures; failure_nr++) {
 
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
 	memset( machine_broken,0, NUM_MACHINES +1);
@@ -176,7 +190,7 @@ int main()
 	maxatr = 6; // how many attributes do we need?
 
 	/* Schedule machine breakdown time */
-	create_machine_fail_events(i);
+	create_machine_fail_events(failure_nr);
 		
 	/* Schedule first wagen arrival */
 	//transfer[3] = 1.0; 
@@ -386,16 +400,33 @@ void end_warmup()
 
 void report()
 {
-    printf("System throughput: %d\n", skaut_throughput );
+
     int i;
+    printf("\n*****************************************************\n");
+    printf("Report for %d number of failures per day\n",failure_nr);
+    printf("--------------\nMachine load\n--------------\n");
     for (i=1; i <= number_of_machines; i++) {
-	printf("Machine %d: %f\n", i, filest(i) );
+	printf("Machine %d\t", i);
     }
+    printf("\n");
     for (i=1; i <= number_of_machines; i++) {
-	printf("Avg delay in queue %d: %f\n", i, sampst(0.0, -i));
+	printf("%f\t", filest(i) );
     }
+    printf("\n\n");
+                            
+    printf("-----------------------\nAverage delay in queues\n-----------------------\n");
+    for (i=1; i <= number_of_machines; i++) {
+	printf("Queue %d \t", i);
+    }
+
+    printf("\n");
+
+    for (i=1; i <= number_of_machines; i++) {
+	printf("%f\t", sampst(0.0, -i));
+    }
+    printf("\n\n");
     printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
-	
+    printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
 
