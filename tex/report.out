@@ -1,7 +1,13 @@
 \BOOKMARK [1][-]{section.1}{Inngangur}{}
 \BOOKMARK [1][-]{section.2}{Niðurstöður}{}
 \BOOKMARK [1][-]{section.3}{Forsendur, Líkan og Aðferðir}{}
-\BOOKMARK [1][-]{section.4}{Viðauki}{}
-\BOOKMARK [2][-]{subsection.4.1}{Líkanið í forritunarmálinu C }{section.4}
-\BOOKMARK [2][-]{subsection.4.2}{Inntaksgögn líkans}{section.4}
-\BOOKMARK [2][-]{subsection.4.3}{Keyrsluskýrslur}{section.4}
+\BOOKMARK [2][-]{subsection.3.1}{Umskipting skauta og afköst Skautskála}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Bilanir}{section.3}
+\BOOKMARK [2][-]{subsection.3.3}{Einingar og undirkerfi}{section.3}
+\BOOKMARK [2][-]{subsection.3.4}{Vélar og vinnslutímar}{section.3}
+\BOOKMARK [2][-]{subsection.3.5}{Atburðir og kjarnavirkni líkans}{section.3}
+\BOOKMARK [1][-]{section.4}{Sannreyning Líkans}{}
+\BOOKMARK [1][-]{section.5}{Viðauki}{}
+\BOOKMARK [2][-]{subsection.5.1}{Líkanið í forritunarmálinu C }{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{Inntaksgögn líkans}{section.5}
+\BOOKMARK [2][-]{subsection.5.3}{Keyrsluskýrslur}{section.5}
