@@ -2,8 +2,7 @@
 \contentsline {section}{\numberline {1}Inngangur}{1}{section.1}
 \contentsline {section}{\numberline {2}Niğurstöğur}{3}{section.2}
 \contentsline {section}{\numberline {3}Forsendur, Líkan og Ağferğir}{3}{section.3}
-\contentsline {section}{\numberline {4}Gögn og heimildir}{5}{section.4}
-\contentsline {section}{\numberline {5}Viğauki}{5}{section.5}
-\contentsline {subsection}{\numberline {5.1}Líkaniğ í forritunarmálinu C }{5}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Inntaksgögn líkans}{5}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Keyrsluskırslur}{5}{subsection.5.3}
+\contentsline {section}{\numberline {4}Viğauki}{5}{section.4}
+\contentsline {subsection}{\numberline {4.1}Líkaniğ í forritunarmálinu C }{5}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Inntaksgögn líkans}{5}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Keyrsluskırslur}{5}{subsection.4.3}
