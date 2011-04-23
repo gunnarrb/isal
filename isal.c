@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "simlib/rndlib.h"
 #include "simlib/simlib.h"
 
@@ -53,8 +54,8 @@ float mean_wagen_arrival, std_wagen_arrival, mean_failures, std_failures, min_ma
 
 
 int sampst_delays, throughput_time; // variable for queue delays and throughput time
-
-int skaut_id, stream, failure_nr;
+time_t dummy;
+unsigned int skaut_id, stream, failure_nr;
 int queue_size[NUM_MACHINES +1];
 float machine_broken[NUM_MACHINES +1];
 breakdown *fail_list;	
@@ -162,13 +163,12 @@ int main()
 
 
     int b;
-    int stream = 31415;
 /*    for (b=1; b <= number_of_machines; b++) {
 	printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
 	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
 	}*/
     // We perform simulation for "a few" failures per day
-    
+    stream = (unsigned int)time(NULL) % 1000;   
     for (failure_nr = min_no_failures; failure_nr < max_no_failures; failure_nr++) {
 
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
@@ -182,7 +182,7 @@ int main()
 
 	skaut_id = 1;
 	skaut_throughput = 0;
-	stream+=3;		
+
 
 	// Initialize rndlib
 	init_twister();
@@ -448,6 +448,8 @@ void report()
     printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
+    printf(": %d\n", stream);
+
 
 }
 
