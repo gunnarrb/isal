@@ -7,7 +7,7 @@
 \contentsline {subsection}{\numberline {3.3}Bilanir}{6}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Einingar og undirkerfi}{6}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Vélar og vinnslutímar}{7}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Upphitunartími}{7}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.6}Upphitunartími}{8}{subsection.3.6}
 \contentsline {subsection}{\numberline {3.7}Atburğir og kjarnavirkni líkans}{8}{subsection.3.7}
 \contentsline {section}{\numberline {4}Sannreyning Líkans}{9}{section.4}
 \contentsline {section}{\numberline {5}Viğauki}{10}{section.5}

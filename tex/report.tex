@@ -92,20 +92,43 @@ Framkvæmdir eru hafnar við að auka strauminn í kerum 1 og 2 sem veldur dræmri en
 
 $$
 \begin{array}{ll|ll}
-\textbf{Vél} & \textbf{Nýtni} & \textbf{Röð} & \textbf{Meðalbið í sekúndum}\\
+\textbf{Vél} & \textbf{Nýtni} & \textbf{Röð} & \textbf{Meðalbið í sekúndum á sólarhring}\\
 \hline
-A & 0.657697 & A & 591.513442\\
-B & 0.284283 & B & 0.003355\\
-C & 0.231497 & C & \textit{-engin röð-}\\
-D & 0.615817 & D & 1.618098\\
-E & 0.607614 & E & 1.957143\\
+A & 0.517888 & A & 497.663670\\
+B & 0.140782 & B & 0.004016\\
+C & 0.089724 & C & \textit{-engin röð-}\\
+D & 0.467316 & D & 1.119780\\
+E & 0.448905 & E & 0.971277\\
 \end{array}
 $$
 \\
+$$
+\begin{array}{l|l}
+\textbf{Kvarði} & \textbf{Tími í sekúndum á sólarhring}\\ \hline
+\text{Meðalbið í röðum í sekúndum} & 99.952977 \\
+\text{Versta biðtilfelli skauts í gegnum kerfi} & 9499.287679\\
+\text{Besta biðtilfelli skauts í gegnum kerfi} & 0.0\\
+%\text{Fjöldi skauta í gegnum kerfi} & 65082 \\
+\text{Meðal tími skauts í gegnum kerfi } & 1118.785573\\
+\text{Minnsti tími skauts í gegnum kerfi } & 536.020005
+\end{array}
+$$
+\\
+Fjöldi skauta í gegnum kerfið á þessu 90 daga tímabili er 65082 skaut, sem eru 45 skaut á klukkustund. Sjá keyrsluskýrslu í grein \ref{sec:Uttak}.
 Eins og sjá má liggja engin gögn fyrir um vélar F og G en hægri hlið skautskála er undanskilin hermum að mestu leiti (sjá grein \ref{sec:Einingar})
 
-%\begin{align*}
-%\text
+\subsection{Þol fyrir töfum}
+Skálinn þolir 8 stopp á sólarhring
+
+\subsection{Ráðleggingar varðandi biðraðir}
+
+\subsection{Hegðun starfsmanna}
+
+\subsection{Lágmarksafköstun}
+
+\subsectoin{Löng viðgerðarstopp}
+
+\subsection{Áhrif straumhækkunar}
 
 \section {Forsendur og Líkan}
 Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skautskála. Í næstu undirgreinum er forsendum líkansins lýst. %Til að smíða þetta líkan voru okkur gefin gögn á Excel sniði sem að fylgja með þessari skýrslu. %Gögnin eru ónákvæm og torskiljanleg og eru eftirfarandi forsendir gefnar frá þeim.
@@ -251,6 +274,7 @@ Líkanið er atburðadrifið: einhver atburður á sér stað sem að getur skrásett anna
 \item Vél löguð
 \item Endir upphitunartíma
 \item Endir hermunar
+\item Búa til bilanir
 \end{itemize}
 Næstu undirgreinar útskýra hvernig bregðast þarf við þessum viðburðum.
 
@@ -292,6 +316,26 @@ Nú þarf að endurstilla skautateljara og ýmsar tölfræðibreytur sem að halda utan 
 
 \subsubsection*{Endir hermunar}
 Nú þarf að prenta út skýrslu á skjá eða í skjal með niðurstöðum hermunar.
+
+\subsubsection*{Búa til bilanir}
+Á hverjum degi er settur af stað atburður sem býr til \emph{Vél bilar}
+byggða á inntaksskrá.
+Þegar hann er ræstur býr hann til bilanir fyrir hvern dag sem eru
+byggðar á eftirfarandi gögnum.
+
+\begin{itemize}
+\item Fjöldi véla.
+\item Lengd dags.
+\item Fjölda bilanna þá vakt.
+\item Inntak í veldisdreifingarfall fyrir lengd bilanna.
+\end{itemize}
+
+Þessi atburður býr til nokkra \emph{Vél bilar} atburði, ásamt því að senda
+í atburðinn
+upplýsingar um viðgerðartíma/downtime og vélanúmer.
+Þegar þessu er lokið þá býr hann til nýjan \emph{Búa til bilanir} atburð sem verður
+ræstur í byrjun næsta dags.
+
 
 \section{Sannreyning Líkans}
 %enginn manager til að bera stöff undir, léleg gögn sérstaklega hvað bilanir varðar og þó eru bilanir stærsti fflöskuhálsavaldurinn, aðal þungi á vinstri hlið, 
@@ -350,8 +394,8 @@ Höfundar smíðuðu líkan í \emph{Extreme Programming} stíl sem stuðlar að hraðvirk
 
 
 \subsection{Keyrsluskýrslur}
-
-\lstinputlisting{../dgb.txt}
+\label{sec:Uttak}
+\lstinputlisting{../output.txt}
 
 
 

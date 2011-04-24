@@ -160,15 +160,6 @@ int main()
 	printf("Allocation Error\n");
 	exit(1);
     }
-
-
-
-    int b;
-/*    for (b=1; b <= number_of_machines; b++) {
-      printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
-      printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
-      }*/
-    // We perform simulation for "a few" failures per day
    
     for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
 	stream = (unsigned int)time(NULL) % 100;   
