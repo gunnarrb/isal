@@ -1,4 +1,4 @@
-7 404 3 10 30.000000 2.000000 5.000000 180.000000 1000.000000 58600.000000
+7 404 3 10 30.000000 2.000000 5.000000 180.000000 1000.000000 5274000.000000
 129.830002 14 70.000000
 122.820000 17 21.790001
 18.980000 0 12.700000
@@ -11,307 +11,351 @@
 *****************************************************
 Report for 3 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	3601.294	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 35	22940.480 sec / 382.341 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	5876.547	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 36	21534.922 sec / 358.915 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	13732.224	610.088 sec / 10.168 min	
+Number of fails	 Downtime 	
+	 45	29887.428 sec / 498.124 min	
+--Breakdown nr 4--
+Number of fails	 Downtime 	
+	 41	28218.449 sec / 470.307 min	
+--Breakdown nr 5--
+Number of fails	 Downtime 	
+	 35	19774.777 sec / 329.580 min	
+--Breakdown nr 6--
+Number of fails	 Downtime 	
+	 46	27388.559 sec / 456.476 min	
+--Breakdown nr 7--
+Number of fails	 Downtime 	
+	 38	22759.445 sec / 379.324 min	
 
-Total downtime was 3017.276 seconds or 50.288 minutes
+
+Total downtime was 172504.062 seconds or 2875.068 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.614992	0.277149	0.218000	0.618717	0.601450	0.000000	0.000000	
+0.653888	0.295078	0.235099	0.626927	0.633631	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-575.573996	0.000000	0.000000	0.362356	0.508830	0.000000	0.000000	
+561.790519	0.000138	0.000000	0.615419	0.813923	0.000000	0.000000	
 
-Average queue delay: 114.989977
-System throughput: 774
-Average throughput time: 1324.542431
+Average queue delay: 112.638555
+System throughput: 74222
+Average throughput time: 1311.089200
 Min throughput time: 716.020005
+: 34
 
 *****************************************************
 Report for 4 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	2951.004	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 53	28093.205 sec / 468.220 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	4657.474	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 46	27805.916 sec / 463.432 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	10549.334	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 43	27061.295 sec / 451.022 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	6618.717	545.539 sec / 9.092 min	
+Number of fails	 Downtime 	
+	 50	32911.785 sec / 548.530 min	
+--Breakdown nr 5--
+Number of fails	 Downtime 	
+	 51	32006.432 sec / 533.441 min	
+--Breakdown nr 6--
+Number of fails	 Downtime 	
+	 66	35881.406 sec / 598.023 min	
+--Breakdown nr 7--
+Number of fails	 Downtime 	
+	 59	41428.742 sec / 690.479 min	
 
-Total downtime was 3562.815 seconds or 59.380 minutes
+
+Total downtime was 225188.781 seconds or 3753.146 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.651750	0.282788	0.221319	0.609036	0.606225	0.000000	0.000000	
+0.654723	0.291548	0.235314	0.623647	0.627489	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-596.349629	0.000000	0.000000	0.745432	0.342073	0.000000	0.000000	
+568.626009	0.001058	0.000000	0.888502	1.220403	0.000000	0.000000	
 
-Average queue delay: 119.242757
-System throughput: 780
-Average throughput time: 1343.736855
+Average queue delay: 114.147194
+System throughput: 73246
+Average throughput time: 1328.120886
 Min throughput time: 716.020005
+: 34
 
 *****************************************************
 Report for 5 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	2560.831	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 72	41757.480 sec / 695.958 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	3926.030	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 54	31882.477 sec / 531.375 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	8639.600	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 66	38061.508 sec / 634.358 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	5495.052	545.539 sec / 9.092 min	
-
+Number of fails	 Downtime 	
+	 69	46398.703 sec / 773.312 min	
 --Breakdown nr 5--
-  Machine nr 	 Fail time	 Downtime 	
-	 2	11851.744	545.307 sec / 9.088 min	
+Number of fails	 Downtime 	
+	 54	33454.344 sec / 557.572 min	
+--Breakdown nr 6--
+Number of fails	 Downtime 	
+	 66	45329.242 sec / 755.487 min	
+--Breakdown nr 7--
+Number of fails	 Downtime 	
+	 79	47500.246 sec / 791.671 min	
 
-Total downtime was 4108.123 seconds or 68.469 minutes
+
+Total downtime was 284384.000 seconds or 4739.733 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.661850	0.280051	0.247659	0.608238	0.605939	0.000000	0.000000	
+0.652702	0.289854	0.235299	0.624719	0.622781	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-572.872516	0.000000	0.000000	1.675616	0.433246	0.000000	0.000000	
+571.090571	0.000083	0.000000	1.063209	1.251519	0.000000	0.000000	
 
-Average queue delay: 114.051340
-System throughput: 778
-Average throughput time: 1350.133985
+Average queue delay: 114.676053
+System throughput: 72682
+Average throughput time: 1339.585041
 Min throughput time: 716.020005
+: 35
 
 *****************************************************
 Report for 6 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	2300.715	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 87	57399.504 sec / 956.658 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	3438.401	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 79	48985.027 sec / 816.417 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	7366.443	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 74	44573.719 sec / 742.895 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	4745.941	545.539 sec / 9.092 min	
-
+Number of fails	 Downtime 	
+	 81	47127.105 sec / 785.452 min	
 --Breakdown nr 5--
-  Machine nr 	 Fail time	 Downtime 	
-	 2	10043.276	545.307 sec / 9.088 min	
-
+Number of fails	 Downtime 	
+	 80	49191.711 sec / 819.862 min	
 --Breakdown nr 6--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	56158.137	2049.004 sec / 34.150 min	
+Number of fails	 Downtime 	
+	 78	49112.309 sec / 818.538 min	
+--Breakdown nr 7--
+Number of fails	 Downtime 	
+	 73	43192.789 sec / 719.880 min	
 
-Total downtime was 6157.127 seconds or 102.619 minutes
+
+Total downtime was 339582.156 seconds or 5659.703 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.663490	0.264631	0.207108	0.588357	0.566059	0.000000	0.000000	
+0.659071	0.288137	0.233064	0.617363	0.618963	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-621.410040	0.000000	0.000000	1.280168	1.225756	0.000000	0.000000	
+581.691794	0.002094	0.000000	1.451745	1.340586	0.000000	0.000000	
 
-Average queue delay: 124.305862
-System throughput: 728
-Average throughput time: 1390.151979
+Average queue delay: 116.886292
+System throughput: 72030
+Average throughput time: 1367.091500
 Min throughput time: 716.020005
+: 35
 
 *****************************************************
 Report for 7 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	2114.918	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 96	60950.273 sec / 1015.838 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	3147.948	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 109	64225.953 sec / 1070.433 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	6457.046	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 86	52687.145 sec / 878.119 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	4210.863	545.539 sec / 9.092 min	
-
+Number of fails	 Downtime 	
+	 86	54802.863 sec / 913.381 min	
 --Breakdown nr 5--
-  Machine nr 	 Fail time	 Downtime 	
-	 2	8751.514	545.307 sec / 9.088 min	
-
+Number of fails	 Downtime 	
+	 83	50348.098 sec / 839.135 min	
 --Breakdown nr 6--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	48279.223	2049.004 sec / 34.150 min	
-
+Number of fails	 Downtime 	
+	 97	60816.438 sec / 1013.607 min	
 --Breakdown nr 7--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	56746.000	353.151 sec / 5.886 min	
+Number of fails	 Downtime 	
+	 87	54312.871 sec / 905.215 min	
 
-Total downtime was 6510.277 seconds or 108.505 minutes
+
+Total downtime was 398143.656 seconds or 6635.728 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.668178	0.266992	0.244490	0.593908	0.572547	0.000000	0.000000	
+0.656044	0.285028	0.231789	0.616106	0.609749	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-634.761883	0.046638	0.000000	1.561620	0.356272	0.000000	0.000000	
+587.315137	0.002334	0.000000	1.428435	1.661219	0.000000	0.000000	
 
-Average queue delay: 126.793143
-System throughput: 736
-Average throughput time: 1417.806163
+Average queue delay: 118.082081
+System throughput: 70990
+Average throughput time: 1380.522694
 Min throughput time: 716.020005
+: 35
 
 *****************************************************
 Report for 8 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	1975.570	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 109	67947.125 sec / 1132.452 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	3008.601	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 79	46331.688 sec / 772.195 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	5774.999	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 126	77847.273 sec / 1297.455 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	3809.554	545.539 sec / 9.092 min	
-
+Number of fails	 Downtime 	
+	 101	64995.195 sec / 1083.253 min	
 --Breakdown nr 5--
-  Machine nr 	 Fail time	 Downtime 	
-	 2	7782.693	545.307 sec / 9.088 min	
-
+Number of fails	 Downtime 	
+	 99	61104.371 sec / 1018.406 min	
 --Breakdown nr 6--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	42370.039	2049.004 sec / 34.150 min	
-
+Number of fails	 Downtime 	
+	 123	70596.984 sec / 1176.616 min	
 --Breakdown nr 7--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	49778.598	353.151 sec / 5.886 min	
+Number of fails	 Downtime 	
+	 99	61027.828 sec / 1017.130 min	
 
---Breakdown nr 8--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	56913.910	1529.975 sec / 25.500 min	
 
-Total downtime was 8040.252 seconds or 134.004 minutes
+Total downtime was 449850.438 seconds or 7497.507 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.601259	0.256615	0.200969	0.587983	0.549249	0.000000	0.000000	
+0.658593	0.282267	0.234049	0.616140	0.607411	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-623.912249	0.000000	0.000000	0.569042	0.622996	0.000000	0.000000	
+592.405736	0.003570	0.000000	1.781995	1.958127	0.000000	0.000000	
 
-Average queue delay: 124.596773
-System throughput: 706
-Average throughput time: 1384.680592
+Average queue delay: 119.230549
+System throughput: 70680
+Average throughput time: 1391.624311
 Min throughput time: 716.020005
+: 36
 
 *****************************************************
 Report for 9 failures per day
 --Breakdown nr 1--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	1867.188	1032.031 sec / 17.201 min	
-
+Number of fails	 Downtime 	
+	 126	80908.391 sec / 1348.473 min	
 --Breakdown nr 2--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	2900.219	1375.157 sec / 22.919 min	
-
+Number of fails	 Downtime 	
+	 96	59812.371 sec / 996.873 min	
 --Breakdown nr 3--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	5244.517	610.088 sec / 10.168 min	
-
+Number of fails	 Downtime 	
+	 117	72039.117 sec / 1200.652 min	
 --Breakdown nr 4--
-  Machine nr 	 Fail time	 Downtime 	
-	 3	3497.425	545.539 sec / 9.092 min	
-
+Number of fails	 Downtime 	
+	 126	79490.484 sec / 1324.841 min	
 --Breakdown nr 5--
-  Machine nr 	 Fail time	 Downtime 	
-	 2	7029.165	545.307 sec / 9.088 min	
-
+Number of fails	 Downtime 	
+	 129	75100.531 sec / 1251.676 min	
 --Breakdown nr 6--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	37774.008	2049.004 sec / 34.150 min	
-
+Number of fails	 Downtime 	
+	 120	72241.391 sec / 1204.023 min	
 --Breakdown nr 7--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	44359.508	353.151 sec / 5.886 min	
+Number of fails	 Downtime 	
+	 114	64243.008 sec / 1070.717 min	
 
---Breakdown nr 8--
-  Machine nr 	 Fail time	 Downtime 	
-	 6	50702.113	1529.975 sec / 25.500 min	
 
---Breakdown nr 9--
-  Machine nr 	 Fail time	 Downtime 	
-	 7	44713.660	505.864 sec / 8.431 min	
-
-Total downtime was 8546.116 seconds or 142.435 minutes
+Total downtime was 503835.312 seconds or 8397.255 minutes
 --------------
 Machine load
 --------------
 Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
-0.590062	0.252427	0.197562	0.573658	0.540893	0.000000	0.000000	
+0.657049	0.281173	0.233904	0.615057	0.604016	0.000000	0.000000	
 
 -----------------------
 Average delay in queues
 -----------------------
 Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
-560.800766	0.000000	0.000000	1.226853	1.478608	0.000000	0.000000	
+596.160818	0.004522	0.000000	2.145276	2.103433	0.000000	0.000000	
 
-Average queue delay: 112.958626
-System throughput: 696
-Average throughput time: 1336.759305
+Average queue delay: 120.083508
+System throughput: 70014
+Average throughput time: 1415.949122
 Min throughput time: 716.020005
+: 36
+
+*****************************************************
+Report for 10 failures per day
+--Breakdown nr 1--
+Number of fails	 Downtime 	
+	 136	85326.734 sec / 1422.112 min	
+--Breakdown nr 2--
+Number of fails	 Downtime 	
+	 118	70991.656 sec / 1183.194 min	
+--Breakdown nr 3--
+Number of fails	 Downtime 	
+	 125	78583.141 sec / 1309.719 min	
+--Breakdown nr 4--
+Number of fails	 Downtime 	
+	 131	87937.852 sec / 1465.631 min	
+--Breakdown nr 5--
+Number of fails	 Downtime 	
+	 138	83788.641 sec / 1396.477 min	
+--Breakdown nr 6--
+Number of fails	 Downtime 	
+	 137	84913.406 sec / 1415.223 min	
+--Breakdown nr 7--
+Number of fails	 Downtime 	
+	 135	81515.867 sec / 1358.598 min	
+
+
+Total downtime was 573057.250 seconds or 9550.954 minutes
+--------------
+Machine load
+--------------
+Machine 1	Machine 2	Machine 3	Machine 4	Machine 5	Machine 6	Machine 7	
+0.654988	0.276001	0.229443	0.606948	0.594113	0.000000	0.000000	
+
+-----------------------
+Average delay in queues
+-----------------------
+Queue 1 	Queue 2 	Queue 3 	Queue 4 	Queue 5 	Queue 6 	Queue 7 	
+609.339128	0.005977	0.000000	2.089526	2.127575	0.000000	0.000000	
+
+Average queue delay: 122.715273
+System throughput: 68744
+Average throughput time: 1423.885246
+Min throughput time: 716.020005
+: 36
