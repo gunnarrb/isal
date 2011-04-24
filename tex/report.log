@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  24 APR 2011 00:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2010.4.14)  24 APR 2011 14:56
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -473,16 +473,15 @@ ures/flow.jpg, id=80, 793.96625pt x 1195.46625pt>
 File: ../figures/flow.jpg Graphic file (type jpg)
 
 <use ../figures/flow.jpg> [2 <../figures/flow.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 100.
-
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 99.
 
 (/usr/local/texlive/2009/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 100.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 99.
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
+Underfull \hbox (badness 10000) in paragraph at lines 133--134
 
  []
 
@@ -497,25 +496,25 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 262.
+nput line 261.
  (../isal.c
 LaTeX Font Info:    Font shape `OMS/cmr/bx/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/b/n' tried instead on input line 1.
 
 [7]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 61.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
  [8] [9] [10] [11] [12] [13] [14]) (../adal_inntak.in)
-(../velar_og_bidradir.in) (../dgb.txt [15] [16] [17] [18] [19]) [20]
+(../velar_og_bidradir.in) (../dgb.txt [15] [16] [17] [18] [19] [20]) [21]
 (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 9075 strings out of 493848
- 129563 string characters out of 3149207
- 698173 words of memory out of 3000000
- 11265 multiletter control sequences out of 15000+200000
+ 9139 strings out of 493848
+ 130556 string characters out of 3149207
+ 710185 words of memory out of 3000000
+ 11279 multiletter control sequences out of 15000+200000
  22980 words of font info for 58 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 38i,8n,52p,1168b,1823s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,8n,52p,1168b,1795s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2009/texmf-dist/fonts/enc/dvips/cm-super/cm
 -super-t1.enc}</usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfonts/c
 mextra/cmbsy8.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/amsfon
@@ -535,9 +534,9 @@ l/texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/
 texlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/te
 xlive/2009/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texl
 ive/2009/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
-Output written on report.pdf (20 pages, 727052 bytes).
+Output written on report.pdf (21 pages, 736660 bytes).
 PDF statistics:
- 1294 PDF objects out of 1440 (max. 8388607)
- 900 named destinations out of 1000 (max. 500000)
+ 1358 PDF objects out of 1440 (max. 8388607)
+ 950 named destinations out of 1000 (max. 500000)
  115 words of extra memory for PDF output out of 10000 (max. 10000000)
 
