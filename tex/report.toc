@@ -1,16 +1,22 @@
 \select@language {icelandic}
 \contentsline {section}{\numberline {1}Inngangur}{1}{section.1}
 \contentsline {section}{\numberline {2}Niðurstöður}{4}{section.2}
-\contentsline {section}{\numberline {3}Forsendur og Líkan}{4}{section.3}
-\contentsline {subsection}{\numberline {3.1}Umskipting skauta og afköst Skautskála}{4}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Dreifing fyrir viðgerðartíma}{4}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Bilanir}{6}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Einingar og undirkerfi}{6}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Vélar og vinnslutímar}{7}{subsection.3.5}
+\contentsline {subsection}{\numberline {2.1}Þol fyrir töfum}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Ráðleggingar varðandi biðraðir}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Hegðun starfsmanna}{5}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Lágmarksafköstun}{5}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Löng viðgerðarstopp}{5}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Áhrif straumhækkunar}{5}{subsection.2.6}
+\contentsline {section}{\numberline {3}Forsendur og Líkan}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Umskipting skauta og afköst Skautskála}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Dreifing fyrir viðgerðartíma}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Bilanir}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Einingar og undirkerfi}{7}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Vélar og vinnslutímar}{8}{subsection.3.5}
 \contentsline {subsection}{\numberline {3.6}Upphitunartími}{8}{subsection.3.6}
-\contentsline {subsection}{\numberline {3.7}Atburðir og kjarnavirkni líkans}{8}{subsection.3.7}
-\contentsline {section}{\numberline {4}Sannreyning Líkans}{9}{section.4}
-\contentsline {section}{\numberline {5}Viðauki}{10}{section.5}
-\contentsline {subsection}{\numberline {5.1}Frumgerð í forritunarmálinu C }{10}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Inntaksgögn líkans}{18}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Keyrsluskýrslur}{18}{subsection.5.3}
+\contentsline {subsection}{\numberline {3.7}Atburðir og kjarnavirkni líkans}{9}{subsection.3.7}
+\contentsline {section}{\numberline {4}Sannreyning Líkans}{10}{section.4}
+\contentsline {section}{\numberline {5}Viðauki}{11}{section.5}
+\contentsline {subsection}{\numberline {5.1}Frumgerð í forritunarmálinu C }{11}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Inntaksgögn líkans}{19}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Keyrsluskýrslur}{19}{subsection.5.3}

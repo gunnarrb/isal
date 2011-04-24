@@ -52,6 +52,7 @@
 \tableofcontents
 
 \section{Inngangur}
+\label{sec:Inngangur}
 Alcan á Íslandi hf, betur þekkt sem Ísál, er hluti af Rio Tinto Alcan, fjölþjóðlegu fyrirtæki sem er stærsti álframleiðandi í heimi.  Ísal rekur álverið í Straumsvík sem er ellefta stærsta álverið innan samsteypunnar. Framleiðslugetan er um 185 þúsund tonn og starfsmennirnir eru um 450; vélvirkjar, verkfræðingar, stóriðjugreinar, rafvirkjar, verkafólk, tæknifræðingar, málarar, skrifstofufólk, bifvélavirkjar, viðskiptafræðingar, múrarar, matreiðslumenn, rafeindavirkjar, smiðir o.fl
 
 Ísal rekur þrjá kerskála þar sem að svonefnd skaut eru notuð til rafgreiningar áls.  Kerin eru númeruð frá 1001 til 3160 þar sem fyrsta talan stendur fyrir númer skála, og næstu þrjár númer kers í skálanum. Hvert ker hefur 24 skaut sem að slitna með tímanum. Þess vegna þarf að skipta um þau á 26 til 30 daga fresti en það er mismunandi eftir skálum. Skáli 3 hefur stærri skaut og hærri straum, 165 kA og þar endast skaut í 26 daga. Skálar 1 og 2 hafa lægri straum, 133 kA og minni skaut sem að endast í 30 daga. Daglega þarf að skipta út um það bil 404 skautum. 
@@ -118,17 +119,23 @@ Fjöldi skauta í gegnum kerfið á þessu 90 daga tímabili er 65082 skaut, sem eru 4
 Eins og sjá má liggja engin gögn fyrir um vélar F og G en hægri hlið skautskála er undanskilin hermum að mestu leiti (sjá grein \ref{sec:Einingar})
 
 \subsection{Þol fyrir töfum}
-Skálinn þolir 8 stopp á sólarhring
+Skautskálinn starfar 16 klukkustundir, með lágmarksafköstun 404 skaut á sólarhring og fræðilegt hámark 52 skaut á klukkustund þegar engar bilanir eru \cite{verkefni}. Án tafa er framleiðsla á sólarhring þá: $$16 \cdot 52$$ skaut. Framleiðslugeta skálans er meiri en lágmarks eftirspurn og mismunurinn er $$(16 \cdot 52) - 404)$$ skaut. Þar sem að fræðileg hámarksafköst eru 52 skaut tekur það skálann $$ \frac{(16 \cdot 52)-404)}{52} = 8.230$$ klukkustundir að framleiða þann fjölda skauta umfram lágmarksafköst, og er það þá núllpunktur framleiðslunnar. Um leið og tafir verða meiri annast skálinn ekki eftirspurn.
 
 \subsection{Ráðleggingar varðandi biðraðir}
+Til að réttlæta stækkun biðraðar eða innsetningu nýrrar raðar þarf að sýna fram á að einhver biðröð fyllist, þannig að lásinn á undan megi ekki sleppa sínu skauti, af því að það veldur afturvirkum töfum. Þessu er nánar lýst í grein \ref{sec:Inngangur}. Líkanið, sem útfært er í viðauka \ref{sec:model}, fylgist með því hvort að bæta skuli skauti í fulla röð eða lás. Niðurstöðurnar eru skýrar; þar sem að Lás 3 er staðsettur mætti vera biðröð. Í öllum tilfellum fyllist þessi röð og veldur afturvirkum töfum. Í sumum tilfellum veldur Lás 4 líka afturvirkum töfum en þau tilfelli eru sjaldgæfari. Sjá grein \ref{sec:locks} í viðauka fyrir niðurstöður um yfirflæði lása og raða. 
 
 \subsection{Hegðun starfsmanna}
+Miklu munar ef að starfsmenn grípa inn í ferlið eins fljótt og þeir geta þegar þeir verða varir við bilanir. Þar sem að flestir viðgerðatímar eru á bilinu 5 til 30 mínútur \cite{verkefni} var inntaksskrá líkansins breytt þannig að viðgerðartímar eru veldisdreifðir á milli 5 og 10 mínútna þannig að mestar líkur eru á 5 mínútna viðgerð. Sjá grein \ref{sec:tölfræði} fyrir tölfræði. Langar viðgerðir skila 65082 skautum á þessu þriggja mánaða hermitímabili, sem eru 45 skaut á klukkustund. Ef að starfsmenn bregðast eins hratt við og þeir geta þannig að viðgerðatími er styttur þá nást 73702 skaut í heildina eða 51 á
+klukkustund.  Í báðum tilfellum eru bilanir 8 á klukkustund. Sjá keyrsluskrá þar sem að starfsmenn bregðast fljótt við: \ref{sec:schnellstaff}.
 
 \subsection{Lágmarksafköstun}
+Miðað við að bilanir 3 á sólahring þá eru afköstin 71170 yfir 3 mánaða tímabil eða 49.432 skaut á klukkutíma að meðaltali. Lágmárksafköst eru 404 skaut á dag.  
+$$404 = X \cdot 49.432$$$$X = \frac{404}{49.432}$$ og það gera = 8.178 klukkutíma, og þá er lágmarks afköstun náð.
 
-\subsectoin{Löng viðgerðarstopp}
+\subsection{Löng viðgerðarstopp}
 
 \subsection{Áhrif straumhækkunar}
+Þegar straumurinn hækkar þá hækkar lágmarkseftirspurnin einnig.
 
 \section {Forsendur og Líkan}
 Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skautskála. Í næstu undirgreinum er forsendum líkansins lýst. %Til að smíða þetta líkan voru okkur gefin gögn á Excel sniði sem að fylgja með þessari skýrslu. %Gögnin eru ónákvæm og torskiljanleg og eru eftirfarandi forsendir gefnar frá þeim.
@@ -144,6 +151,7 @@ Til að komast að niðurstöðum smíðuðum við líkan sem að hermir eftir ferli skauts
 
 
 \subsection{Dreifing fyrir viðgerðartíma}
+\label{sec:tölfræði}
  Við völdum exponential distribution til að ákvarða viðgerðartíma. Ástæðan fyrir því er sú að fallið er frekar einfalt, stærðfræðilega séð, og að það virtist smellpassa við þau gögn sem við settum upp.  Einnig gerum við ekki grein fyrir því að vélar bili oftar með tímanum(degrade/wear out) því þurfum við ekki flóknari dreifingu en veldisdreifingu.
 
 Við settum upp töflur fyrir viðgerðartíma útfrá því sem okkur var sagt í ferðinni. Taflan hér að neðan sýnir viðgerðartíma og áreiðanleika.  Þar að segja er stuttur viðgerðartími líklegri en lengri. Við munum bæta 5 mínútum við alla viðgerðartíma þar sem það er sá lágmarkstími sem tekur að gera við vél.  Við gerum ekki mun á milli véla, allar vélar hafa sömu líkur á því að bila(komum að því síðar). 
@@ -385,6 +393,7 @@ Höfundar smíðuðu líkan í \emph{Extreme Programming} stíl sem stuðlar að hraðvirk
 
 \section {Viðauki}
 \subsection{Frumgerð í forritunarmálinu C }
+\label{sec:model}
 \lstinputlisting[language=C]{../isal.c}
 
 \subsection{Inntaksgögn líkans}
@@ -396,7 +405,72 @@ Höfundar smíðuðu líkan í \emph{Extreme Programming} stíl sem stuðlar að hraðvirk
 \subsection{Keyrsluskýrslur}
 \label{sec:Uttak}
 \lstinputlisting{../output.txt}
+\subsection*{Yfirflæði biðraða}
+\label{sec:locks}
+\begin{verbatim}
+Queue number 1 was overblown 0 timesQueue number 2 was overblown 0 timesQueue number 4 was overblown 193 timesQueue number 5 was overblown 1 timesQueue number 7 was overblown 0 times
+\end{verbatim}
 
+\subsection*{Starfsfólk bregst fljótt við}
+\label{sec:schnellstaff}
+\begin{verbatim}
+*****************************************************
+Report for 8 failures per day
+--Breakdown in machine nr 1--
+Number of fails  Downtime
+        101    36946.816 sec / 615.780 min
+--Breakdown in machine nr 2--
+Number of fails  Downtime
+        97 35224.242 sec / 587.071 min
+--Breakdown in machine nr 3--
+Number of fails  Downtime
+        108    40264.309 sec / 671.072 min
+--Breakdown in machine nr 4--
+Number of fails  Downtime
+        99     37077.297 sec / 617.955 min
+--Breakdown in machine nr 5--
+Number of fails  Downtime
+        96     35723.801 sec / 595.397 min
+--Breakdown in machine nr 6--
+Number of fails  Downtime
+        111    40347.973 sec / 672.466 min
+--Breakdown in machine nr 7--
+Number of fails  Downtime
+        108    40133.090 sec / 668.885 min
+
+
+Total downtime was 265717.531 seconds or 4428.626 minutes
+--------------
+Machine load
+--------------
+Machine 1       Machine 2       Machine 3       Machine 4
+Machine 5       Machine 6       Machine 7
+0.524240        0.155639        0.094149        0.246395
+0.249132        0.000000        0.000000
+
+-----------------------
+Average delay in queues
+-----------------------
+Queue 1         Queue 2         Queue 3         Queue 4         Queue
+5         Queue 6         Queue 7
+445.552116      0.001437        0.000000        0.022552
+0.009246        0.000000        0.000000
+
+Average queue delay: 89.114169
+Worst case queue delay: 1993.913564
+Best case queue delay: 0.000000
+System throughput: 73702
+Average throughput time: 935.910870
+Min throughput time: 467.435002
+Random seed: 5
+
+Maximum length of queue 1: 12
+Maximum length of queue 2: 0
+Maximum length of queue 4: 1
+Maximum length of queue 5: 0
+Maximum length of queue 7: 0
+Average maximum length of queues: 2.600000
+\end{verbatim}
 
 
 \end{document}
