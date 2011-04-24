@@ -64,10 +64,10 @@ breakdown *fail_list;
 int fail_index;
 
 int is_machine_busy[NUM_MACHINES +1],
-queue_size[NUM_MACHINES +1];
+    queue_size[NUM_MACHINES +1];
 
 float work_time[NUM_MACHINES + 1],
-transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
+    transfer_time[NUM_MACHINES +1]; // +1 is the less preferable simlib indexing scheme
 
 
 float temp_transfer[TRANSFER_ARRAY_LENGTH];
@@ -152,7 +152,7 @@ void schedule_failures(int i);
 
 int main()
 {
-	// load datafiles
+    // load datafiles
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 	
     // initialize arrays and variables
@@ -172,10 +172,11 @@ int main()
    
     for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
 	stream = (unsigned int)time(NULL) % 100;   
-
+		
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
 	memset( machine_broken,0, NUM_MACHINES +1);
-	memset( fail_list,0, sizeof(breakdown)*NUM_MACHINES+1);
+	memset( queue_max_lengths,0, NUM_MACHINES +1);
+	memset( fail_list,0, sizeof(breakdown)*(NUM_MACHINES+1));
 	fail_index = 0;
 	skaut_throughput = 0;
 	sampst_delays = number_of_machines +1;
@@ -183,91 +184,61 @@ int main()
 		
 	skaut_id = 1;
 	skaut_throughput = 0;
-	
-	
+		
+		
 	// Initialize rndlib
-	init_twister();	
-	
-	
+	init_twister();
+		
+	// Initialize simlib
+	init_simlib();
+		
+	maxatr = 6; // how many attributes do we need?
+		
 	/* Schedule first wagen arrival */
 	event_schedule( 10.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
-	
+		
 	/* Schedule end of warmup time */
 	event_schedule( end_warmup_time, EVENT_END_WARMUP );
-	event_schedule(end_warmup_time+10.0, EVENT_GENERATE_FAILURES );	
+	event_schedule(end_warmup_time, EVENT_GENERATE_FAILURES );	
 	/* Schedule simulation termination */
 	event_schedule(end_simulation_time , EVENT_END_SIMULATION );
-	
+		
 	next_event_type = 0;
-	
-    for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
-		stream = (unsigned int)time(NULL) % 100;   
-		
-		memset( is_machine_busy,0, NUM_MACHINES +1 );
-		memset( machine_broken,0, NUM_MACHINES +1);
-		memset( queue_max_lengths,0, NUM_MACHINES +1);
-		memset( fail_list,0, sizeof(breakdown)*NUM_MACHINES+1);
-		fail_index = 0;
-		skaut_throughput = 0;
-		sampst_delays = number_of_machines +1;
-		throughput_time = number_of_machines +2;
-		
-		skaut_id = 1;
-		skaut_throughput = 0;
-		
-		
-		// Initialize rndlib
-		init_twister();
-		
-		// Initialize simlib
-		init_simlib();
-		
-		maxatr = 6; // how many attributes do we need?
-		
-		/* Schedule first wagen arrival */
-		event_schedule( 10.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
-		
-		/* Schedule end of warmup time */
-		event_schedule( end_warmup_time, EVENT_END_WARMUP );
-		event_schedule(end_warmup_time, EVENT_GENERATE_FAILURES );	
-		/* Schedule simulation termination */
-		event_schedule(end_simulation_time , EVENT_END_SIMULATION );
-		
-		next_event_type = 0;
 		
         
-		while (next_event_type != EVENT_END_SIMULATION) {
+	while (next_event_type != EVENT_END_SIMULATION) {
 			
-			timing();
+	    timing();
 			
-			switch (next_event_type) {
-				case EVENT_WAGEN_UNLOAD_ARRIVAL:
-					wagen_unload_arrival();
-					break;
-				case EVENT_SKAUT_ARRIVAL:
-					skaut_arrival();
-					break;
-				case EVENT_SKAUT_DEPARTURE:
-					skaut_departure();
-					break;
-				case EVENT_MACHINE_FAILURE:
-					machine_failure();
-					break;
-				case EVENT_MACHINE_FIXED:
-					machine_fixed();
-					break;
-				case EVENT_END_WARMUP:
-					end_warmup();
-					break;
-				case EVENT_END_SIMULATION:
-					report();
-					break;
-				case EVENT_GENERATE_FAILURES:
-					create_machine_fail_events();
-					break;
+	    switch (next_event_type) {
+	    case EVENT_WAGEN_UNLOAD_ARRIVAL:
+		wagen_unload_arrival();
+		break;
+	    case EVENT_SKAUT_ARRIVAL:
+		skaut_arrival();
+		break;
+	    case EVENT_SKAUT_DEPARTURE:
+		skaut_departure();
+		break;
+	    case EVENT_MACHINE_FAILURE:
+		machine_failure();
+		break;
+	    case EVENT_MACHINE_FIXED:
+		machine_fixed();
+		break;
+	    case EVENT_END_WARMUP:
+		end_warmup();
+		break;
+	    case EVENT_END_SIMULATION:
+		report();
+		break;
+	    case EVENT_GENERATE_FAILURES:
+		create_machine_fail_events();
+		break;
 					
-			}
-		}
+	    }
+	}
+		
     }
 }
 
@@ -288,18 +259,18 @@ void wagen_unload_arrival()
     }
 	
     if (list_size[number_of_machines + 1] != 0) { // ef allt er enn fullt þá koma með næsta vagn eftir uþb hálftíma
-		event_schedule(sim_time + wagen_arrival_zeit, EVENT_WAGEN_UNLOAD_ARRIVAL);
-		return;
+	event_schedule(sim_time + wagen_arrival_zeit, EVENT_WAGEN_UNLOAD_ARRIVAL);
+	return;
     }
     
     int vagn_magn =  WAGEN_LOAD-((int)unirand(0.0,3.0,stream));  //12 - 14 skaut á hverjum vagni
     for (i=1; i <= vagn_magn; i++) {
 		
-		transfer[3]=1.0;
-		transfer[4] = sim_time + (i * 0.01); // skaut entering system time
-		transfer[6] = (float) skaut_id++;
-		//printf("tr4 in wagen: %f\n", transfer[4]);
-		event_schedule( sim_time + ( i* 0.01),	EVENT_SKAUT_ARRIVAL);
+	transfer[3]=1.0;
+	transfer[4] = sim_time + (i * 0.01); // skaut entering system time
+	transfer[6] = (float) skaut_id++;
+	//printf("tr4 in wagen: %f\n", transfer[4]);
+	event_schedule( sim_time + ( i* 0.01),	EVENT_SKAUT_ARRIVAL);
     }
 	
     event_schedule(sim_time+wagen_arrival_zeit, EVENT_WAGEN_UNLOAD_ARRIVAL);
@@ -324,27 +295,27 @@ void skaut_arrival()
 	
     // check if machine is not busy
     if (list_size[current_unit] == 0 && machine_broken[current_unit] == 0.0) {
-		sampst(0.0, sampst_delays);
-		sampst(0.0, current_unit);
+	sampst(0.0, sampst_delays);
+	sampst(0.0, current_unit);
 	    
-		list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
+	list_file(FIRST, current_unit); // last := first here because there are only to be 0 or 1 items in machine
 		
-		// schedule departure after machine processing time
-		pop_array();
-		event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	// schedule departure after machine processing time
+	pop_array();
+	event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
     } else {
 		
-		if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
+	if (list_size[number_of_machines + current_unit] == queue_size[current_unit]) {
 			
-			event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if queue is full then delay it.
+	    event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if queue is full then delay it.
 			
-		} else {
-			transfer[5] = sim_time;
-			list_file(LAST, number_of_machines + current_unit);
-			if(list_size[current_unit] > queue_max_lengths[number_of_machines + current_unit]) {
-				queue_max_lengths[current_unit] = list_size[number_of_machines + current_unit];
-			}
-		}
+	} else {
+	    transfer[5] = sim_time;
+	    list_file(LAST, number_of_machines + current_unit);
+	    if(list_size[current_unit] > queue_max_lengths[number_of_machines + current_unit]) {
+		queue_max_lengths[current_unit] = list_size[number_of_machines + current_unit];
+	    }
+	}
 		
     }
 	
@@ -368,29 +339,29 @@ void skaut_departure()
     }
 	
     if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
-		skaut_throughput += 2;
-		sampst(sim_time - transfer[4], throughput_time);
-		list_remove(FIRST,current_unit);  
+	skaut_throughput += 2;
+	sampst(sim_time - transfer[4], throughput_time);
+	list_remove(FIRST,current_unit);  
     } else {
-		list_remove(FIRST,current_unit);
-		pop_array();
-		transfer[3]++;
-		event_schedule(PREP_TIME + sim_time + transfer_time[(int)(transfer[3])-1], EVENT_SKAUT_ARRIVAL);
+	list_remove(FIRST,current_unit);
+	pop_array();
+	transfer[3]++;
+	event_schedule(PREP_TIME + sim_time + transfer_time[(int)(transfer[3])-1], EVENT_SKAUT_ARRIVAL);
     }
 	
 	
     if (list_size[number_of_machines + current_unit] != 0) {
-		pop_array();
+	pop_array();
 		
-		list_file(FIRST,current_unit); // first equals last because size should only be 1
-		pop_array();
+	list_file(FIRST,current_unit); // first equals last because size should only be 1
+	pop_array();
 		
-		list_remove(FIRST, number_of_machines + current_unit);
-		pop_array();
+	list_remove(FIRST, number_of_machines + current_unit);
+	pop_array();
 		
-		sampst(sim_time - transfer[5], sampst_delays);
-		sampst(sim_time - transfer[5], current_unit);
-		event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
+	sampst(sim_time - transfer[5], sampst_delays);
+	sampst(sim_time - transfer[5], current_unit);
+	event_schedule(PREP_TIME + sim_time + work_time[current_unit], EVENT_SKAUT_DEPARTURE);
     }
 }
 
@@ -400,7 +371,7 @@ void parse_input(char inputfile_data[], char inputfile_time[])
 	
 	
     if ((infile = fopen (inputfile_data, "r")) == NULL) {
-		printf("Could not open file %s\n",inputfile_data);
+	printf("Could not open file %s\n",inputfile_data);
     }
 	
     fscanf (infile, "%d %d %d %d %f %f %f %f %f %f", &number_of_machines, &min_productivity, &min_no_failures, &max_no_failures, &mean_wagen_arrival, &std_wagen_arrival,  &min_machine_repair_time, &max_machine_repair_time, &end_warmup_time, &end_simulation_time);
@@ -408,15 +379,15 @@ void parse_input(char inputfile_data[], char inputfile_time[])
 	
 	
     if ((infile = fopen (inputfile_time, "r")) == NULL) {
-		printf("Could not open file %s\n",inputfile_time);
+	printf("Could not open file %s\n",inputfile_time);
     } 
     printf( "%d %d %d %d %f %f %f %f %f %f\n", number_of_machines, min_productivity, min_no_failures, max_no_failures, mean_wagen_arrival, std_wagen_arrival,  min_machine_repair_time, max_machine_repair_time, end_warmup_time, end_simulation_time);
 	
     int counter = 1;
     while (!feof(infile)) {
-		fscanf(infile, "%f %d %f", &transfer_time[counter], &queue_size[counter], &work_time[counter] );
-		printf("%f %d %f\n", transfer_time[counter], queue_size[counter], work_time[counter] );
-		counter++;
+	fscanf(infile, "%f %d %f", &transfer_time[counter], &queue_size[counter], &work_time[counter] );
+	printf("%f %d %f\n", transfer_time[counter], queue_size[counter], work_time[counter] );
+	counter++;
     }
     fclose(infile);
 	
@@ -438,12 +409,12 @@ void report()
     printf("Report for %d failures per day\n",failure_nr);
     
     for (i=0; i <NUM_MACHINES; i++) {
-		printf("--Breakdown in machine nr %d--\n", i+1);
-		printf("Number of fails\t Downtime \t\n");
-		printf("\t %d\t", fail_list[i].machine_nr);
-		printf("%.3f sec / %.3f min\t", fail_list[i].downtime,fail_list[i].downtime/60.0);
-		printf("\n");
-		total_downtime+=fail_list[i].downtime;
+	printf("--Breakdown in machine nr %d--\n", i+1);
+	printf("Number of fails\t Downtime \t\n");
+	printf("\t %d\t", fail_list[i].machine_nr);
+	printf("%.3f sec / %.3f min\t", fail_list[i].downtime,fail_list[i].downtime/60.0);
+	printf("\n");
+	total_downtime+=fail_list[i].downtime;
     }
     printf("\n\n");
     
@@ -452,23 +423,23 @@ void report()
     
     printf("--------------\nMachine load\n--------------\n");
     for (i=1; i <= number_of_machines; i++) {
-		printf("Machine %d\t", i);
+	printf("Machine %d\t", i);
     }
     printf("\n");
     for (i=1; i <= number_of_machines; i++) {
-		printf("%f\t", filest(i) );
+	printf("%f\t", filest(i) );
     }
     printf("\n\n");
 	
     printf("-----------------------\nAverage delay in queues\n-----------------------\n");
     for (i=1; i <= number_of_machines; i++) {
-		printf("Queue %d \t", i);
+	printf("Queue %d \t", i);
     }
 	
     printf("\n");
 	
     for (i=1; i <= number_of_machines; i++) {
-		printf("%f\t", sampst(0.0, -i));
+	printf("%f\t", sampst(0.0, -i));
     }
     printf("\n\n");
     printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
@@ -481,17 +452,17 @@ void report()
     printf("Min throughput time: %f\n", transfer[4]);
     printf("Random seed: %d\n\n", stream);
 	
-	int l;
-	int sum_q_lenths =0;
-	int number_of_queues =0;
-	for (l = 1; l <= number_of_machines; l++) {
-		if (queue_size[l] < 1) continue;
-		printf("Maximum length of queue %d: %d\n", l, queue_max_lengths[l]);
-		sum_q_lenths += queue_max_lengths[l];
-		number_of_queues++;
-	}
+    int l;
+    int sum_q_lenths =0;
+    int number_of_queues =0;
+    for (l = 1; l <= number_of_machines; l++) {
+	if (queue_size[l] < 1) continue;
+	printf("Maximum length of queue %d: %d\n", l, queue_max_lengths[l]);
+	sum_q_lenths += queue_max_lengths[l];
+	number_of_queues++;
+    }
 	
-	printf("Average maximum length of queues: %f\n\n", (float) sum_q_lenths / (float) number_of_queues);
+    printf("Average maximum length of queues: %f\n\n", (float) sum_q_lenths / (float) number_of_queues);
 }
 
 void push_array() {
@@ -542,7 +513,7 @@ void machine_failure(){
     float repair_time = transfer[3];
     int   machine     = (int)transfer[4];
     machine_broken[machine] = repair_time;
-	//    printf(" Machine %d broke down and it takes %f to repair\n", machine, repair_time/60.0);
+    //    printf(" Machine %d broke down and it takes %f to repair\n", machine, repair_time/60.0);
 	
     event_schedule(sim_time + repair_time, EVENT_MACHINE_FIXED);
 }
