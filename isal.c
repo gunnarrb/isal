@@ -38,7 +38,7 @@
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
 #define TRANSFER_ARRAY_LENGTH 11
-#define PREP_TIME 20.0
+#define PREP_TIME 0.0
 
 typedef struct
 {
@@ -155,25 +155,50 @@ int main()
 	// load datafiles
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 	
-	float ble = 4332.692383;
-	int q = 5;
-	float t = ble / q;
-	printf("DGB %f\n", t);
-	
     // initialize arrays and variables
-    if((fail_list = malloc(sizeof(breakdown)*max_no_failures))==NULL) {
-		printf("Allocation Error\n");
-		exit(1);
+    if((fail_list = malloc(sizeof(breakdown)*NUM_MACHINES+1))==NULL) {
+	printf("Allocation Error\n");
+	exit(1);
     }
-	
-	
-	
+
+
+
     int b;
-	/*    for (b=1; b <= number_of_machines; b++) {
-	 printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
-	 printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
-	 }*/
+/*    for (b=1; b <= number_of_machines; b++) {
+      printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
+      printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
+      }*/
     // We perform simulation for "a few" failures per day
+   
+    for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
+	stream = (unsigned int)time(NULL) % 100;   
+
+	memset( is_machine_busy,0, NUM_MACHINES +1 );
+	memset( machine_broken,0, NUM_MACHINES +1);
+	memset( fail_list,0, sizeof(breakdown)*NUM_MACHINES+1);
+	fail_index = 0;
+	skaut_throughput = 0;
+	sampst_delays = number_of_machines +1;
+	throughput_time = number_of_machines +2;
+		
+	skaut_id = 1;
+	skaut_throughput = 0;
+	
+	
+	// Initialize rndlib
+	init_twister();	
+	
+	
+	/* Schedule first wagen arrival */
+	event_schedule( 10.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
+	
+	/* Schedule end of warmup time */
+	event_schedule( end_warmup_time, EVENT_END_WARMUP );
+	event_schedule(end_warmup_time+10.0, EVENT_GENERATE_FAILURES );	
+	/* Schedule simulation termination */
+	event_schedule(end_simulation_time , EVENT_END_SIMULATION );
+	
+	next_event_type = 0;
 	
     for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
 		stream = (unsigned int)time(NULL) % 100;   
@@ -210,7 +235,6 @@ int main()
 		
 		next_event_type = 0;
 		
-        
         
 		while (next_event_type != EVENT_END_SIMULATION) {
 			
@@ -257,10 +281,10 @@ void wagen_unload_arrival()
     float wagen_arrival_zeit = unirand((mean_wagen_arrival-std_wagen_arrival)*60.0,(mean_wagen_arrival+std_wagen_arrival)*60.0,stream); 
 	
     for (i = 1; i<NUM_MACHINES+1; i++) {  //delay unload of skaut by the time it takes to repair
-		if (machine_broken[i] > 0.0) {
-			event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
-			return;
-		}
+	if (machine_broken[i] > 0.0) {
+	    event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
+	    return;
+	}
     }
 	
     if (list_size[number_of_machines + 1] != 0) { // ef allt er enn fullt þá koma með næsta vagn eftir uþb hálftíma
@@ -289,12 +313,13 @@ void skaut_arrival()
     int i;
 	
     for (i = NUM_MACHINES; i>=current_unit; i--) {  //add delay if there is a broken machine before current one
-		if (machine_broken[i] > 0.0) {
-			if ((list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])||queue_size[1+current_unit] == 0) {  // if current machine is broken then delay it.x
-				event_schedule(sim_time +  machine_broken[i] + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if next queue is full then delay it.
-				return;
-			}
-		}
+
+	if (machine_broken[i] > 0.0) {
+	    if ((list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])||queue_size[1+current_unit] == 0) {  // if current machine is broken then delay it.x
+		event_schedule(PREP_TIME+sim_time +  machine_broken[i] + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if next queue is full then delay it.
+		return;
+	    }
+	}
     }
 	
     // check if machine is not busy
@@ -331,14 +356,15 @@ void skaut_departure()
     int current_unit = (int) transfer[3];
     int i = 0;
     for (i = NUM_MACHINES; i>=current_unit; i--) {  //add delay if machine is broken or there is a broken machine before current one
-		if (machine_broken[i] > 0.0) {
-			if ((i == current_unit)  || (list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])) {  // if current machine is broken then delay it.
-				event_schedule(sim_time + machine_broken[i], EVENT_SKAUT_DEPARTURE); //also if next queue is full then delay it.
-				return;
-			}
-			//	    printf("Size of next queue %d, limit of next queue %d\n",list_size[1+number_of_machines + current_unit], queue_size[1+current_unit]);
-			break;
-		}
+
+	if (machine_broken[i] > 0.0) {
+	    if ((i == current_unit)  || (list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])) {  // if current machine is broken then delay it.
+		event_schedule(PREP_TIME+sim_time + machine_broken[i], EVENT_SKAUT_DEPARTURE); //also if next queue is full then delay it.
+		return;
+	    }
+//	    printf("Size of next queue %d, limit of next queue %d\n",list_size[1+number_of_machines + current_unit], queue_size[1+current_unit]);
+	    break;
+	}
     }
 	
     if (current_unit == MACHINES_ON_THE_LEFT_SIDE) {
@@ -446,9 +472,10 @@ void report()
     }
     printf("\n\n");
     printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
-	printf("Worst case queue delay: %f\n", transfer[3]);
-	printf("Best case queue delay: %f\n\n", transfer[4]);
-	
+
+    printf("Worst case queue delay: %f\n", transfer[3]);
+    printf("Best case queue delay: %f\n", transfer[4]);
+
     printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
@@ -489,22 +516,23 @@ void create_machine_fail_events() {
     float breakdown_time;
 	
     for (i = 0;i<n;i++) {
-		current_span+=span;
-		machine = (int)unirand(1,number_of_machines+1,stream);
-		breakdown_time = unirand(0.0,current_span,stream);
-		repair_time =(5.0 + expon(log(max_machine_repair_time - min_machine_repair_time),stream))*60.0;
-		if (a[machine]<breakdown_time) {  // 
-			a[machine] = breakdown_time+repair_time;
-		}
-		else { // if breakdown_time clashes with the same machine then let the breakdown happen after the machine goes up again
-			breakdown_time = a[machine] + 1.0;
-			a[machine] = breakdown_time+repair_time;
-		}
-		transfer[3] = repair_time;
-		transfer[4] = (float)machine;
-		fail_list[machine-1].downtime+= repair_time;
-		fail_list[machine-1].machine_nr++; 
-		event_schedule(sim_time + breakdown_time, EVENT_MACHINE_FAILURE );
+
+	current_span+=span;
+	machine = (int)unirand(1,number_of_machines+1,stream);
+	breakdown_time = unirand(0.0,current_span,stream);
+	repair_time =(min_machine_repair_time + expon(max_machine_repair_time ,stream))*60.0;
+	if (a[machine]<breakdown_time) {  // 
+	    a[machine] = breakdown_time+repair_time;
+	}
+	else { // if breakdown_time clashes with the same machine then let the breakdown happen after the machine goes up again
+	    breakdown_time = a[machine] + 1.0;
+	    a[machine] = breakdown_time+repair_time;
+	}
+	transfer[3] = repair_time;
+	transfer[4] = (float)machine;
+	fail_list[machine-1].downtime+= repair_time;
+	fail_list[machine-1].machine_nr++; 
+	event_schedule(sim_time + breakdown_time, EVENT_MACHINE_FAILURE );
     }
 	
     event_schedule(sim_time + shift_length, EVENT_GENERATE_FAILURES );
