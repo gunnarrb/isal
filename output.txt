@@ -11,25 +11,25 @@ DGB 866.538452
 
 *****************************************************
 Report for 0 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 0	0.000 sec / 0.000 min	
 
@@ -57,25 +57,25 @@ Random seed: 92
 
 *****************************************************
 Report for 1 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 14	17408.664 sec / 290.144 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 14	14729.754 sec / 245.496 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 17	21813.156 sec / 363.553 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 12	11268.964 sec / 187.816 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 16	18231.232 sec / 303.854 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 5	4622.723 sec / 77.045 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 12	15270.830 sec / 254.514 min	
 
@@ -103,25 +103,25 @@ Random seed: 92
 
 *****************************************************
 Report for 2 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 18	29180.676 sec / 486.345 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 25	26656.006 sec / 444.267 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 34	33937.508 sec / 565.625 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 32	34680.711 sec / 578.012 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 25	30137.250 sec / 502.288 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 25	28437.951 sec / 473.966 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 21	23484.295 sec / 391.405 min	
 
@@ -149,25 +149,25 @@ Random seed: 93
 
 *****************************************************
 Report for 3 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 28	32704.871 sec / 545.081 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 34	37312.844 sec / 621.881 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 39	42175.816 sec / 702.930 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 50	52987.277 sec / 883.121 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 30	39646.910 sec / 660.782 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 38	46417.207 sec / 773.620 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 51	59002.086 sec / 983.368 min	
 
@@ -195,25 +195,25 @@ Random seed: 93
 
 *****************************************************
 Report for 4 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 47	54550.926 sec / 909.182 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 61	65808.180 sec / 1096.803 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 48	58941.898 sec / 982.365 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 49	59129.191 sec / 985.487 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 60	62343.688 sec / 1039.061 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 47	49368.742 sec / 822.812 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 48	55978.504 sec / 932.975 min	
 
@@ -241,25 +241,25 @@ Random seed: 94
 
 *****************************************************
 Report for 5 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 72	75961.328 sec / 1266.022 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 63	72326.273 sec / 1205.438 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 64	81299.133 sec / 1354.986 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 61	65099.527 sec / 1084.992 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 70	84682.312 sec / 1411.372 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 57	62940.590 sec / 1049.010 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 63	68472.734 sec / 1141.212 min	
 
@@ -287,25 +287,25 @@ Random seed: 94
 
 *****************************************************
 Report for 6 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 73	77181.312 sec / 1286.355 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 86	112307.180 sec / 1871.786 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 74	85593.086 sec / 1426.551 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 79	86854.828 sec / 1447.580 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 73	85323.086 sec / 1422.051 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 80	94936.453 sec / 1582.274 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 75	77037.805 sec / 1283.963 min	
 
@@ -333,25 +333,25 @@ Random seed: 94
 
 *****************************************************
 Report for 7 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 96	106166.305 sec / 1769.438 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 100	136099.312 sec / 2268.322 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 97	123498.727 sec / 2058.312 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 87	95401.359 sec / 1590.023 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 84	104042.820 sec / 1734.047 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 93	101772.180 sec / 1696.203 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 73	76167.812 sec / 1269.464 min	
 
@@ -379,25 +379,25 @@ Random seed: 95
 
 *****************************************************
 Report for 8 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 103	115247.594 sec / 1920.793 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 90	107070.672 sec / 1784.511 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 97	104376.836 sec / 1739.614 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 97	114411.133 sec / 1906.852 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 110	118845.734 sec / 1980.762 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 113	117484.648 sec / 1958.077 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 110	115256.328 sec / 1920.939 min	
 
@@ -425,25 +425,25 @@ Random seed: 95
 
 *****************************************************
 Report for 9 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 114	121955.883 sec / 2032.598 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 106	117085.289 sec / 1951.421 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 113	127078.883 sec / 2117.981 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 97	112215.234 sec / 1870.254 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 121	143202.188 sec / 2386.703 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 136	157542.328 sec / 2625.705 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 123	133715.547 sec / 2228.592 min	
 
@@ -471,25 +471,25 @@ Random seed: 95
 
 *****************************************************
 Report for 10 failures per day
---Breakdown nr 1--
+--Breakdown for machine nr 1--
 Number of fails	 Downtime 	
 	 131	131869.453 sec / 2197.824 min	
---Breakdown nr 2--
+--Breakdown for machine nr 2--
 Number of fails	 Downtime 	
 	 125	155051.344 sec / 2584.189 min	
---Breakdown nr 3--
+--Breakdown for machine nr 3--
 Number of fails	 Downtime 	
 	 126	158219.750 sec / 2636.996 min	
---Breakdown nr 4--
+--Breakdown for machine nr 4--
 Number of fails	 Downtime 	
 	 120	142989.531 sec / 2383.159 min	
---Breakdown nr 5--
+--Breakdown for machine nr 5--
 Number of fails	 Downtime 	
 	 134	148801.031 sec / 2480.017 min	
---Breakdown nr 6--
+--Breakdown for machine nr 6--
 Number of fails	 Downtime 	
 	 134	154658.062 sec / 2577.634 min	
---Breakdown nr 7--
+--Breakdown for machine nr 7--
 Number of fails	 Downtime 	
 	 130	154041.078 sec / 2567.351 min	
 
