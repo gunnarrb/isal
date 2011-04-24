@@ -149,13 +149,17 @@ void report();
 //			uniformly distributed over the interval 0...end_simulation_time
 void schedule_failures(int i);
 
-void queue_is_full();
 
 int main()
 {
 // load datafiles
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 
+	float ble = 4332.692383;
+	int q = 5;
+	float t = ble / q;
+	printf("DGB %f\n", t);
+	
     // initialize arrays and variables
     if((fail_list = malloc(sizeof(breakdown)*max_no_failures))==NULL) {
 	printf("Allocation Error\n");
@@ -181,8 +185,7 @@ int main()
 	skaut_throughput = 0;
 	sampst_delays = number_of_machines +1;
 	throughput_time = number_of_machines +2;
-	
-	
+		
 	skaut_id = 1;
 	skaut_throughput = 0;
 	
@@ -447,6 +450,9 @@ void report()
     }
     printf("\n\n");
     printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
+	printf("Worst case queue delay: %f\n", transfer[3]);
+	printf("Best case queue delay: %f\n", transfer[4]);
+
     printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
@@ -512,5 +518,3 @@ void machine_fixed(){
     int   machine     = (int)transfer[4];
     machine_broken[machine] = 0.0;
 }
-
-
