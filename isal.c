@@ -450,7 +450,7 @@ void report()
     printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
     printf("Min throughput time: %f\n", transfer[4]);
-    printf(": %d\n", stream);
+    printf("Random seed: %d\n", stream);
 
 
 }
