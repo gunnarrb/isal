@@ -38,7 +38,7 @@
 #define OPTIMAL_THROUGHPUT 52
 #define ACTUAL_THROUGHPUT 40
 #define TRANSFER_ARRAY_LENGTH 11
-#define PREP_TIME 20.0
+#define PREP_TIME 0.0
 
 typedef struct
 {
@@ -157,7 +157,7 @@ int main()
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 
     // initialize arrays and variables
-    if((fail_list = malloc(sizeof(breakdown)*max_no_failures))==NULL) {
+    if((fail_list = malloc(sizeof(breakdown)*NUM_MACHINES+1))==NULL) {
 	printf("Allocation Error\n");
 	exit(1);
     }
@@ -200,7 +200,7 @@ int main()
 	
 	/* Schedule end of warmup time */
 	event_schedule( end_warmup_time, EVENT_END_WARMUP );
-	event_schedule(end_warmup_time, EVENT_GENERATE_FAILURES );	
+	event_schedule(end_warmup_time+10.0, EVENT_GENERATE_FAILURES );	
 	/* Schedule simulation termination */
 	event_schedule(end_simulation_time , EVENT_END_SIMULATION );
 	
@@ -294,7 +294,7 @@ void skaut_arrival()
     for (i = NUM_MACHINES; i>=current_unit; i--) {  //add delay if there is a broken machine before current one
 	if (machine_broken[i] > 0.0) {
 	    if ((list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])||queue_size[1+current_unit] == 0) {  // if current machine is broken then delay it.x
-		event_schedule(sim_time +  machine_broken[i] + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if next queue is full then delay it.
+		event_schedule(PREP_TIME+sim_time +  machine_broken[i] + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if next queue is full then delay it.
 		return;
 		}
 	}
@@ -334,7 +334,7 @@ void skaut_departure()
     for (i = NUM_MACHINES; i>=current_unit; i--) {  //add delay if machine is broken or there is a broken machine before current one
 	if (machine_broken[i] > 0.0) {
 	    if ((i == current_unit)  || (list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])) {  // if current machine is broken then delay it.
-		event_schedule(sim_time + machine_broken[i], EVENT_SKAUT_DEPARTURE); //also if next queue is full then delay it.
+		event_schedule(PREP_TIME+sim_time + machine_broken[i], EVENT_SKAUT_DEPARTURE); //also if next queue is full then delay it.
 		return;
 	    }
 //	    printf("Size of next queue %d, limit of next queue %d\n",list_size[1+number_of_machines + current_unit], queue_size[1+current_unit]);
@@ -480,7 +480,7 @@ void create_machine_fail_events() {
 	current_span+=span;
 	machine = (int)unirand(1,number_of_machines+1,stream);
 	breakdown_time = unirand(0.0,current_span,stream);
-	repair_time =(5.0 + expon(log(max_machine_repair_time - min_machine_repair_time),stream))*60.0;
+	repair_time =(min_machine_repair_time + expon(max_machine_repair_time ,stream))*60.0;
 	if (a[machine]<breakdown_time) {  // 
 	    a[machine] = breakdown_time+repair_time;
 	}
