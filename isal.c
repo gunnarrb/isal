@@ -24,12 +24,14 @@
 #define EVENT_MACHINE_FIXED 6
 #define EVENT_END_SIMULATION 7
 #define EVENT_END_WARMUP	8
+#define EVENT_GENERATE_FAILURES	9
 
 // STREAMS
 #define STREAM_WAGEN_ARRIVAL 1
 
 //Other constants
 #define NUM_MACHINES 7
+#define SHIFT_LENGTH 57600.0;
 #define WAGEN_LOAD 14
 #define MACHINES_ON_THE_LEFT_SIDE 5
 #define MACHINES_ON_THE_RIGHT_SIDE 2
@@ -74,10 +76,10 @@ FILE *infile, *outfile;
 
 /* Function signatures */
 
-// Usage:	create_machine_fail_events(number_of_failures)
+// Usage:	create_machine_fail_events()
 // Pre:		init_twister must be called for random number generation
 // Post:	scheduled events have been created for machines 
-void create_machine_fail_events(int);
+void create_machine_fail_events();
 
 
 // Usage:	push_array();
@@ -168,49 +170,46 @@ int main()
 	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
 	}*/
     // We perform simulation for "a few" failures per day
-    stream = (unsigned int)time(NULL) % 100;   
-    for (failure_nr = min_no_failures; failure_nr < max_no_failures; failure_nr++) {
+   
+    for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
+	stream = (unsigned int)time(NULL) % 100;   
 
 	memset( is_machine_busy,0, NUM_MACHINES +1 );
 	memset( machine_broken,0, NUM_MACHINES +1);
-	memset( fail_list,0, sizeof(breakdown)*max_no_failures);
+	memset( fail_list,0, sizeof(breakdown)*NUM_MACHINES+1);
 	fail_index = 0;
 	skaut_throughput = 0;
 	sampst_delays = number_of_machines +1;
 	throughput_time = number_of_machines +2;
 	
-
+	
 	skaut_id = 1;
 	skaut_throughput = 0;
-
-
+	
+	
 	// Initialize rndlib
 	init_twister();
-		
+	
 	// Initialize simlib
 	init_simlib();
-
+	
 	maxatr = 6; // how many attributes do we need?
-
-	/* Schedule machine breakdown time */
-	create_machine_fail_events(failure_nr);
-		
+	
 	/* Schedule first wagen arrival */
-	//transfer[3] = 1.0; 
 	event_schedule( 10.0, EVENT_WAGEN_UNLOAD_ARRIVAL );
-		
+	
 	/* Schedule end of warmup time */
 	event_schedule( end_warmup_time, EVENT_END_WARMUP );
-		
+	event_schedule(end_warmup_time, EVENT_GENERATE_FAILURES );	
 	/* Schedule simulation termination */
-	event_schedule( end_simulation_time, EVENT_END_SIMULATION );
-		
+	event_schedule(end_simulation_time , EVENT_END_SIMULATION );
+	
 	next_event_type = 0;
-                
-                
-                
+	
+        
+        
 	while (next_event_type != EVENT_END_SIMULATION) {
-			
+	    
 	    timing();
 	    /*                    printf("event_type = %d, transfer[3] = %f\n", next_event_type, transfer[3]);
 				  int k;
@@ -218,8 +217,8 @@ int main()
 				  printf("Items in machines/queues %d:  %d, %d\n", k, list_size[k], list_size[number_of_machines +k]);
 				  printf("\n");
 	    */
-
-
+	    
+	    
 	    switch (next_event_type) {
 	    case EVENT_WAGEN_UNLOAD_ARRIVAL:
 		wagen_unload_arrival();
@@ -242,10 +241,16 @@ int main()
 	    case EVENT_END_SIMULATION:
 		report();
 		break;
+	    case EVENT_GENERATE_FAILURES:
+		create_machine_fail_events();
+		break;
+		
 	    }
 	}
     }
 }
+
+
 
 void wagen_unload_arrival()
 {
@@ -407,18 +412,15 @@ void report()
     printf("\n*****************************************************\n");
     printf("Report for %d failures per day\n",failure_nr);
     
-    for (i=0; i <fail_index; i++) {
+    for (i=0; i <NUM_MACHINES; i++) {
 	printf("--Breakdown nr %d--\n", i+1);
-
-
-	printf("  Machine nr \t Fail time\t Downtime \t\n");
+	printf("Number of fails\t Downtime \t\n");
 	printf("\t %d\t", fail_list[i].machine_nr);
-	printf("%.3f\t", fail_list[i].failtime);
 	printf("%.3f sec / %.3f min\t", fail_list[i].downtime,fail_list[i].downtime/60.0);
-	printf("\n\n");
-	total_downtime +=fail_list[i].downtime;
+	printf("\n");
+	total_downtime+=fail_list[i].downtime;
     }
-	
+    printf("\n\n");
     
 
     printf("Total downtime was %.3lf seconds or %.3lf minutes\n",total_downtime, total_downtime/60.0);
@@ -462,15 +464,18 @@ void pop_array() {
     memcpy(transfer,temp_transfer,TRANSFER_ARRAY_LENGTH*sizeof(float));  
 }
 
-void create_machine_fail_events(int n) {
+void create_machine_fail_events() {
     int i;
-    float a[20];
+    float a[20],shift_length;
+    shift_length = (float)SHIFT_LENGTH;
+    int n = failure_nr;
     memset(a,0,20*sizeof(float));
-    float span = (float)(end_simulation_time - end_warmup_time) / (float) n+1.0;  //max time between machine failures
+    float span = shift_length / (float)n+1.0;  //max time between machine failures
     float current_span = 0.0;
     int machine;
     float repair_time ;
     float breakdown_time;
+
     for (i = 0;i<n;i++) {
 	current_span+=span;
 	machine = (int)unirand(1,number_of_machines+1,stream);
@@ -485,12 +490,12 @@ void create_machine_fail_events(int n) {
 	}
 	transfer[3] = repair_time;
 	transfer[4] = (float)machine;
-	fail_list[fail_index].failtime = breakdown_time+end_warmup_time;
-	fail_list[fail_index].downtime = repair_time;
-	fail_list[fail_index].machine_nr = machine;
-	fail_index++;
-	event_schedule(breakdown_time+end_warmup_time, EVENT_MACHINE_FAILURE );
+	fail_list[machine-1].downtime+= repair_time;
+	fail_list[machine-1].machine_nr++; 
+	event_schedule(sim_time + breakdown_time, EVENT_MACHINE_FAILURE );
     }
+
+    event_schedule(sim_time + shift_length, EVENT_GENERATE_FAILURES );
 }
 
 void machine_failure(){	
