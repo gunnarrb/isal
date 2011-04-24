@@ -1,6 +1,6 @@
-7 404 3 10 30.0 2.0 5.0 180.0 1000.0 5185000.0
-num min min max mean std min max warmup simulationtime
-prod- no no wagen wagen repair repair
-uction fail- fail- arrival arrival time time
-ures ures
+7	404	0	10	 30.0	 2.0	 5.0	 13.6	 1000.0		 5185000.0
+num	 min	 min	 max	  mean	  std	  min	  mean	  warmup	  simulationtime
+prod- 	 no	 no	 wagen	  wagen   repair  repair input
+uction	 fail- 	 fail- 	 arrival  arrival time 	  time	 for expon
+ures 	 ures	 	 	  	  	  	 distribution
 
