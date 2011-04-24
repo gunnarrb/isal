@@ -155,10 +155,10 @@ int main()
 // load datafiles
     parse_input("adal_inntak.in","velar_og_bidradir.in");
 
-	float ble = 4332.692383;
-	int q = 5;
-	float t = ble / q;
-	printf("DGB %f\n", t);
+    float ble = 4332.692383;
+    int q = 5;
+    float t = ble / q;
+    printf("DGB %f\n", t);
 	
     // initialize arrays and variables
     if((fail_list = malloc(sizeof(breakdown)*NUM_MACHINES+1))==NULL) {
@@ -170,9 +170,9 @@ int main()
 
     int b;
 /*    for (b=1; b <= number_of_machines; b++) {
-	printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
-	printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
-	}*/
+      printf("transfer_time[%d] = %f\n", b,transfer_time[b] );
+      printf("busy %d broken %f \n",is_machine_busy[b],machine_broken[b]);
+      }*/
     // We perform simulation for "a few" failures per day
    
     for (failure_nr = min_no_failures; failure_nr<= max_no_failures; failure_nr++) {
@@ -263,10 +263,10 @@ void wagen_unload_arrival()
     float wagen_arrival_zeit = unirand((mean_wagen_arrival-std_wagen_arrival)*60.0,(mean_wagen_arrival+std_wagen_arrival)*60.0,stream); 
 
     for (i = 1; i<NUM_MACHINES+1; i++) {  //delay unload of skaut by the time it takes to repair
-		if (machine_broken[i] > 0.0) {
-			event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
-			return;
-		}
+	if (machine_broken[i] > 0.0) {
+	    event_schedule(sim_time + machine_broken[i], EVENT_WAGEN_UNLOAD_ARRIVAL);
+	    return;
+	}
     }
 
     if (list_size[number_of_machines + 1] != 0) { // ef allt er enn fullt þá koma með næsta vagn eftir uþb hálftíma
@@ -299,7 +299,7 @@ void skaut_arrival()
 	    if ((list_size[1+number_of_machines + current_unit] < queue_size[1+current_unit])||queue_size[1+current_unit] == 0) {  // if current machine is broken then delay it.x
 		event_schedule(PREP_TIME+sim_time +  machine_broken[i] + work_time[current_unit], EVENT_SKAUT_ARRIVAL); //also if next queue is full then delay it.
 		return;
-		}
+	    }
 	}
     }
 	
@@ -450,8 +450,8 @@ void report()
     }
     printf("\n\n");
     printf("Average queue delay: %f\n", sampst(0.0, -sampst_delays));
-	printf("Worst case queue delay: %f\n", transfer[3]);
-	printf("Best case queue delay: %f\n", transfer[4]);
+    printf("Worst case queue delay: %f\n", transfer[3]);
+    printf("Best case queue delay: %f\n", transfer[4]);
 
     printf("System throughput: %d\n", skaut_throughput );	
     printf("Average throughput time: %f\n", sampst(0.0, -throughput_time));
